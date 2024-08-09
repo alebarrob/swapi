@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.ui.theme
+package barrera.alejandro.swapi.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
