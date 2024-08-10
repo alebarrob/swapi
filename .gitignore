@@ -61,6 +61,9 @@ google-services.json
 # Android Studio Capture output
 /captures/
 
+# Kotlin sessions file
+.kotlin
+
 # Uncomment the line below if you do not want to check your keystore files in.
 #*.jks
 
