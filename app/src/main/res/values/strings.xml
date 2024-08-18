@@ -1,3 +1,12 @@
 <resources>
+    // App core
     <string name="app_name">Swapi - Cambia tu Dieta</string>
+    <string name="database_error">Algo salió mal. Por favor, inténtalo de nuevo.</string>
+
+    // Categories screen
+    <string name="happy_watermelon_icon_description">Imagen de una sandía feliz.</string>
+    <string name="categories_screen_message">¡Bienvenid@ a Swapi! Para empezar, elige la categoría del alimento que te gustaría cambiar en tu dieta.</string>
+    <string name="bold_colored_swapi">Swapi</string>
+    <string name="bold_colored_category">categoría</string>
+    <string name="categories_screen_button_text">CATEGORÍAS</string>
 </resources>

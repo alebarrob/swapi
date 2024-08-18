@@ -11,6 +11,8 @@ val Red = Color(color = 0xFFCD3858)
 val Gold = Color(color = 0xFFFDDE4F)
 
 data class ColorVariants(
+    val black: Color = Black,
+    val white: Color = White,
     val darkGreen: Color = Color(color = 0xFF2A723A),
     val lightGreen: Color = Color(color = 0xFFBAFF97),
     val darkGold: Color = Color(color = 0xFFE5BD02)
