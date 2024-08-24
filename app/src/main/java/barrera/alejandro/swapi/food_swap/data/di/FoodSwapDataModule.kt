@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import barrera.alejandro.swapi.core.util.annotation.IoDispatcher
 import barrera.alejandro.swapi.food_swap.data.dao.CategoryDao
+import barrera.alejandro.swapi.food_swap.data.dao.FoodDao
 import barrera.alejandro.swapi.food_swap.data.repository.CategoryRepositoryImpl
 import barrera.alejandro.swapi.food_swap.data.database.SwapiDatabase
+import barrera.alejandro.swapi.food_swap.data.repository.FoodRepositoryImpl
 import barrera.alejandro.swapi.food_swap.domain.repository.CategoryRepository
+import barrera.alejandro.swapi.food_swap.domain.repository.FoodRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,6 +35,10 @@ object FoodSwapDataModule {
     @Provides
     fun provideCategoryDao(database: SwapiDatabase) = database.categoryDao()
 
+    @Singleton
+    @Provides
+    fun provideFoodDao(database: SwapiDatabase) = database.foodDao()
+
     @Provides
     @IoDispatcher
     fun provideIoDispatcher() = Dispatchers.IO
@@ -42,4 +49,11 @@ object FoodSwapDataModule {
         dao: CategoryDao,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): CategoryRepository = CategoryRepositoryImpl(dao, dispatcher)
+
+    @Singleton
+    @Provides
+    fun provideFoodRepository(
+        dao: FoodDao,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): FoodRepository = FoodRepositoryImpl(dao, dispatcher)
 }

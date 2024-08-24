@@ -13,7 +13,7 @@ class CategoryRepositoryImpl(
 ) : CategoryRepository {
     override suspend fun getAllCategories() = withContext(dispatcher) {
         Result.from {
-            categoryDao.getAll()
+            categoryDao.getAllCategories()
                 .map { entity ->
                     entity.toCategory()
                 }

@@ -19,9 +19,9 @@ class CategoryViewModel @Inject constructor(
     private val getAllCategories: UseCaseNoParams<@JvmSuppressWildcards List<Category>>
 ) : BaseViewModel<CategoryScreenState, CategoryScreenEvent>(initialState = CategoryScreenState()) {
 
-    override fun onEvent(action: CategoryScreenEvent) {
-        when (action) {
-            CategoryScreenEvent.LoadCategories -> loadCategories()
+    override fun onEvent(event: CategoryScreenEvent) {
+        when (event) {
+            is CategoryScreenEvent.LoadCategories -> loadCategories()
         }
     }
 
