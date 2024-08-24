@@ -7,5 +7,5 @@ import barrera.alejandro.swapi.food_swap.data.entity.CategoryEntity
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM categories")
-    suspend fun getAll(): List<CategoryEntity>
+    suspend fun getAllCategories(): List<CategoryEntity>
 }
