@@ -9,4 +9,8 @@
     <string name="bold_colored_swapi">Swapi</string>
     <string name="bold_colored_category">categoría</string>
     <string name="categories_screen_button_text">CATEGORÍAS</string>
+
+    // Food selection screen
+    <string name="food_icon_description">Imagen de alimento.</string>
+    <string name="food_selection_screen_message">Ahora elige el alimento que quieres cambiar en tu dieta. El que NO te apetece comer hoy.</string>
 </resources>
