@@ -19,6 +19,10 @@ data class Dimensions(
     val informationCardTopEndImageXOffSet: Dp = 4.dp,
     val informationCardTopEndImageYOffSet: Dp = -(85).dp,
 
+    val imageCardShapeSize: Dp = 20.dp,
+    val imageCardSize: Dp = 160.dp,
+    val imageCardVerticalArrangementSpacedBy: Dp = 12.dp,
+
     val actionButtonShapeSize: Dp = 12.dp,
     val actionButtonBorderWidth: Dp = 2.dp,
     val actionButtonHorizontalContentPadding: Dp = 52.dp,

@@ -1,9 +1,9 @@
 package barrera.alejandro.swapi.food_swap.presentation.category_screen
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,7 +38,7 @@ fun CategoryScreen(
     }
 
     LoadableContent(isLoading = state.isLoading) {
-        Column(
+        LazyColumn(
             modifier = modifier
                 .fillMaxSize()
                 .padding(
@@ -49,21 +49,25 @@ fun CategoryScreen(
             verticalArrangement = Arrangement.spacedBy(dimensions.extraLarge),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            InformationCard(
-                text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                    mapOf(
-                        stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
-                        stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
-                    )
-                ),
-                imageResourceId = R.drawable.happy_watermelon_ic,
-                imagePosition = ImagePosition.END
-            )
-            DropDownButton(
-                text = stringResource(id = R.string.categories_screen_button_text),
-                options = state.categories.map { it.name },
-                onOptionClick = {  }
-            )
+            item {
+                InformationCard(
+                    text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                        mapOf(
+                            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+                            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+                        )
+                    ),
+                    imageResourceId = R.drawable.happy_watermelon_ic,
+                    imagePosition = ImagePosition.END
+                )
+            }
+            item {
+                DropDownButton(
+                    text = stringResource(id = R.string.categories_screen_button_text),
+                    options = state.categories.map { it.name },
+                    onOptionClick = {  }
+                )
+            }
         }
     }
 }
