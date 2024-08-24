@@ -7,7 +7,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import barrera.alejandro.swapi.core.presentation.components.ScrollableContent
 import barrera.alejandro.swapi.core.presentation.components.VerticalGradientBackground
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
@@ -40,9 +39,7 @@ fun BaseScreen(
                 configuration.screenHeightDp.dp.toPx() / HALF_DIVISOR
             }
         ) {
-            ScrollableContent {
-                content()
-            }
+            content()
         }
     }
 }
