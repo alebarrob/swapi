@@ -14,7 +14,7 @@ abstract class BaseViewModel<S, E>(initialState: S) : ViewModel() {
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    abstract fun onEvent(action: E)
+    abstract fun onEvent(event: E)
 
     protected suspend fun sendUiEvent(event: UiEvent) {
         _uiEvent.send(event)
