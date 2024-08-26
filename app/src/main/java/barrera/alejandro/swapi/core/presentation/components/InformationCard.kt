@@ -144,7 +144,7 @@ fun InformationCard(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewInformationCard() {
+private fun PreviewInformationCard() {
     SwapiTheme {
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current

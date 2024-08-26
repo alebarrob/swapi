@@ -66,7 +66,7 @@ fun FoodSelectionScreen(
 
 @Preview
 @Composable
-fun PreviewFoodSelectionScreen() {
+private fun PreviewFoodSelectionScreen() {
     val dummyState = FoodSelectionScreenState(
         food = listOf(
             FoodUi(

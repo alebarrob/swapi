@@ -27,7 +27,7 @@ fun FoodGrid(
         columns = GridCells.Adaptive(minSize = dimensions.imageCardSize),
         modifier = modifier
     ) {
-        items(food) { food ->
+        items(items = food) { food ->
             ImageCard(
                 onClick = onClick,
                 text = food.name,
@@ -43,7 +43,7 @@ fun FoodGrid(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewFoodGrid() {
+private fun PreviewFoodGrid() {
     SwapiTheme {
         val food = listOf(
             FoodUi(

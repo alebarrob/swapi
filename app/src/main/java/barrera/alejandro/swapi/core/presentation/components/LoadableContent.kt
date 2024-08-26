@@ -33,7 +33,7 @@ fun LoadableContent(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun LoadingLayoutBackground() {
+private fun LoadingLayoutBackground() {
     SwapiTheme {
         LoadableContent(isLoading = true) {}
     }
