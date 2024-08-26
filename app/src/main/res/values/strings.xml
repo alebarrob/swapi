@@ -13,4 +13,9 @@
     // Food selection screen
     <string name="food_icon_description">Imagen de alimento.</string>
     <string name="food_selection_screen_message">Ahora elige el alimento que quieres cambiar en tu dieta. El que NO te apetece comer hoy.</string>
+
+    // Food amount selection screen
+    <string name="food_amount_selection_screen_message">¡Casi hemos terminado! Dime cuánta cantidad de este alimento ibas a consumir. Después, pulsa en Calcular equivalencias.</string>
+    <string name="bold_colored_calculate_equivalences">Calcular equivalencias</string>
+    <string name="food_amount_selection_screen_button_text">¡Calcular Equivalencias!</string>
 </resources>

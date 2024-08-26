@@ -29,10 +29,10 @@ private const val LONG_SENTENCE_LENGTH = 26
 
 @Composable
 fun ImageCard(
-    onClick: (String) -> Unit,
     text: String,
     imageResourceId: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: ((String) -> Unit)? = null
 ) {
     val typography = MaterialTheme.typography
     val dimensions = LocalDimensions.current
@@ -41,9 +41,7 @@ fun ImageCard(
     Card(
         modifier = modifier
             .size(size = dimensions.imageCardSize)
-            .clickable {
-                onClick(text)
-            },
+            .apply { onClick?.let { clickable(onClick = { onClick(text) }) } },
         shape = RoundedCornerShape(size = dimensions.imageCardShapeSize),
         colors = CardDefaults.cardColors(containerColor = colorVariants.white)
     ) {
@@ -79,7 +77,7 @@ fun ImageCard(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewShortTextImageCard() {
+private fun PreviewShortTextImageCard() {
     SwapiTheme {
         val dimensions = LocalDimensions.current
 
@@ -97,7 +95,7 @@ fun PreviewShortTextImageCard() {
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewMediumTextImageCard() {
+private fun PreviewMediumTextImageCard() {
     SwapiTheme {
         val dimensions = LocalDimensions.current
 
@@ -115,7 +113,7 @@ fun PreviewMediumTextImageCard() {
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewLongTextImageCard() {
+private fun PreviewLongTextImageCard() {
     SwapiTheme {
         val dimensions = LocalDimensions.current
 

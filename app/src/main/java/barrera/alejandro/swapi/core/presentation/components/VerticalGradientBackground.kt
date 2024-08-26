@@ -54,7 +54,7 @@ fun VerticalGradientBackground(
 
 @Preview
 @Composable
-fun PreviewGradientBackground() {
+private fun PreviewGradientBackground() {
     SwapiTheme {
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
