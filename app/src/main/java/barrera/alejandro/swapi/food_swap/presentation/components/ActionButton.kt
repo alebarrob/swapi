@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
@@ -48,7 +49,8 @@ fun ActionButton(
     ) {
         Text(
             text = text,
-            style = typography.labelLarge
+            style = typography.labelLarge,
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -58,7 +60,7 @@ fun ActionButton(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewActionButton() {
+private fun PreviewActionButton() {
     SwapiTheme {
         val dimensions = LocalDimensions.current
 

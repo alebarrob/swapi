@@ -61,7 +61,7 @@ fun DropDownButton(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-fun PreviewDropDownButton() {
+private fun PreviewDropDownButton() {
     val categories = listOf("FRUTAS", "GRASAS Y PROTEÍNAS", "GRASAS", "CARBOHIDRATOS", "LÁCTEOS")
 
     SwapiTheme {

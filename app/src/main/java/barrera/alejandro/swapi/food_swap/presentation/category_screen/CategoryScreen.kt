@@ -74,7 +74,7 @@ fun CategoryScreen(
 
 @Preview
 @Composable
-fun PreviewCategoryScreen() {
+private fun PreviewCategoryScreen() {
     val dummyState = CategoryScreenState(
         categories = listOf(
             CategoryUi(id = 0, name = "FRUTAS"),
