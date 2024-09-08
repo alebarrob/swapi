@@ -50,7 +50,8 @@ private fun FoodAmountCardPreview(
         conversionAmount = "120",
         categoryUi = CategoryUi(
             id = 1,
-            name ="Frutas"
+            name ="Frutas",
+            referenceAmount = 130.0
         ),
         unitUi = UnitUi(
             id = 1,

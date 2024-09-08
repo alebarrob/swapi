@@ -7,3 +7,8 @@ fun Unit.toUnitUi() = UnitUi(
     id = id,
     name = name
 )
+
+fun UnitUi.toUnit() = Unit(
+    id = id,
+    name = name
+)

@@ -17,11 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import barrera.alejandro.swapi.core.presentation.util.constant.PREVIEW_BACKGROUND
-import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
+import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
+import barrera.alejandro.swapi.core.presentation.util.constant.PREVIEW_BACKGROUND
 import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.core.presentation.util.extension.toBoldColoredAnnotatedString
 
@@ -29,17 +29,27 @@ import barrera.alejandro.swapi.core.presentation.util.extension.toBoldColoredAnn
 fun InformationCard(
     text: String,
     modifier: Modifier = Modifier,
-    imageResourceId: Int? = null,
-    imagePosition: ImagePosition = ImagePosition.END
+    decorativeImageResourceId: Int? = null,
+    highlightImageResourceId: Int? = null,
+    imagePosition: ImagePosition = ImagePosition.HIGHLIGHT_ON_START,
 ) {
     val typography = MaterialTheme.typography
     val dimensions = LocalDimensions.current
     val colorVariants = LocalColorVariants.current
 
     Box(
-        modifier = if (imageResourceId == null) modifier else modifier.padding(
-            top = if (imagePosition == ImagePosition.END) -dimensions.informationCardTopEndImageYOffSet
-            else -dimensions.informationCardTopStartImageYOffSet
+        modifier = modifier.padding(
+            top = when {
+                decorativeImageResourceId != null -> dimensions.informationCardWithDecorativeImageTopPadding
+                highlightImageResourceId != null -> dimensions.informationCardWithHighlightImageTopPadding
+                else -> dimensions.default
+            },
+            start = if (highlightImageResourceId != null && imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
+                dimensions.informationCardWithHighlightImageHorizontalPadding
+            } else dimensions.default,
+            end = if (highlightImageResourceId != null && imagePosition == ImagePosition.DECORATIVE_ON_START) {
+                dimensions.informationCardWithHighlightImageHorizontalPadding
+            } else dimensions.default
         )
     ) {
         Card(
@@ -51,31 +61,49 @@ fun InformationCard(
                 modifier = Modifier
                     .padding(
                         horizontal = dimensions.medium,
-                        vertical = dimensions.large
+                        vertical = dimensions.informationCardTextVerticalPadding
                     ),
                 textAlign = TextAlign.Center,
                 style = typography.bodyMedium
             )
         }
-        imageResourceId?.let { id ->
+        decorativeImageResourceId?.let { id ->
             Image(
                 painter = painterResource(id = id),
                 contentDescription = stringResource(id = R.string.happy_watermelon_icon_description),
-                modifier = if (imagePosition == ImagePosition.END) {
+                modifier = if (imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
                     Modifier
                         .align(Alignment.TopEnd)
                         .offset(
-                            x = dimensions.informationCardTopEndImageXOffSet,
-                            y = dimensions.informationCardTopEndImageYOffSet
+                            x = dimensions.informationCardTopEndDecorativeImageXOffSet,
+                            y = dimensions.informationCardTopEndDecorativeImageYOffSet
                         )
                 } else {
                     Modifier
+                        .offset(
+                            x = dimensions.informationCardTopStartDecorativeImageXOffSet,
+                            y = dimensions.informationCardTopStartDecorativeImageYOffSet
+                        )
+                }
+            )
+        }
+        highlightImageResourceId?.let { id ->
+            HighlightImage(
+                imageResourceId = id,
+                modifier = if (imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
+                    Modifier
                         .align(Alignment.TopStart)
                         .offset(
-                            x = dimensions.informationCardTopStartImageXOffSet,
-                            y = dimensions.informationCardTopStartImageYOffSet
+                            x = dimensions.informationCardTopStartHighlightImageXOffSet,
+                            y = dimensions.informationCardTopStartHighlightImageYOffSet
                         )
-
+                } else {
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .offset(
+                            x = dimensions.informationCardTopEndHighlightImageXOffSet,
+                            y = dimensions.informationCardTopEndHighlightImageYOffSet
+                        )
                 }
             )
         }
@@ -86,17 +114,27 @@ fun InformationCard(
 fun InformationCard(
     text: AnnotatedString,
     modifier: Modifier = Modifier,
-    imageResourceId: Int? = null,
-    imagePosition: ImagePosition = ImagePosition.END
+    decorativeImageResourceId: Int? = null,
+    highlightImageResourceId: Int? = null,
+    imagePosition: ImagePosition = ImagePosition.HIGHLIGHT_ON_START,
 ) {
     val typography = MaterialTheme.typography
     val dimensions = LocalDimensions.current
     val colorVariants = LocalColorVariants.current
 
     Box(
-        modifier = if (imageResourceId == null) modifier else modifier.padding(
-            top = if (imagePosition == ImagePosition.END) -dimensions.informationCardTopEndImageYOffSet
-            else -dimensions.informationCardTopStartImageYOffSet
+        modifier = modifier.padding(
+            top = when {
+                decorativeImageResourceId != null -> dimensions.informationCardWithDecorativeImageTopPadding
+                highlightImageResourceId != null -> dimensions.informationCardWithHighlightImageTopPadding
+                else -> dimensions.default
+            },
+            start = if (highlightImageResourceId != null && imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
+                dimensions.informationCardWithHighlightImageHorizontalPadding
+            } else dimensions.default,
+            end = if (highlightImageResourceId != null && imagePosition == ImagePosition.DECORATIVE_ON_START) {
+                dimensions.informationCardWithHighlightImageHorizontalPadding
+            } else dimensions.default
         )
     ) {
         Card(
@@ -108,31 +146,51 @@ fun InformationCard(
                 modifier = Modifier
                     .padding(
                         horizontal = dimensions.medium,
-                        vertical = dimensions.large
+                        vertical = dimensions.informationCardTextVerticalPadding
                     ),
                 textAlign = TextAlign.Center,
                 style = typography.bodyMedium
             )
         }
-        imageResourceId?.let { id ->
+        decorativeImageResourceId?.let { id ->
             Image(
                 painter = painterResource(id = id),
                 contentDescription = stringResource(id = R.string.happy_watermelon_icon_description),
-                modifier = if (imagePosition == ImagePosition.END) {
+                modifier = if (imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
                     Modifier
                         .align(Alignment.TopEnd)
                         .offset(
-                            x = dimensions.informationCardTopEndImageXOffSet,
-                            y = dimensions.informationCardTopEndImageYOffSet
+                            x = dimensions.informationCardTopEndDecorativeImageXOffSet,
+                            y = dimensions.informationCardTopEndDecorativeImageYOffSet
                         )
                 } else {
                     Modifier
                         .align(Alignment.TopStart)
                         .offset(
-                            x = dimensions.informationCardTopStartImageXOffSet,
-                            y = dimensions.informationCardTopStartImageYOffSet
+                            x = dimensions.informationCardTopStartDecorativeImageXOffSet,
+                            y = dimensions.informationCardTopStartDecorativeImageYOffSet
                         )
 
+                }
+            )
+        }
+        highlightImageResourceId?.let { id ->
+            HighlightImage(
+                imageResourceId = id,
+                modifier = if (imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
+                    Modifier
+                        .align(Alignment.TopStart)
+                        .offset(
+                            x = dimensions.informationCardTopStartHighlightImageXOffSet,
+                            y = dimensions.informationCardTopStartHighlightImageYOffSet
+                        )
+                } else {
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .offset(
+                            x = dimensions.informationCardTopEndHighlightImageXOffSet,
+                            y = dimensions.informationCardTopEndHighlightImageYOffSet
+                        )
                 }
             )
         }
@@ -144,7 +202,7 @@ fun InformationCard(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-private fun PreviewInformationCard() {
+private fun InformationCardHighlightImageOnStartDecorativeImageOnEndPreview() {
     SwapiTheme {
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
@@ -158,9 +216,185 @@ private fun PreviewInformationCard() {
             text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
                 boldColoredWords
             ),
-            modifier = Modifier.padding(all = dimensions.large),
-            imageResourceId = R.drawable.happy_watermelon_ic,
-            imagePosition = ImagePosition.END
+            modifier = Modifier.padding(
+                end = dimensions.large,
+                bottom = dimensions.large
+            ),
+            decorativeImageResourceId = R.drawable.happy_watermelon_ic,
+            highlightImageResourceId = R.drawable.blueberry_ic,
+            imagePosition = ImagePosition.HIGHLIGHT_ON_START
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND
+)
+@Composable
+private fun InformationCardNoHighlightImageDecorativeImageOnEndPreview() {
+    SwapiTheme {
+        val colors = MaterialTheme.colorScheme
+        val colorVariants = LocalColorVariants.current
+        val dimensions = LocalDimensions.current
+        val boldColoredWords = mapOf(
+            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+        )
+
+        InformationCard(
+            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                boldColoredWords
+            ),
+            modifier = Modifier.padding(
+                start = dimensions.large,
+                end = dimensions.large,
+                bottom = dimensions.large
+            ),
+            decorativeImageResourceId = R.drawable.happy_watermelon_ic,
+            imagePosition = ImagePosition.HIGHLIGHT_ON_START
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND
+)
+@Composable
+private fun InformationCardHighlightImageOnStartNoDecorativeImagePreview() {
+    SwapiTheme {
+        val colors = MaterialTheme.colorScheme
+        val colorVariants = LocalColorVariants.current
+        val dimensions = LocalDimensions.current
+        val boldColoredWords = mapOf(
+            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+        )
+
+        InformationCard(
+            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                boldColoredWords
+            ),
+            modifier = Modifier.padding(
+                end = dimensions.large,
+                bottom = dimensions.large
+            ),
+            highlightImageResourceId = R.drawable.blueberry_ic,
+            imagePosition = ImagePosition.HIGHLIGHT_ON_START
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND
+)
+@Composable
+private fun InformationCardHighlightImageOnEndDecorativeImageOnStartPreview() {
+    SwapiTheme {
+        val colors = MaterialTheme.colorScheme
+        val colorVariants = LocalColorVariants.current
+        val dimensions = LocalDimensions.current
+        val boldColoredWords = mapOf(
+            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+        )
+
+        InformationCard(
+            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                boldColoredWords
+            ),
+            modifier = Modifier.padding(
+                start = dimensions.large,
+                bottom = dimensions.large
+            ),
+            decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
+            highlightImageResourceId = R.drawable.blueberry_ic,
+            imagePosition = ImagePosition.DECORATIVE_ON_START
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND
+)
+@Composable
+private fun InformationCardNoHighlightImageDecorativeImageOnStartPreview() {
+    SwapiTheme {
+        val colors = MaterialTheme.colorScheme
+        val colorVariants = LocalColorVariants.current
+        val dimensions = LocalDimensions.current
+        val boldColoredWords = mapOf(
+            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+        )
+
+        InformationCard(
+            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                boldColoredWords
+            ),
+            modifier = Modifier.padding(
+                start = dimensions.large,
+                end = dimensions.large,
+                bottom = dimensions.large
+            ),
+            decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
+            imagePosition = ImagePosition.DECORATIVE_ON_START
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND
+)
+@Composable
+private fun InformationCardHighlightImageOnEndNoDecorativeImagePreview() {
+    SwapiTheme {
+        val colors = MaterialTheme.colorScheme
+        val colorVariants = LocalColorVariants.current
+        val dimensions = LocalDimensions.current
+        val boldColoredWords = mapOf(
+            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+        )
+
+        InformationCard(
+            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                boldColoredWords
+            ),
+            modifier = Modifier.padding(
+                start = dimensions.large,
+                bottom = dimensions.large
+            ),
+            highlightImageResourceId = R.drawable.blueberry_ic,
+            imagePosition = ImagePosition.DECORATIVE_ON_START
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND
+)
+@Composable
+private fun InformationCardNoImagesPreview() {
+    SwapiTheme {
+        val colors = MaterialTheme.colorScheme
+        val colorVariants = LocalColorVariants.current
+        val dimensions = LocalDimensions.current
+        val boldColoredWords = mapOf(
+            stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+            stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+        )
+
+        InformationCard(
+            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
+                boldColoredWords
+            ),
+            modifier = Modifier.padding(all = dimensions.large)
         )
     }
 }

@@ -57,8 +57,8 @@ fun CategoryScreen(
                             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
                         )
                     ),
-                    imageResourceId = R.drawable.happy_watermelon_ic,
-                    imagePosition = ImagePosition.END
+                    decorativeImageResourceId = R.drawable.happy_watermelon_ic,
+                    imagePosition = ImagePosition.HIGHLIGHT_ON_START
                 )
             }
             item {
@@ -77,11 +77,11 @@ fun CategoryScreen(
 private fun PreviewCategoryScreen() {
     val dummyState = CategoryScreenState(
         categories = listOf(
-            CategoryUi(id = 0, name = "FRUTAS"),
-            CategoryUi(id = 1, name = "GRASAS Y PROTEÍNAS"),
-            CategoryUi(id = 2, name = "GRASAS"),
-            CategoryUi(id = 3, name = "CARBOHIDRATOS"),
-            CategoryUi(id = 4, name = "LÁCTEOS")
+            CategoryUi(id = 0, name = "FRUTAS", referenceAmount = 130.0),
+            CategoryUi(id = 1, name = "GRASAS Y PROTEÍNAS", referenceAmount = 110.0),
+            CategoryUi(id = 2, name = "GRASAS", referenceAmount = 50.0),
+            CategoryUi(id = 3, name = "CARBOHIDRATOS", referenceAmount = 40.0),
+            CategoryUi(id = 4, name = "LÁCTEOS", referenceAmount = 100.0)
         )
     )
 
