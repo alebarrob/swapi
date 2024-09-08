@@ -1,12 +1,14 @@
 package barrera.alejandro.swapi.food_swap.domain.di
 
 import barrera.alejandro.swapi.core.util.annotation.GetAllCategoriesUseCase
+import barrera.alejandro.swapi.core.util.annotation.GetEquivalentFoodUseCase
 import barrera.alejandro.swapi.core.util.annotation.GetFoodByCategoryIdUseCase
 import barrera.alejandro.swapi.food_swap.domain.model.Category
 import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.domain.repository.CategoryRepository
 import barrera.alejandro.swapi.food_swap.domain.repository.FoodRepository
 import barrera.alejandro.swapi.food_swap.domain.use_case.GetAllCategories
+import barrera.alejandro.swapi.food_swap.domain.use_case.GetEquivalentFood
 import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodByCategoryId
 import barrera.alejandro.swapi.food_swap.domain.use_case.UseCase
 import barrera.alejandro.swapi.food_swap.domain.use_case.UseCaseNoParams
@@ -32,4 +34,11 @@ object FoodSwapDomainModule {
     fun provideGetFoodByCategoryId(
         repository: FoodRepository
     ): UseCase<GetFoodByCategoryId.Params, List<Food>> = GetFoodByCategoryId(repository)
+
+    @Provides
+    @ViewModelScoped
+    @GetEquivalentFoodUseCase
+    fun provideGetEquivalentFood(
+        repository: FoodRepository
+    ): UseCase<GetEquivalentFood.Params, List<Food>> = GetEquivalentFood(repository)
 }

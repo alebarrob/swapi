@@ -13,6 +13,13 @@ sealed class Result<out T> {
         }
     }
 
+    inline fun <R> mapSuccess(transformation: (T) -> R): Result<R> {
+        return when (this) {
+            is Success -> Success(transformation.invoke(value))
+            is Failure -> Failure(exception)
+        }
+    }
+
     companion object {
         suspend fun <T> from(call: suspend () -> T): Result<T> {
             return try {
