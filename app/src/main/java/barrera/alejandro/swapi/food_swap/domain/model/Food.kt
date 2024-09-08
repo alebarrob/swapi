@@ -4,6 +4,7 @@ data class Food(
     val id: Int,
     val name: String,
     val conversionAmount: Double,
+    val resultAmount: Double = 0.0,
     val category: Category,
     val unit: Unit
 )

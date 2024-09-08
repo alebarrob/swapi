@@ -9,3 +9,7 @@ annotation class GetAllCategoriesUseCase
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class GetFoodByCategoryIdUseCase
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class GetEquivalentFoodUseCase

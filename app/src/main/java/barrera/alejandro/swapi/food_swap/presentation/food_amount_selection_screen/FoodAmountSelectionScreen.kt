@@ -53,8 +53,8 @@ fun FoodAmountSelectionScreen(
             InformationCard(
                 text = stringResource(id = R.string.food_selection_screen_message).toBoldColoredAnnotatedString(
                     mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
-                imageResourceId = R.drawable.surprised_watermelon_ic,
-                imagePosition = ImagePosition.START
+                decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
+                imagePosition = ImagePosition.DECORATIVE_ON_START
             )
         }
         item {
@@ -86,7 +86,8 @@ private fun FoodAmountSelectionScreenPreview() {
             conversionAmount = "120",
             categoryUi = CategoryUi(
                 id = 1,
-                name ="Frutas"
+                name ="Frutas",
+                referenceAmount = 130.0
             ),
             unitUi = UnitUi(
                 id = 1,
