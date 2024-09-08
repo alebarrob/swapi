@@ -18,4 +18,10 @@
     <string name="food_amount_selection_screen_message">¡Casi hemos terminado! Dime cuánta cantidad de este alimento ibas a consumir. Después, pulsa en Calcular equivalencias.</string>
     <string name="bold_colored_calculate_equivalences">Calcular equivalencias</string>
     <string name="food_amount_selection_screen_button_text">¡Calcular Equivalencias!</string>
+
+    // Result screen
+    <string name="selected_food_icon_description">Imagen de alimento seleccionado.</string>
+    <string name="food_result_screen_message">¡El resultado está listo! %1$s %2$s de %3$s equivalen a…</string>
+    <string name="bold_colored_food_result_screen_message">%1$s %2$s de %3$s</string>
+    <string name="food_result">%1$s %2$s de %3$s</string>
 </resources>
