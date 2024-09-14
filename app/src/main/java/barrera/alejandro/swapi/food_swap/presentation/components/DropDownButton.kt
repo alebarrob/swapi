@@ -49,7 +49,10 @@ fun DropDownButton(
                             style = typography.labelMedium
                         )
                     },
-                    onClick = { onOptionClick(label) }
+                    onClick = {
+                        expanded = false
+                        onOptionClick(label)
+                    }
                 )
             }
         }
