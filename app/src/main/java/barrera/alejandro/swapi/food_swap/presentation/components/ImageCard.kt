@@ -107,6 +107,81 @@ fun ImageCard(
     }
 }
 
+@Composable
+fun ImageCard(
+    text: String,
+    imageResourceId: Int,
+    modifier: Modifier = Modifier,
+    withHighlightImage: Boolean = false
+) {
+    val dimensions = LocalDimensions.current
+    val colorVariants = LocalColorVariants.current
+    val typography = MaterialTheme.typography
+
+    Box(
+        modifier = modifier
+            .size(size = dimensions.imageCardSize)
+            .padding(
+                start = if (withHighlightImage) {
+                    dimensions.imageCardHighlightImagePadding
+                } else {
+                    dimensions.default
+                },
+                top = if (withHighlightImage) {
+                    dimensions.imageCardHighlightImagePadding
+                }
+                else {
+                    dimensions.default
+                },
+            )
+    ) {
+        Card(
+            shape = RoundedCornerShape(size = dimensions.imageCardShapeSize),
+            colors = CardDefaults.cardColors(containerColor = colorVariants.white)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        vertical = dimensions.medium,
+                        horizontal = dimensions.medium
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(
+                    space = dimensions.imageCardVerticalArrangementSpacedBy,
+                    alignment = Alignment.CenterVertically
+                )
+            ) {
+                if (!withHighlightImage) {
+                    Image(
+                        painter = painterResource(id = imageResourceId),
+                        contentDescription = stringResource(R.string.food_icon_description)
+                    )
+                }
+                Text(
+                    text = text,
+                    textAlign = TextAlign.Center,
+                    style = if (text.length < LONG_SENTENCE_LENGTH) {
+                        typography.labelMedium
+                    } else {
+                        typography.labelSmall
+                    }
+                )
+            }
+        }
+        if (withHighlightImage) {
+            HighlightImage(
+                imageResourceId = imageResourceId,
+                modifier = Modifier
+                    .offset(
+                        x = dimensions.imageCardHighlightImageOffSet,
+                        y = dimensions.imageCardHighlightImageOffSet
+                    )
+            )
+        }
+    }
+}
+
 @Preview(
     showBackground = true,
     backgroundColor = PREVIEW_BACKGROUND

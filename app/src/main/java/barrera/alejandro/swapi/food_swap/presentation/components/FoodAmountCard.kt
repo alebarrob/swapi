@@ -29,7 +29,6 @@ fun FoodAmountCard(
     ) {
         ImageCard(
             text = food.name,
-            onClick = {},
             imageResourceId = food.imageResourceId
         )
         AmountTextField(
