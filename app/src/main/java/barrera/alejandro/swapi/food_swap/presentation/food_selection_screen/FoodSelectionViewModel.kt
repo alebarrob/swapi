@@ -51,11 +51,7 @@ class FoodSelectionViewModel @Inject constructor(
                 },
                 failure = {
                     state = state.copy(isLoading = false)
-                    sendUiEvent(
-                        UiEvent.ShowPopup(
-                            UiText.StringResource(R.string.database_error)
-                        )
-                    )
+                    sendUiEvent(UiEvent.ShowErrorPopup)
                 }
             )
         }

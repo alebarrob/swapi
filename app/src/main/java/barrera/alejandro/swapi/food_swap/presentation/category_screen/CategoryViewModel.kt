@@ -1,11 +1,9 @@
 package barrera.alejandro.swapi.food_swap.presentation.category_screen
 
 import androidx.lifecycle.viewModelScope
-import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.base.BaseViewModel
 import barrera.alejandro.swapi.core.util.annotation.GetAllCategoriesUseCase
 import barrera.alejandro.swapi.core.presentation.base.UiEvent
-import barrera.alejandro.swapi.core.presentation.util.UiText
 import barrera.alejandro.swapi.food_swap.domain.model.Category
 import barrera.alejandro.swapi.food_swap.domain.use_case.SuspendUseCaseNoParams
 import barrera.alejandro.swapi.food_swap.presentation.mapper.toCategoryUi
@@ -39,11 +37,7 @@ class CategoryViewModel @Inject constructor(
                 },
                 failure = {
                     state = state.copy(isLoading = false)
-                    sendUiEvent(
-                        UiEvent.ShowPopup(
-                            UiText.StringResource(R.string.database_error)
-                        )
-                    )
+                    sendUiEvent(UiEvent.ShowErrorPopup)
                 }
             )
         }

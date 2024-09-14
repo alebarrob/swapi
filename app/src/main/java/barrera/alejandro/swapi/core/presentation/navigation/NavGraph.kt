@@ -16,7 +16,8 @@ import barrera.alejandro.swapi.food_swap.presentation.food_selection_screen.Food
 
 @Composable
 fun NavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    onShowErrorPopup: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -27,7 +28,8 @@ fun NavGraph(
                 onCategoryClick = { categoryId ->
                     navController.navigate(route = FoodSelection(categoryId))
                 },
-                viewModel = hiltViewModel<CategoryViewModel>()
+                viewModel = hiltViewModel<CategoryViewModel>(),
+                onShowErrorPopup = onShowErrorPopup,
             )
         }
         composable<FoodSelection> {
@@ -37,7 +39,8 @@ fun NavGraph(
                         route = FoodAmountSelection(foodId)
                     )
                 },
-                viewModel = hiltViewModel<FoodSelectionViewModel>()
+                viewModel = hiltViewModel<FoodSelectionViewModel>(),
+                onShowErrorPopup = onShowErrorPopup,
             )
         }
         composable<FoodAmountSelection> {
@@ -45,12 +48,14 @@ fun NavGraph(
                 onCalculateClick = { foodId, amount ->
                     navController.navigate(route = FoodResult(foodId, amount))
                 },
-                viewModel = hiltViewModel<FoodAmountSelectionViewModel>()
+                viewModel = hiltViewModel<FoodAmountSelectionViewModel>(),
+                onShowErrorPopup = onShowErrorPopup,
             )
         }
         composable<FoodResult> {
             FoodResultScreen(
-                viewModel = hiltViewModel<FoodResultViewModel>()
+                viewModel = hiltViewModel<FoodResultViewModel>(),
+                onShowErrorPopup = onShowErrorPopup,
             )
         }
     }

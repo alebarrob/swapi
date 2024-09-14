@@ -42,6 +42,8 @@ fun SwapiApp() {
 
     var topBarIsVisible by rememberSaveable { mutableStateOf(false) }
 
+    var showErrorPopup by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(route) {
         topBarIsVisible = route != Category::class.java.name
     }
@@ -62,13 +64,22 @@ fun SwapiApp() {
         }
     ) { paddingValues ->
         BaseScreen(
+            showErrorPopup = showErrorPopup,
+            onErrorPopupDismiss = {
+                showErrorPopup = false
+            },
             modifier = if (topBarIsVisible) {
                 Modifier.padding(paddingValues)
             } else {
                 Modifier
             }
         ) {
-            NavGraph(navController)
+            NavGraph(
+                navController = navController,
+                onShowErrorPopup = {
+                    showErrorPopup = true
+                }
+            )
         }
     }
 }
