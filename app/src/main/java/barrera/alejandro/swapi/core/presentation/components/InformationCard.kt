@@ -33,23 +33,33 @@ fun InformationCard(
     highlightImageResourceId: Int? = null,
     imagePosition: ImagePosition = ImagePosition.HIGHLIGHT_ON_START,
 ) {
-    val typography = MaterialTheme.typography
     val dimensions = LocalDimensions.current
     val colorVariants = LocalColorVariants.current
+    val typography = MaterialTheme.typography
 
     Box(
         modifier = modifier.padding(
             top = when {
-                decorativeImageResourceId != null -> dimensions.informationCardWithDecorativeImageTopPadding
-                highlightImageResourceId != null -> dimensions.informationCardWithHighlightImageTopPadding
+                decorativeImageResourceId != null ->
+                    dimensions.informationCardWithDecorativeImageTopPadding
+
+                highlightImageResourceId != null ->
+                    dimensions.informationCardWithHighlightImageTopPadding
+
                 else -> dimensions.default
             },
-            start = if (highlightImageResourceId != null && imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
-                dimensions.informationCardWithHighlightImageHorizontalPadding
-            } else dimensions.default,
-            end = if (highlightImageResourceId != null && imagePosition == ImagePosition.DECORATIVE_ON_START) {
-                dimensions.informationCardWithHighlightImageHorizontalPadding
-            } else dimensions.default
+            start = when {
+                highlightImageResourceId != null && imagePosition == ImagePosition.HIGHLIGHT_ON_START ->
+                    dimensions.informationCardWithHighlightImageHorizontalPadding
+
+                else -> dimensions.default
+            },
+            end = when {
+                highlightImageResourceId != null && imagePosition == ImagePosition.DECORATIVE_ON_START ->
+                    dimensions.informationCardWithHighlightImageHorizontalPadding
+
+                else -> dimensions.default
+            }
         )
     ) {
         Card(
@@ -118,9 +128,9 @@ fun InformationCard(
     highlightImageResourceId: Int? = null,
     imagePosition: ImagePosition = ImagePosition.HIGHLIGHT_ON_START,
 ) {
-    val typography = MaterialTheme.typography
     val dimensions = LocalDimensions.current
     val colorVariants = LocalColorVariants.current
+    val typography = MaterialTheme.typography
 
     Box(
         modifier = modifier.padding(
@@ -204,18 +214,17 @@ fun InformationCard(
 @Composable
 private fun InformationCardHighlightImageOnStartDecorativeImageOnEndPreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(
                 end = dimensions.large,
                 bottom = dimensions.large
@@ -234,18 +243,17 @@ private fun InformationCardHighlightImageOnStartDecorativeImageOnEndPreview() {
 @Composable
 private fun InformationCardNoHighlightImageDecorativeImageOnEndPreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(
                 start = dimensions.large,
                 end = dimensions.large,
@@ -264,18 +272,17 @@ private fun InformationCardNoHighlightImageDecorativeImageOnEndPreview() {
 @Composable
 private fun InformationCardHighlightImageOnStartNoDecorativeImagePreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(
                 end = dimensions.large,
                 bottom = dimensions.large
@@ -293,18 +300,17 @@ private fun InformationCardHighlightImageOnStartNoDecorativeImagePreview() {
 @Composable
 private fun InformationCardHighlightImageOnEndDecorativeImageOnStartPreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(
                 start = dimensions.large,
                 bottom = dimensions.large
@@ -323,18 +329,17 @@ private fun InformationCardHighlightImageOnEndDecorativeImageOnStartPreview() {
 @Composable
 private fun InformationCardNoHighlightImageDecorativeImageOnStartPreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(
                 start = dimensions.large,
                 end = dimensions.large,
@@ -353,18 +358,17 @@ private fun InformationCardNoHighlightImageDecorativeImageOnStartPreview() {
 @Composable
 private fun InformationCardHighlightImageOnEndNoDecorativeImagePreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(
                 start = dimensions.large,
                 bottom = dimensions.large
@@ -382,18 +386,17 @@ private fun InformationCardHighlightImageOnEndNoDecorativeImagePreview() {
 @Composable
 private fun InformationCardNoImagesPreview() {
     SwapiTheme {
+        val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val dimensions = LocalDimensions.current
         val boldColoredWords = mapOf(
             stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
             stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
         )
 
         InformationCard(
-            text = stringResource(id = R.string.categories_screen_message).toBoldColoredAnnotatedString(
-                boldColoredWords
-            ),
+            text = stringResource(id = R.string.categories_screen_message)
+                .toBoldColoredAnnotatedString(boldColoredWords),
             modifier = Modifier.padding(all = dimensions.large)
         )
     }

@@ -3,6 +3,6 @@ package barrera.alejandro.swapi.food_swap.presentation.food_amount_selection_scr
 import barrera.alejandro.swapi.food_swap.presentation.model.FoodUi
 
 data class FoodAmountSelectionScreenState(
-    val food: FoodUi,
-    val amount: String
+    val food: FoodUi? = null,
+    val isLoading: Boolean = false
 )

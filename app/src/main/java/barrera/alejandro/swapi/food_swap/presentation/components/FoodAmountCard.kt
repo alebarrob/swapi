@@ -20,7 +20,8 @@ fun FoodAmountCard(
     food: FoodUi,
     amount: String,
     onAmountChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isError: Boolean = false
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -28,21 +29,21 @@ fun FoodAmountCard(
     ) {
         ImageCard(
             text = food.name,
+            onClick = {},
             imageResourceId = food.imageResourceId
         )
         AmountTextField(
             unit = food.unitUi,
             amount = amount,
-            onAmountChange = onAmountChange
+            onAmountChange = onAmountChange,
+            isError = isError
         )
     }
 }
 
 @Preview
 @Composable
-private fun FoodAmountCardPreview(
-
-) {
+private fun FoodAmountCardPreview() {
     val food = FoodUi(
         id = 1,
         name = "Arándanos",

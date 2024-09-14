@@ -4,25 +4,20 @@ import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.presentation.model.FoodUi
 
-private const val EMPTY_RESULT_AMOUNT = 0.0
+private const val DECIMAL_FORMAT = "%.2f"
+private const val DECIMAL_REGEX = "\\.00$"
+private const val EMPTY_STRING = ""
 
 fun Food.toFoodUi() = FoodUi(
     id = id,
     name = name,
     imageResourceId = getImageResourceId(),
     conversionAmount = conversionAmount.toString(),
-    resultAmount = resultAmount.toString().replace("\\..*".toRegex(), ""),
+    resultAmount = DECIMAL_FORMAT
+        .format(resultAmount)
+        .replace(Regex(DECIMAL_REGEX), EMPTY_STRING),
     categoryUi = category.toCategoryUi(),
     unitUi = unit.toUnitUi()
-)
-
-fun FoodUi.toFood() = Food(
-    id = id,
-    name = name,
-    conversionAmount = conversionAmount.toDouble(),
-    resultAmount = resultAmount.toDoubleOrNull() ?: EMPTY_RESULT_AMOUNT,
-    category = categoryUi.toCategory(),
-    unit = unitUi.toUnit()
 )
 
 // TODO Create a backend to add the links to the images and delete this map

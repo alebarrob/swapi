@@ -7,7 +7,7 @@ import barrera.alejandro.swapi.core.util.annotation.GetAllCategoriesUseCase
 import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.util.UiText
 import barrera.alejandro.swapi.food_swap.domain.model.Category
-import barrera.alejandro.swapi.food_swap.domain.use_case.UseCaseNoParams
+import barrera.alejandro.swapi.food_swap.domain.use_case.SuspendUseCaseNoParams
 import barrera.alejandro.swapi.food_swap.presentation.mapper.toCategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     @GetAllCategoriesUseCase
-    private val getAllCategories: UseCaseNoParams<@JvmSuppressWildcards List<Category>>
+    private val getAllCategories: SuspendUseCaseNoParams<@JvmSuppressWildcards List<Category>>
 ) : BaseViewModel<CategoryScreenState, CategoryScreenEvent>(initialState = CategoryScreenState()) {
 
     override fun onEvent(event: CategoryScreenEvent) {
@@ -31,7 +31,9 @@ class CategoryViewModel @Inject constructor(
             getAllCategories().fold(
                 success = { categories ->
                     state = state.copy(
-                        categories = categories.map { it.toCategoryUi() },
+                        categories = categories.map { category ->
+                            category.toCategoryUi()
+                        },
                         isLoading = false
                     )
                 },

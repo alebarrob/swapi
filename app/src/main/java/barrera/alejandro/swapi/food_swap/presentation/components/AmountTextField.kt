@@ -30,10 +30,10 @@ fun AmountTextField(
     modifier: Modifier = Modifier,
     isError: Boolean = false
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     val dimensions = LocalDimensions.current
     val colors = MaterialTheme.colorScheme
     val colorVariants = LocalColorVariants.current
-    val keyboardController = LocalSoftwareKeyboardController.current
 
     OutlinedTextField(
         value = amount,

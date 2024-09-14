@@ -21,14 +21,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.components.HighlightImage
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.core.presentation.util.constant.PREVIEW_BACKGROUND
-import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 
 private const val LONG_SENTENCE_LENGTH = 26
 
@@ -36,23 +34,30 @@ private const val LONG_SENTENCE_LENGTH = 26
 fun ImageCard(
     text: String,
     imageResourceId: Int,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    withHighlightImage: Boolean = false,
-    onClick: ((String) -> Unit)? = null
+    withHighlightImage: Boolean = false
 ) {
-    val typography = MaterialTheme.typography
     val dimensions = LocalDimensions.current
     val colorVariants = LocalColorVariants.current
+    val typography = MaterialTheme.typography
 
     Box(
         modifier = modifier
             .size(size = dimensions.imageCardSize)
-            .apply { onClick?.let { clickable(onClick = { onClick(text) }) } }
+            .clickable(onClick = onClick)
             .padding(
-                start = if (withHighlightImage) dimensions.imageCardHighlightImagePadding
-                else dimensions.default,
-                top = if (withHighlightImage) dimensions.imageCardHighlightImagePadding
-                else dimensions.default,
+                start = if (withHighlightImage) {
+                    dimensions.imageCardHighlightImagePadding
+                } else {
+                    dimensions.default
+                },
+                top = if (withHighlightImage) {
+                    dimensions.imageCardHighlightImagePadding
+                }
+                else {
+                    dimensions.default
+                },
             )
     ) {
         Card(
@@ -81,8 +86,11 @@ fun ImageCard(
                 Text(
                     text = text,
                     textAlign = TextAlign.Center,
-                    style = if (text.length < LONG_SENTENCE_LENGTH) typography.labelMedium
-                    else typography.labelSmall
+                    style = if (text.length < LONG_SENTENCE_LENGTH) {
+                        typography.labelMedium
+                    } else {
+                        typography.labelSmall
+                    }
                 )
             }
         }

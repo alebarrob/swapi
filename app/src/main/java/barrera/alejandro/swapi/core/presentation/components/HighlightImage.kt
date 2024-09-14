@@ -18,7 +18,7 @@ import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.core.presentation.util.constant.PREVIEW_BACKGROUND
-import barrera.alejandro.swapi.food_swap.presentation.enums.HighlightImageSize
+import barrera.alejandro.swapi.core.presentation.util.enums.HighlightImageSize
 
 @Composable
 fun HighlightImage(
