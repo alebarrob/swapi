@@ -10,4 +10,7 @@ interface FoodDao {
     @Transaction
     @Query("SELECT * FROM food WHERE category_id == :categoryId")
     suspend fun getFoodByCategoryId(categoryId: Int): List<FoodWithCategoryAndUnit>
+
+    @Query("SELECT * FROM food WHERE id == :id")
+    suspend fun getFoodById(id: Int): FoodWithCategoryAndUnit
 }
