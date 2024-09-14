@@ -18,7 +18,7 @@ import barrera.alejandro.swapi.food_swap.presentation.model.UnitUi
 
 @Composable
 fun FoodGrid(
-    onClick: (String) -> Unit,
+    onClick: (Int) -> Unit,
     food: List<FoodUi>,
     modifier: Modifier = Modifier,
     withResult: Boolean = false
@@ -31,7 +31,9 @@ fun FoodGrid(
     ) {
         items(items = food) { food ->
             ImageCard(
-                onClick = onClick,
+                onClick = {
+                    onClick(food.id)
+                },
                 text = if (withResult) {
                     stringResource(
                         id = R.string.food_result,

@@ -4,15 +4,12 @@ import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.domain.repository.FoodRepository
 import barrera.alejandro.swapi.core.domain.Result
 
-
-class GetFoodByCategoryId(
+class GetFoodById(
     private val foodRepository: FoodRepository
-) : SuspendUseCase<@JvmSuppressWildcards GetFoodByCategoryId.Params, @JvmSuppressWildcards List<Food>> {
-    override suspend fun invoke(params: Params) = foodRepository.getFoodByCategoryId(
-        params.categoryId
-    )
+) : SuspendUseCase<@JvmSuppressWildcards GetFoodById.Params, @JvmSuppressWildcards Food> {
+    override suspend fun invoke(params: Params) = foodRepository.getFoodById(params.id)
 
     data class Params(
-        val categoryId: Int
+        val id: Int
     )
 }

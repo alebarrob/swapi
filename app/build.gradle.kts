@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.serialization)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.google.dagger.hilt.android)
@@ -66,9 +67,11 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.jetbrains.kotlinx.serialization.json)
 
     // Compose Libraries
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -84,6 +87,7 @@ dependencies {
 
     // Hilt Libraries
     implementation(libs.google.dagger.hilt.android)
+    implementation(libs.hilt.navigation.compose)
     ksp(libs.google.dagger.hilt.compiler)
 
     // Testing Libraries

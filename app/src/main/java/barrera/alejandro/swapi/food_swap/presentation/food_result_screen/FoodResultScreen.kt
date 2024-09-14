@@ -1,6 +1,7 @@
 package barrera.alejandro.swapi.food_swap.presentation.food_result_screen
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,10 +12,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.base.BaseScreen
+import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
@@ -24,20 +27,32 @@ import barrera.alejandro.swapi.food_swap.presentation.components.FoodGrid
 import barrera.alejandro.swapi.food_swap.presentation.model.CategoryUi
 import barrera.alejandro.swapi.food_swap.presentation.model.FoodUi
 import barrera.alejandro.swapi.food_swap.presentation.model.UnitUi
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun FoodResultScreen(
-    state: FoodResultScreenState,
-    onEvent: (FoodResultScreenEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: FoodResultViewModel
 ) {
-    val dimensions = LocalDimensions.current
+    val context = LocalContext.current
     val orientation = LocalConfiguration.current.orientation
+    val dimensions = LocalDimensions.current
     val colors = MaterialTheme.colorScheme
 
+    val state = viewModel.state
+
     LaunchedEffect(key1 = Unit) {
-        onEvent(FoodResultScreenEvent.LoadEquivalentFood)
+        viewModel.onEvent(FoodResultScreenEvent.LoadEquivalentFood)
+
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowPopup -> {}
+                is UiEvent.ShowToast -> Toast.makeText(
+                    context,
+                    event.message.asString(context),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     LoadableContent(isLoading = state.isLoading) {
@@ -53,18 +68,18 @@ fun FoodResultScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                state.selectedFood?.let { food ->
+                state.discardedFood?.let { food ->
                     InformationCard(
                         text = stringResource(
                             id = R.string.food_result_screen_message,
-                            state.selectedAmount,
+                            state.discardedFoodAmount,
                             food.unitUi.name,
                             food.name
                         ).toBoldColoredAnnotatedString(
                             mapOf(
                                 stringResource(
                                     id = R.string.bold_colored_food_result_screen_message,
-                                    state.selectedAmount,
+                                    state.discardedFoodAmount,
                                     food.unitUi.name,
                                     food.name
                                 ) to colors.secondary
@@ -87,9 +102,10 @@ fun FoodResultScreen(
 
 @Preview
 @Composable
-private fun PreviewFoodResultScreen() {
-    val dummyState = FoodResultScreenState(
-        selectedFood = FoodUi(
+private fun FoodResultScreenPreview(
+    modifier: Modifier = Modifier,
+    state: FoodResultScreenState = FoodResultScreenState(
+        discardedFood = FoodUi(
             id = 19,
             name = "Pera",
             imageResourceId = R.drawable.pear_ic,
@@ -105,7 +121,7 @@ private fun PreviewFoodResultScreen() {
                 name = "gr."
             )
         ),
-        selectedAmount = "20",
+        discardedFoodAmount = "20",
         equivalentFood = listOf(
             FoodUi(
                 id = 1,
@@ -253,11 +269,54 @@ private fun PreviewFoodResultScreen() {
             )
         )
     )
+) {
+    BaseScreen {
+        val orientation = LocalConfiguration.current.orientation
+        val dimensions = LocalDimensions.current
+        val colors = MaterialTheme.colorScheme
 
-    BaseScreen(uiEvent = flowOf()) {
-        FoodResultScreen(
-            state = dummyState,
-            onEvent = {}
-        )
+        LoadableContent(isLoading = state.isLoading) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = dimensions.large,
+                        end = dimensions.large,
+                        top = dimensions.large
+                    ),
+                verticalArrangement = Arrangement.spacedBy(dimensions.small),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    state.discardedFood?.let { food ->
+                        InformationCard(
+                            text = stringResource(
+                                id = R.string.food_result_screen_message,
+                                state.discardedFoodAmount,
+                                food.unitUi.name,
+                                food.name
+                            ).toBoldColoredAnnotatedString(
+                                mapOf(
+                                    stringResource(
+                                        id = R.string.bold_colored_food_result_screen_message,
+                                        state.discardedFoodAmount,
+                                        food.unitUi.name,
+                                        food.name
+                                    ) to colors.secondary
+                                )
+                            ),
+                            decorativeImageResourceId = R.drawable.wow_watermelon_ic,
+                            highlightImageResourceId = food.imageResourceId,
+                            imagePosition = ImagePosition.HIGHLIGHT_ON_START
+                        )
+                    }
+                }
+                FoodGrid(
+                    onClick = {},
+                    food = state.equivalentFood,
+                    withResult = true
+                )
+            }
+        }
     }
 }

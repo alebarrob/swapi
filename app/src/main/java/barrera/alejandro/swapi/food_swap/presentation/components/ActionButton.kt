@@ -26,8 +26,8 @@ fun ActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colorVariants = LocalColorVariants.current
     val dimensions = LocalDimensions.current
+    val colorVariants = LocalColorVariants.current
     val typography = MaterialTheme.typography
 
     Button(
@@ -60,7 +60,7 @@ fun ActionButton(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-private fun PreviewActionButton() {
+private fun ActionButtonPreview() {
     SwapiTheme {
         val dimensions = LocalDimensions.current
 

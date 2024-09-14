@@ -1,8 +1,9 @@
 package barrera.alejandro.swapi.core.presentation.base
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -10,28 +11,19 @@ import androidx.compose.ui.unit.dp
 import barrera.alejandro.swapi.core.presentation.components.VerticalGradientBackground
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.core.presentation.util.constant.HALF_DIVISOR
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+
+private const val HALF_DIVISOR = 2
 
 @Composable
 fun BaseScreen(
-    uiEvent: Flow<UiEvent>,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    LaunchedEffect(key1 = Unit) {
-        uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.ShowPopup -> {}
-            }
-        }
-    }
-
     SwapiTheme {
+        val configuration = LocalConfiguration.current
+        val screenDensity = LocalDensity.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
-        val screenDensity = LocalDensity.current
-        val configuration = LocalConfiguration.current
 
         VerticalGradientBackground(
             colors = listOf(colorVariants.lightGreen, colors.primary),
@@ -39,13 +31,15 @@ fun BaseScreen(
                 configuration.screenHeightDp.dp.toPx() / HALF_DIVISOR
             }
         ) {
-            content()
+            Box(modifier = modifier) {
+                content()
+            }
         }
     }
 }
 
 @Preview
 @Composable
-fun BaseScreenPreview() {
-    BaseScreen(uiEvent = flowOf()) { }
+private fun BaseScreenPreview() {
+    BaseScreen { }
 }

@@ -2,6 +2,8 @@
     // App core
     <string name="app_name">Swapi - Cambia tu Dieta</string>
     <string name="database_error">Algo salió mal. Por favor, inténtalo de nuevo.</string>
+    <string name="back">Volver</string>
+    <string name="back_icon_description">Icono de flecha atrás</string>
 
     // Categories screen
     <string name="happy_watermelon_icon_description">Imagen de una sandía feliz.</string>
@@ -18,6 +20,7 @@
     <string name="food_amount_selection_screen_message">¡Casi hemos terminado! Dime cuánta cantidad de este alimento ibas a consumir. Después, pulsa en Calcular equivalencias.</string>
     <string name="bold_colored_calculate_equivalences">Calcular equivalencias</string>
     <string name="food_amount_selection_screen_button_text">¡Calcular Equivalencias!</string>
+    <string name="invalid_food_amount_error">La cantidad introducida es incorrecta</string>
 
     // Result screen
     <string name="selected_food_icon_description">Imagen de alimento seleccionado.</string>

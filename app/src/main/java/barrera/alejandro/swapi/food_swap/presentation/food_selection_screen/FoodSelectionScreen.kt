@@ -1,6 +1,7 @@
 package barrera.alejandro.swapi.food_swap.presentation.food_selection_screen
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,10 +11,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.base.BaseScreen
+import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
@@ -22,19 +25,32 @@ import barrera.alejandro.swapi.food_swap.presentation.components.FoodGrid
 import barrera.alejandro.swapi.food_swap.presentation.model.CategoryUi
 import barrera.alejandro.swapi.food_swap.presentation.model.FoodUi
 import barrera.alejandro.swapi.food_swap.presentation.model.UnitUi
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun FoodSelectionScreen(
-    state: FoodSelectionScreenState,
-    onEvent: (FoodSelectionScreenEvent) -> Unit,
-    modifier: Modifier = Modifier
+    onFoodClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: FoodSelectionViewModel
 ) {
-    val dimensions = LocalDimensions.current
+    val context = LocalContext.current
     val orientation = LocalConfiguration.current.orientation
+    val dimensions = LocalDimensions.current
+
+    val state = viewModel.state
 
     LaunchedEffect(key1 = Unit) {
-        onEvent(FoodSelectionScreenEvent.LoadFood)
+        viewModel.onEvent(FoodSelectionScreenEvent.LoadFood)
+
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowPopup -> {}
+                is UiEvent.ShowToast -> Toast.makeText(
+                    context,
+                    event.message.asString(context),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     LoadableContent(isLoading = state.isLoading) {
@@ -57,7 +73,9 @@ fun FoodSelectionScreen(
                 )
             }
             FoodGrid(
-                onClick = {},
+                onClick = { foodId ->
+                    onFoodClick(foodId)
+                },
                 food = state.food
             )
         }
@@ -66,8 +84,10 @@ fun FoodSelectionScreen(
 
 @Preview
 @Composable
-private fun PreviewFoodSelectionScreen() {
-    val dummyState = FoodSelectionScreenState(
+private fun FoodSelectionScreenPreview(
+    modifier: Modifier = Modifier,
+    onFoodClick: (Int) -> Unit = { },
+    state: FoodSelectionScreenState = FoodSelectionScreenState(
         food = listOf(
             FoodUi(
                 id = 1,
@@ -204,14 +224,39 @@ private fun PreviewFoodSelectionScreen() {
                     name = "gr."
                 )
             )
-        ),
-        foodCategoryId = 1
-    )
-
-    BaseScreen(uiEvent = flowOf()) {
-        FoodSelectionScreen(
-            state = dummyState,
-            onEvent = { }
         )
+    )
+) {
+    BaseScreen {
+        val orientation = LocalConfiguration.current.orientation
+        val dimensions = LocalDimensions.current
+
+        LoadableContent(isLoading = state.isLoading) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = dimensions.large,
+                        end = dimensions.large,
+                        top = dimensions.large
+                    ),
+                verticalArrangement = Arrangement.spacedBy(dimensions.small),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    InformationCard(
+                        text = stringResource(id = R.string.food_selection_screen_message),
+                        decorativeImageResourceId = R.drawable.question_watermelon_ic,
+                        imagePosition = ImagePosition.HIGHLIGHT_ON_START
+                    )
+                }
+                FoodGrid(
+                    onClick = { foodId ->
+                        onFoodClick(foodId)
+                    },
+                    food = state.food
+                )
+            }
+        }
     }
 }
