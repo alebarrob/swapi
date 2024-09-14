@@ -50,6 +50,36 @@ fun FoodGrid(
     }
 }
 
+@Composable
+fun FoodGrid(
+    food: List<FoodUi>,
+    modifier: Modifier = Modifier,
+    withResult: Boolean = false
+) {
+    val dimensions = LocalDimensions.current
+
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = dimensions.imageCardSize),
+        modifier = modifier
+    ) {
+        items(items = food) { food ->
+            ImageCard(
+                text = if (withResult) {
+                    stringResource(
+                        id = R.string.food_result,
+                        food.resultAmount,
+                        food.unitUi.name,
+                        food.name
+                    )
+                } else food.name,
+                imageResourceId = food.imageResourceId,
+                withHighlightImage = withResult,
+                modifier = Modifier.padding(dimensions.extraSmall)
+            )
+        }
+    }
+}
+
 @Preview(
     showBackground = true,
     backgroundColor = PREVIEW_BACKGROUND

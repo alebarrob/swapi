@@ -93,7 +93,6 @@ fun FoodResultScreen(
                 }
             }
             FoodGrid(
-                onClick = {},
                 food = state.equivalentFood,
                 withResult = true
             )
