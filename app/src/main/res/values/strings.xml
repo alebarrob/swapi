@@ -1,7 +1,9 @@
 <resources>
     // App core
     <string name="app_name">Swapi - Cambia tu Dieta</string>
-    <string name="database_error">Algo salió mal. Por favor, inténtalo de nuevo.</string>
+    <string name="error_popup_title">¡Ups!</string>
+    <string name="error_popup_text">Ocurrió un error inesperado. Reinicia la aplicación e inténtalo de nuevo.</string>
+    <string name="error_popup_ok">OK</string>
     <string name="back">Volver</string>
     <string name="back_icon_description">Icono de flecha atrás</string>
 

@@ -30,8 +30,9 @@ import barrera.alejandro.swapi.food_swap.presentation.model.UnitUi
 
 @Composable
 fun FoodResultScreen(
-    modifier: Modifier = Modifier,
-    viewModel: FoodResultViewModel
+    viewModel: FoodResultViewModel,
+    onShowErrorPopup: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val orientation = LocalConfiguration.current.orientation
@@ -45,7 +46,7 @@ fun FoodResultScreen(
 
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.ShowPopup -> {}
+                is UiEvent.ShowErrorPopup -> onShowErrorPopup()
                 is UiEvent.ShowToast -> Toast.makeText(
                     context,
                     event.message.asString(context),
@@ -270,7 +271,10 @@ private fun FoodResultScreenPreview(
         )
     )
 ) {
-    BaseScreen {
+    BaseScreen(
+        onErrorPopupDismiss = {},
+        showErrorPopup = false
+    ) {
         val orientation = LocalConfiguration.current.orientation
         val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme

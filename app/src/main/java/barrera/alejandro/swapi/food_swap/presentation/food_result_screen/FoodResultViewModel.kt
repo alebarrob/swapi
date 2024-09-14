@@ -71,8 +71,7 @@ class FoodResultViewModel @Inject constructor(
                                 }
                             )
                         },
-                        failure = { onFailure()
-                        }
+                        failure = { onFailure() }
                     )
                 },
                 failure = { onFailure() }
@@ -82,10 +81,6 @@ class FoodResultViewModel @Inject constructor(
 
     private suspend fun onFailure() {
         state = state.copy(isLoading = false)
-        sendUiEvent(
-            UiEvent.ShowPopup(
-                UiText.StringResource(R.string.database_error)
-            )
-        )
+        sendUiEvent(UiEvent.ShowErrorPopup)
     }
 }

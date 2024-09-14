@@ -27,9 +27,10 @@ import barrera.alejandro.swapi.food_swap.presentation.model.CategoryUi
 
 @Composable
 fun CategoryScreen(
+    viewModel: CategoryViewModel,
     onCategoryClick: (Int) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: CategoryViewModel
+    onShowErrorPopup: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val dimensions = LocalDimensions.current
@@ -43,7 +44,7 @@ fun CategoryScreen(
 
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.ShowPopup -> {}
+                is UiEvent.ShowErrorPopup -> onShowErrorPopup()
                 is UiEvent.ShowToast -> Toast.makeText(
                     context,
                     event.message.asString(context),
@@ -114,7 +115,10 @@ private fun PreviewCategoryScreen(
         )
     )
 ) {
-    BaseScreen {
+    BaseScreen(
+        onErrorPopupDismiss = {},
+        showErrorPopup = false
+    ) {
         val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current

@@ -28,9 +28,10 @@ import barrera.alejandro.swapi.food_swap.presentation.model.UnitUi
 
 @Composable
 fun FoodSelectionScreen(
+    viewModel: FoodSelectionViewModel,
     onFoodClick: (Int) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: FoodSelectionViewModel
+    onShowErrorPopup: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val orientation = LocalConfiguration.current.orientation
@@ -43,7 +44,7 @@ fun FoodSelectionScreen(
 
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.ShowPopup -> {}
+                is UiEvent.ShowErrorPopup -> onShowErrorPopup()
                 is UiEvent.ShowToast -> Toast.makeText(
                     context,
                     event.message.asString(context),
@@ -227,7 +228,10 @@ private fun FoodSelectionScreenPreview(
         )
     )
 ) {
-    BaseScreen {
+    BaseScreen(
+        onErrorPopupDismiss = {},
+        showErrorPopup = false
+    ) {
         val orientation = LocalConfiguration.current.orientation
         val dimensions = LocalDimensions.current
 

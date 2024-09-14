@@ -33,9 +33,10 @@ import barrera.alejandro.swapi.food_swap.presentation.model.UnitUi
 
 @Composable
 fun FoodAmountSelectionScreen(
+    viewModel: FoodAmountSelectionViewModel,
     onCalculateClick: (Int, String) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: FoodAmountSelectionViewModel
+    onShowErrorPopup: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val dimensions = LocalDimensions.current
@@ -51,7 +52,7 @@ fun FoodAmountSelectionScreen(
 
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.ShowPopup -> {}
+                is UiEvent.ShowErrorPopup -> onShowErrorPopup()
                 is UiEvent.ShowToast -> Toast.makeText(
                     context,
                     event.message.asString(context),
@@ -136,7 +137,10 @@ private fun FoodAmountSelectionScreenPreview(
         isLoading = false
     )
 ) {
-    BaseScreen {
+    BaseScreen(
+        onErrorPopupDismiss = {},
+        showErrorPopup = false
+    ) {
         val dimensions = LocalDimensions.current
         val colorVariants = LocalColorVariants.current
 
