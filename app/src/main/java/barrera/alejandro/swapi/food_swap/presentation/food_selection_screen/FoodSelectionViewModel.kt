@@ -19,8 +19,7 @@ import javax.inject.Inject
 class FoodSelectionViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     @GetFoodsByCategoryIdUseCase
-    private val getFoodsByCategoryId:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodsByCategoryId.Params, @JvmSuppressWildcards List<Food>>
+    private val getFoodsByCategoryId: SuspendUseCase<GetFoodsByCategoryId.Params, List<Food>>
 ) : BaseViewModel<FoodSelectionScreenState, FoodSelectionScreenEvent>(
     initialState = FoodSelectionScreenState()
 ) {

@@ -27,8 +27,7 @@ import barrera.alejandro.swapi.food_swap.domain.model.Food
  *
  * @property Params Parameters for this use case, containing the discarded food, its amount, and the replacement foods.
  */
-class GetEquivalentFoods :
-    UseCase<@JvmSuppressWildcards GetEquivalentFoods.Params, @JvmSuppressWildcards List<Food>> {
+class GetEquivalentFoods : UseCase<GetEquivalentFoods.Params, List<Food>> {
 
     override fun invoke(params: Params) = params.replacementFoods
         .removeDiscardedFood(params.discardedFood)

@@ -24,14 +24,11 @@ import javax.inject.Inject
 class FoodResultViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     @GetFoodByIdUseCase
-    private val getFoodById:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodById.Params, @JvmSuppressWildcards Food>,
+    private val getFoodById: SuspendUseCase<GetFoodById.Params, Food>,
     @GetFoodsByCategoryIdUseCase
-    private val getFoodsByCategoryId:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodsByCategoryId.Params, @JvmSuppressWildcards List<Food>>,
+    private val getFoodsByCategoryId: SuspendUseCase<GetFoodsByCategoryId.Params, List<Food>>,
     @GetEquivalentFoodsUseCase
-    private val getEquivalentFoods:
-        UseCase<@JvmSuppressWildcards GetEquivalentFoods.Params, @JvmSuppressWildcards List<Food>>
+    private val getEquivalentFoods: UseCase<GetEquivalentFoods.Params, List<Food>>
 ) : BaseViewModel<FoodResultScreenState, FoodResultScreenEvent>(
     initialState = FoodResultScreenState(
         discardedFoodAmount = savedStateHandle.toRoute<FoodResult>().amount

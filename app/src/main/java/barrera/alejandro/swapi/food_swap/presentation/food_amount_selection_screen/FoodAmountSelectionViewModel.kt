@@ -23,10 +23,10 @@ import javax.inject.Inject
 @HiltViewModel
 class FoodAmountSelectionViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    @GetFoodByIdUseCase private val getFoodById:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodById.Params, @JvmSuppressWildcards Food>,
-    @IsFoodAmountValidUseCase private val isFoodAmountValid:
-        UseCase<@JvmSuppressWildcards IsFoodAmountValid.Params, @JvmSuppressWildcards Boolean>
+    @GetFoodByIdUseCase
+    private val getFoodById: SuspendUseCase<GetFoodById.Params, Food>,
+    @IsFoodAmountValidUseCase
+    private val isFoodAmountValid: UseCase<IsFoodAmountValid.Params, Boolean>
 ) : BaseViewModel<FoodAmountSelectionScreenState, FoodAmountSelectionScreenEvent>(
     initialState = FoodAmountSelectionScreenState()
 ) {
