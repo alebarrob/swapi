@@ -6,5 +6,5 @@ import barrera.alejandro.swapi.food_swap.domain.model.Category
 fun CategoryEntity.toCategory() = Category(
     id = id,
     name = name,
-    referenceAmount = referenceAmount
+    conversionFactor = conversionFactor
 )

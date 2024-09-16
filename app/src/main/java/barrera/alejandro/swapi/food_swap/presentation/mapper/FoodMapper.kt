@@ -12,9 +12,9 @@ fun Food.toFoodUi() = FoodUi(
     id = id,
     name = name,
     imageResourceId = getImageResourceId(),
-    conversionAmount = conversionAmount.toString(),
-    resultAmount = DECIMAL_FORMAT
-        .format(resultAmount)
+    standardAmount = standardAmount.toString(),
+    equivalentAmount = DECIMAL_FORMAT
+        .format(equivalentAmount)
         .replace(Regex(DECIMAL_REGEX), EMPTY_STRING),
     categoryUi = category.toCategoryUi(),
     unitUi = unit.toUnitUi()

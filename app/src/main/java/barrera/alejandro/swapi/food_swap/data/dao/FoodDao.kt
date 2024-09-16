@@ -9,7 +9,7 @@ import barrera.alejandro.swapi.food_swap.data.entity.FoodWithCategoryAndUnit
 interface FoodDao {
     @Transaction
     @Query("SELECT * FROM food WHERE category_id == :categoryId")
-    suspend fun getFoodByCategoryId(categoryId: Int): List<FoodWithCategoryAndUnit>
+    suspend fun getFoodsByCategoryId(categoryId: Int): List<FoodWithCategoryAndUnit>
 
     @Query("SELECT * FROM food WHERE id == :id")
     suspend fun getFoodById(id: Int): FoodWithCategoryAndUnit

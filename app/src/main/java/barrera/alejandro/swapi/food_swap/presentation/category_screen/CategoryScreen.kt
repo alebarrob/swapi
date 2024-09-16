@@ -107,11 +107,11 @@ private fun PreviewCategoryScreen(
     onCategoryClick: (Int) -> Unit = { },
     state: CategoryScreenState = CategoryScreenState(
         categories = listOf(
-            CategoryUi(id = 0, name = "FRUTAS", referenceAmount = 130.0),
-            CategoryUi(id = 1, name = "GRASAS Y PROTEÍNAS", referenceAmount = 110.0),
-            CategoryUi(id = 2, name = "GRASAS", referenceAmount = 50.0),
-            CategoryUi(id = 3, name = "CARBOHIDRATOS", referenceAmount = 40.0),
-            CategoryUi(id = 4, name = "LÁCTEOS", referenceAmount = 100.0)
+            CategoryUi(id = 0, name = "FRUTAS", conversionFactor = 130.0),
+            CategoryUi(id = 1, name = "GRASAS Y PROTEÍNAS", conversionFactor = 110.0),
+            CategoryUi(id = 2, name = "GRASAS", conversionFactor = 50.0),
+            CategoryUi(id = 3, name = "CARBOHIDRATOS", conversionFactor = 40.0),
+            CategoryUi(id = 4, name = "LÁCTEOS", conversionFactor = 100.0)
         )
     )
 ) {

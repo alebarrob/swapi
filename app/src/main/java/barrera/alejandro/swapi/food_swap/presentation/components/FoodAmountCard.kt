@@ -47,11 +47,11 @@ private fun FoodAmountCardPreview() {
         id = 1,
         name = "Arándanos",
         imageResourceId = R.drawable.blueberry_ic,
-        conversionAmount = "120",
+        standardAmount = "120",
         categoryUi = CategoryUi(
             id = 1,
             name ="Frutas",
-            referenceAmount = 130.0
+            conversionFactor = 130.0
         ),
         unitUi = UnitUi(
             id = 1,

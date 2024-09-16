@@ -123,11 +123,11 @@ private fun FoodAmountSelectionScreenPreview(
             id = 1,
             name = "Fresas",
             imageResourceId = R.drawable.strawberry_ic,
-            conversionAmount = "250",
+            standardAmount = "250",
             categoryUi = CategoryUi(
                 id = 1,
                 name ="Frutas",
-                referenceAmount = 130.0
+                conversionFactor = 130.0
             ),
             unitUi = UnitUi(
                 id = 1,

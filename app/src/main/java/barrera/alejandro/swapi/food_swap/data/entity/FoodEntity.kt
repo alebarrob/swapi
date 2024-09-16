@@ -33,8 +33,8 @@ data class FoodEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    @ColumnInfo(name = "conversion_amount")
-    val conversionAmount: Double,
+    @ColumnInfo(name = "standard_amount")
+    val standardAmount: Double,
     @ColumnInfo(name = "category_id")
     val categoryId: Int,
     @ColumnInfo(name = "unit_id")

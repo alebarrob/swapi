@@ -6,7 +6,7 @@ import barrera.alejandro.swapi.food_swap.domain.model.Food
 fun FoodWithCategoryAndUnit.toFood() = Food(
     id = foodEntity.id,
     name = foodEntity.name,
-    conversionAmount = foodEntity.conversionAmount,
+    standardAmount = foodEntity.standardAmount,
     category = categoryEntity.toCategory(),
     unit = unitEntity.toUnit()
 )

@@ -6,8 +6,8 @@ data class FoodUi(
     val id: Int,
     val name: String,
     @DrawableRes val imageResourceId: Int,
-    val conversionAmount: String,
-    val resultAmount: String = "",
+    val standardAmount: String,
+    val equivalentAmount: String = "",
     val categoryUi: CategoryUi,
     val unitUi: UnitUi
 )

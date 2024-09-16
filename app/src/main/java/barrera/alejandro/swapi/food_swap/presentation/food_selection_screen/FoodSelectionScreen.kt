@@ -77,7 +77,7 @@ fun FoodSelectionScreen(
                 onClick = { foodId ->
                     onFoodClick(foodId)
                 },
-                food = state.food
+                foods = state.foods
             )
         }
     }
@@ -89,16 +89,16 @@ private fun FoodSelectionScreenPreview(
     modifier: Modifier = Modifier,
     onFoodClick: (Int) -> Unit = { },
     state: FoodSelectionScreenState = FoodSelectionScreenState(
-        food = listOf(
+        foods = listOf(
             FoodUi(
                 id = 1,
                 name = "Arándanos",
                 imageResourceId = R.drawable.blueberry_ic,
-                conversionAmount = "120",
+                standardAmount = "120",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -109,11 +109,11 @@ private fun FoodSelectionScreenPreview(
                 id = 2,
                 name = "Cerezas",
                 imageResourceId = R.drawable.cherry_ic,
-                conversionAmount = "145",
+                standardAmount = "145",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -124,11 +124,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Ciruelas",
                 imageResourceId = R.drawable.plum_ic,
-                conversionAmount = "145",
+                standardAmount = "145",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -139,11 +139,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Dátiles",
                 imageResourceId = R.drawable.date_ic,
-                conversionAmount = "20",
+                standardAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -154,11 +154,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Frambuesas",
                 imageResourceId = R.drawable.raspberry_ic,
-                conversionAmount = "200",
+                standardAmount = "200",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -169,11 +169,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Fresas",
                 imageResourceId = R.drawable.strawberry_ic,
-                conversionAmount = "250",
+                standardAmount = "250",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -184,11 +184,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Higos",
                 imageResourceId = R.drawable.fig_ic,
-                conversionAmount = "160",
+                standardAmount = "160",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -199,11 +199,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Kiwi",
                 imageResourceId = R.drawable.kiwi_ic,
-                conversionAmount = "140",
+                standardAmount = "140",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -214,11 +214,11 @@ private fun FoodSelectionScreenPreview(
                 id = 1,
                 name = "Mandarinas",
                 imageResourceId = R.drawable.tangerine_ic,
-                conversionAmount = "170",
+                standardAmount = "170",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -258,7 +258,7 @@ private fun FoodSelectionScreenPreview(
                     onClick = { foodId ->
                         onFoodClick(foodId)
                     },
-                    food = state.food
+                    foods = state.foods
                 )
             }
         }

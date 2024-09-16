@@ -93,7 +93,7 @@ fun FoodResultScreen(
                 }
             }
             FoodGrid(
-                food = state.equivalentFood,
+                foods = state.equivalentFoods,
                 withResult = true
             )
         }
@@ -109,12 +109,12 @@ private fun FoodResultScreenPreview(
             id = 19,
             name = "Pera",
             imageResourceId = R.drawable.pear_ic,
-            conversionAmount = "160",
-            resultAmount = "20",
+            standardAmount = "160",
+            equivalentAmount = "20",
             categoryUi = CategoryUi(
                 id = 1,
                 name ="Frutas",
-                referenceAmount = 130.0
+                conversionFactor = 130.0
             ),
             unitUi = UnitUi(
                 id = 1,
@@ -122,17 +122,17 @@ private fun FoodResultScreenPreview(
             )
         ),
         discardedFoodAmount = "20",
-        equivalentFood = listOf(
+        equivalentFoods = listOf(
             FoodUi(
                 id = 1,
                 name = "Arándanos",
                 imageResourceId = R.drawable.blueberry_ic,
-                conversionAmount = "120",
-                resultAmount = "20",
+                standardAmount = "120",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -143,12 +143,12 @@ private fun FoodResultScreenPreview(
                 id = 2,
                 name = "Cerezas",
                 imageResourceId = R.drawable.cherry_ic,
-                conversionAmount = "145",
-                resultAmount = "20",
+                standardAmount = "145",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -159,12 +159,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Ciruelas",
                 imageResourceId = R.drawable.plum_ic,
-                conversionAmount = "145",
-                resultAmount = "20",
+                standardAmount = "145",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -175,12 +175,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Dátiles",
                 imageResourceId = R.drawable.date_ic,
-                conversionAmount = "20",
-                resultAmount = "20",
+                standardAmount = "20",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -191,12 +191,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Frambuesas",
                 imageResourceId = R.drawable.raspberry_ic,
-                conversionAmount = "200",
-                resultAmount = "20",
+                standardAmount = "200",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -207,12 +207,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Fresas",
                 imageResourceId = R.drawable.strawberry_ic,
-                conversionAmount = "250",
-                resultAmount = "20",
+                standardAmount = "250",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -223,12 +223,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Higos",
                 imageResourceId = R.drawable.fig_ic,
-                conversionAmount = "160",
-                resultAmount = "20",
+                standardAmount = "160",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -239,12 +239,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Kiwi",
                 imageResourceId = R.drawable.kiwi_ic,
-                conversionAmount = "140",
-                resultAmount = "20",
+                standardAmount = "140",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -255,12 +255,12 @@ private fun FoodResultScreenPreview(
                 id = 1,
                 name = "Mandarinas",
                 imageResourceId = R.drawable.tangerine_ic,
-                conversionAmount = "170",
-                resultAmount = "20",
+                standardAmount = "170",
+                equivalentAmount = "20",
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    referenceAmount = 130.0
+                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -316,7 +316,7 @@ private fun FoodResultScreenPreview(
                 }
                 FoodGrid(
                     onClick = {},
-                    food = state.equivalentFood,
+                    foods = state.equivalentFoods,
                     withResult = true
                 )
             }
