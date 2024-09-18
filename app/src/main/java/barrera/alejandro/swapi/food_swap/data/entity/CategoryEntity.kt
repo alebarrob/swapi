@@ -9,6 +9,6 @@ data class CategoryEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    @ColumnInfo(name = "reference_amount")
-    val referenceAmount: Double
+    @ColumnInfo(name = "conversion_factor")
+    val conversionFactor: Double
 )

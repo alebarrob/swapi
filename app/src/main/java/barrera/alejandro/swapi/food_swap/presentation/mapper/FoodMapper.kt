@@ -1,20 +1,20 @@
 package barrera.alejandro.swapi.food_swap.presentation.mapper
 
 import barrera.alejandro.swapi.R
+import barrera.alejandro.swapi.core.util.constant.EMPTY_STRING
 import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.presentation.model.FoodUi
 
 private const val DECIMAL_FORMAT = "%.2f"
 private const val DECIMAL_REGEX = "\\.00$"
-private const val EMPTY_STRING = ""
 
 fun Food.toFoodUi() = FoodUi(
     id = id,
     name = name,
     imageResourceId = getImageResourceId(),
-    conversionAmount = conversionAmount.toString(),
-    resultAmount = DECIMAL_FORMAT
-        .format(resultAmount)
+    standardAmount = standardAmount.toString(),
+    equivalentAmount = DECIMAL_FORMAT
+        .format(equivalentAmount)
         .replace(Regex(DECIMAL_REGEX), EMPTY_STRING),
     categoryUi = category.toCategoryUi(),
     unitUi = unit.toUnitUi()

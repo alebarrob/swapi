@@ -10,11 +10,11 @@ import java.util.Locale
 fun String.toBoldColoredAnnotatedString(
     chunksToBoldAndColor: Map<String, Color>
 ) = buildAnnotatedString {
-    var currentIndex = 0
     val lowerCaseBaseString = this@toBoldColoredAnnotatedString.lowercase(Locale.getDefault())
-    val lowerCaseChunksToBoldAndColor = chunksToBoldAndColor.mapKeys { (key, _)
-        -> key.lowercase(Locale.getDefault())
+    val lowerCaseChunksToBoldAndColor = chunksToBoldAndColor.mapKeys { (key, _) ->
+        key.lowercase(Locale.getDefault())
     }
+    var currentIndex = 0
 
     while (currentIndex < lowerCaseBaseString.length) {
         var matched = false

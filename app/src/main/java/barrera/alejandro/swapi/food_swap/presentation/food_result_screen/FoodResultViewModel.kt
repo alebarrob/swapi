@@ -3,17 +3,15 @@ package barrera.alejandro.swapi.food_swap.presentation.food_result_screen
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.base.BaseViewModel
 import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.navigation.FoodResult
-import barrera.alejandro.swapi.core.presentation.util.UiText
-import barrera.alejandro.swapi.core.util.annotation.GetEquivalentFoodUseCase
-import barrera.alejandro.swapi.core.util.annotation.GetFoodByCategoryIdUseCase
+import barrera.alejandro.swapi.core.util.annotation.GetEquivalentFoodsUseCase
+import barrera.alejandro.swapi.core.util.annotation.GetFoodsByCategoryIdUseCase
 import barrera.alejandro.swapi.core.util.annotation.GetFoodByIdUseCase
 import barrera.alejandro.swapi.food_swap.domain.model.Food
-import barrera.alejandro.swapi.food_swap.domain.use_case.GetEquivalentFood
-import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodByCategoryId
+import barrera.alejandro.swapi.food_swap.domain.use_case.GetEquivalentFoods
+import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodsByCategoryId
 import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodById
 import barrera.alejandro.swapi.food_swap.domain.use_case.SuspendUseCase
 import barrera.alejandro.swapi.food_swap.domain.use_case.UseCase
@@ -26,14 +24,11 @@ import javax.inject.Inject
 class FoodResultViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     @GetFoodByIdUseCase
-    private val getFoodById:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodById.Params, @JvmSuppressWildcards Food>,
-    @GetFoodByCategoryIdUseCase
-    private val getFoodByCategoryId:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodByCategoryId.Params, @JvmSuppressWildcards List<Food>>,
-    @GetEquivalentFoodUseCase
-    private val getEquivalentFood:
-        UseCase<@JvmSuppressWildcards GetEquivalentFood.Params, @JvmSuppressWildcards List<Food>>
+    private val getFoodById: SuspendUseCase<GetFoodById.Params, Food>,
+    @GetFoodsByCategoryIdUseCase
+    private val getFoodsByCategoryId: SuspendUseCase<GetFoodsByCategoryId.Params, List<Food>>,
+    @GetEquivalentFoodsUseCase
+    private val getEquivalentFoods: UseCase<GetEquivalentFoods.Params, List<Food>>
 ) : BaseViewModel<FoodResultScreenState, FoodResultScreenEvent>(
     initialState = FoodResultScreenState(
         discardedFoodAmount = savedStateHandle.toRoute<FoodResult>().amount
@@ -54,17 +49,17 @@ class FoodResultViewModel @Inject constructor(
             ).fold(
                 success = { discardedFood ->
                     state = state.copy(discardedFood = discardedFood.toFoodUi())
-                    getFoodByCategoryId(
-                        params = GetFoodByCategoryId.Params(discardedFood.category.id)
+                    getFoodsByCategoryId(
+                        params = GetFoodsByCategoryId.Params(discardedFood.category.id)
                     ).fold(
-                        success = { replacementFood ->
+                        success = { replacementFoods ->
                             state = state.copy(
                                 isLoading = false,
-                                equivalentFood = getEquivalentFood(
-                                    GetEquivalentFood.Params(
+                                equivalentFoods = getEquivalentFoods(
+                                    GetEquivalentFoods.Params(
                                         discardedFood = discardedFood,
                                         discardedFoodAmount = state.discardedFoodAmount.toDouble(),
-                                        replacementFood = replacementFood
+                                        replacementFoods = replacementFoods
                                     )
                                 ).map { food ->
                                     food.toFoodUi()

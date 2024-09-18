@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aebd093d62791733b9d9bf9915091402",
+    "identityHash": "2821e5ed7a8fee99e86ea2cc891101c0",
     "entities": [
       {
         "tableName": "categories",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `reference_amount` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `conversion_factor` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,8 +21,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "referenceAmount",
-            "columnName": "reference_amount",
+            "fieldPath": "conversionFactor",
+            "columnName": "conversion_factor",
             "affinity": "REAL",
             "notNull": true
           }
@@ -64,7 +64,7 @@
       },
       {
         "tableName": "food",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `conversion_amount` REAL NOT NULL, `category_id` INTEGER NOT NULL, `unit_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`unit_id`) REFERENCES `units`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `standard_amount` REAL NOT NULL, `category_id` INTEGER NOT NULL, `unit_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`unit_id`) REFERENCES `units`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -79,8 +79,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "conversionAmount",
-            "columnName": "conversion_amount",
+            "fieldPath": "standardAmount",
+            "columnName": "standard_amount",
             "affinity": "REAL",
             "notNull": true
           },
@@ -152,7 +152,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aebd093d62791733b9d9bf9915091402')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2821e5ed7a8fee99e86ea2cc891101c0')"
     ]
   }
 }

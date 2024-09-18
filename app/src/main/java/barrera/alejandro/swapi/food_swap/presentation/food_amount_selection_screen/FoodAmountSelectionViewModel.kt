@@ -9,10 +9,10 @@ import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.navigation.FoodAmountSelection
 import barrera.alejandro.swapi.core.presentation.util.UiText
 import barrera.alejandro.swapi.core.util.annotation.GetFoodByIdUseCase
-import barrera.alejandro.swapi.core.util.annotation.IsFoodAmountValidUseCase
+import barrera.alejandro.swapi.core.util.annotation.IsValidFoodAmountUseCase
 import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodById
-import barrera.alejandro.swapi.food_swap.domain.use_case.IsFoodAmountValid
+import barrera.alejandro.swapi.food_swap.domain.use_case.IsValidFoodAmount
 import barrera.alejandro.swapi.food_swap.domain.use_case.SuspendUseCase
 import barrera.alejandro.swapi.food_swap.domain.use_case.UseCase
 import barrera.alejandro.swapi.food_swap.presentation.mapper.toFoodUi
@@ -23,10 +23,10 @@ import javax.inject.Inject
 @HiltViewModel
 class FoodAmountSelectionViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    @GetFoodByIdUseCase private val getFoodById:
-        SuspendUseCase<@JvmSuppressWildcards GetFoodById.Params, @JvmSuppressWildcards Food>,
-    @IsFoodAmountValidUseCase private val isFoodAmountValid:
-        UseCase<@JvmSuppressWildcards IsFoodAmountValid.Params, @JvmSuppressWildcards Boolean>
+    @GetFoodByIdUseCase
+    private val getFoodById: SuspendUseCase<GetFoodById.Params, Food>,
+    @IsValidFoodAmountUseCase
+    private val isValidFoodAmount: UseCase<IsValidFoodAmount.Params, Boolean>
 ) : BaseViewModel<FoodAmountSelectionScreenState, FoodAmountSelectionScreenEvent>(
     initialState = FoodAmountSelectionScreenState()
 ) {
@@ -68,5 +68,6 @@ class FoodAmountSelectionViewModel @Inject constructor(
         }
     }
 
-    fun isFoodAmountValid(amount: String) = isFoodAmountValid.invoke(IsFoodAmountValid.Params(amount))
+    fun isValidFoodAmount(amount: String) =
+        isValidFoodAmount.invoke(IsValidFoodAmount.Params(amount))
 }

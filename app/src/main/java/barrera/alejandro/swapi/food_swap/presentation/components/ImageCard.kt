@@ -26,7 +26,7 @@ import barrera.alejandro.swapi.core.presentation.components.HighlightImage
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.core.presentation.util.constant.PREVIEW_BACKGROUND
+import barrera.alejandro.swapi.core.util.constant.PREVIEW_BACKGROUND
 
 private const val LONG_SENTENCE_LENGTH = 26
 

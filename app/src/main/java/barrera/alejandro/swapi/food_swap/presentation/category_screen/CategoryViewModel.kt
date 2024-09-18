@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     @GetAllCategoriesUseCase
-    private val getAllCategories: SuspendUseCaseNoParams<@JvmSuppressWildcards List<Category>>
+    private val getAllCategories: SuspendUseCaseNoParams<List<Category>>
 ) : BaseViewModel<CategoryScreenState, CategoryScreenEvent>(initialState = CategoryScreenState()) {
 
     override fun onEvent(event: CategoryScreenEvent) {

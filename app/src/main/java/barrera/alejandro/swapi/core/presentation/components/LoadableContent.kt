@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.core.presentation.util.constant.PREVIEW_BACKGROUND
+import barrera.alejandro.swapi.core.util.constant.PREVIEW_BACKGROUND
 
 @Composable
 fun LoadableContent(
