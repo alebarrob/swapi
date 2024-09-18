@@ -99,7 +99,7 @@ fun FoodAmountSelectionScreen(
                 text = stringResource(id = R.string.food_amount_selection_screen_button_text),
                 onClick = {
                     state.food?.let { food ->
-                        if (viewModel.isFoodAmountValid(amount)) {
+                        if (viewModel.isValidFoodAmount(amount)) {
                             amountHasError = false
                             onCalculateClick(food.id, amount)
                         } else {
