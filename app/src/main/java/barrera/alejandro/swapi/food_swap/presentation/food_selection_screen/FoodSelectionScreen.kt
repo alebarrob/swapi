@@ -18,6 +18,7 @@ import barrera.alejandro.swapi.core.presentation.base.BaseScreen
 import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
+import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.food_swap.presentation.components.FoodGrid
 import barrera.alejandro.swapi.food_swap.presentation.model.CategoryUi
@@ -219,35 +220,40 @@ private fun FoodSelectionScreenPreview(
         )
     )
 ) {
-    BaseScreen(uiEvent = flowOf()) {
+    SwapiTheme {
         val orientation = LocalConfiguration.current.orientation
         val dimensions = LocalDimensions.current
 
-        LoadableContent(isLoading = state.isLoading) {
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = dimensions.large,
-                        end = dimensions.large,
-                        top = dimensions.large
-                    ),
-                verticalArrangement = Arrangement.spacedBy(dimensions.small),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    InformationCard(
-                        text = stringResource(id = R.string.food_selection_screen_message),
-                        decorativeImageResourceId = R.drawable.question_watermelon_ic,
-                        imagePosition = ImagePosition.HIGHLIGHT_ON_START
+        BaseScreen(
+            modifier = modifier,
+            uiEvent = flowOf()
+        ) {
+            LoadableContent(isLoading = state.isLoading) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            start = dimensions.large,
+                            end = dimensions.large,
+                            top = dimensions.large
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.small),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                        InformationCard(
+                            text = stringResource(id = R.string.food_selection_screen_message),
+                            decorativeImageResourceId = R.drawable.question_watermelon_ic,
+                            imagePosition = ImagePosition.HIGHLIGHT_ON_START
+                        )
+                    }
+                    FoodGrid(
+                        onClick = { foodId ->
+                            onFoodClick(foodId)
+                        },
+                        foods = state.foods
                     )
                 }
-                FoodGrid(
-                    onClick = { foodId ->
-                        onFoodClick(foodId)
-                    },
-                    foods = state.foods
-                )
             }
         }
     }

@@ -22,6 +22,7 @@ import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
+import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.core.presentation.util.extension.toBoldColoredAnnotatedString
 import barrera.alejandro.swapi.food_swap.presentation.components.ActionButton
@@ -131,50 +132,56 @@ private fun FoodAmountSelectionScreenPreview(
         isLoading = false
     )
 ) {
-    BaseScreen(uiEvent = flowOf()) {
+    SwapiTheme {
         val dimensions = LocalDimensions.current
         val colorVariants = LocalColorVariants.current
 
         var amount by rememberSaveable { mutableStateOf("") }
 
-        LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(
-                    start = dimensions.large,
-                    end = dimensions.large,
-                    top = dimensions.large
-                )
-                .imePadding(),
-            verticalArrangement = Arrangement.spacedBy(dimensions.large),
-            horizontalAlignment = Alignment.CenterHorizontally
+        BaseScreen(
+            modifier = modifier,
+            uiEvent = flowOf()
         ) {
-            item {
-                InformationCard(
-                    text = stringResource(id = R.string.food_amount_selection_screen_message).toBoldColoredAnnotatedString(
-                        mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
-                    decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
-                    imagePosition = ImagePosition.DECORATIVE_ON_START
-                )
-            }
-            state.food?.let { food ->
-                item {
-                    FoodAmountCard(
-                        food = food,
-                        amount = amount,
-                        onAmountChange = { amount = it }
-                    )
-                }
-            }
-            item {
-                ActionButton(
-                    text = stringResource(id = R.string.food_amount_selection_screen_button_text),
-                    onClick = {
-                        state.food?.let { food ->
-                            onCalculateClick(food.id, amount)
+            LoadableContent(isLoading = state.isLoading) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            start = dimensions.large,
+                            end = dimensions.large,
+                            top = dimensions.large
+                        )
+                        .imePadding(),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.large),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        InformationCard(
+                            text = stringResource(id = R.string.food_amount_selection_screen_message).toBoldColoredAnnotatedString(
+                                mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
+                            decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
+                            imagePosition = ImagePosition.DECORATIVE_ON_START
+                        )
+                    }
+                    state.food?.let { food ->
+                        item {
+                            FoodAmountCard(
+                                food = food,
+                                amount = amount,
+                                onAmountChange = {
+                                    amount = it
+                                },
+                                isError = false
+                            )
                         }
                     }
-                )
+                    item {
+                        ActionButton(
+                            text = stringResource(id = R.string.food_amount_selection_screen_button_text),
+                            onClick = {  }
+                        )
+                    }
+                }
             }
         }
     }

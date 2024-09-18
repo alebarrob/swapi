@@ -30,9 +30,7 @@ fun NavGraph(
         composable<FoodSelection> {
             FoodSelectionScreen(
                 onFoodClick = { foodId ->
-                    navController.navigate(
-                        route = FoodAmountSelection(foodId)
-                    )
+                    navController.navigate(route = FoodAmountSelection(foodId))
                 },
                 modifier = modifier
             )

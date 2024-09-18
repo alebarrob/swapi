@@ -68,5 +68,6 @@ class FoodAmountSelectionViewModel @Inject constructor(
         }
     }
 
-    fun isValidFoodAmount(amount: String) = isValidFoodAmount.invoke(IsValidFoodAmount.Params(amount))
+    fun isValidFoodAmount(amount: String) =
+        isValidFoodAmount.invoke(IsValidFoodAmount.Params(amount))
 }

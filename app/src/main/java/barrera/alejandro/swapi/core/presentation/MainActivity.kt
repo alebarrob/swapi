@@ -14,10 +14,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.components.TopBar
 import barrera.alejandro.swapi.core.presentation.navigation.Category
 import barrera.alejandro.swapi.core.presentation.navigation.NavGraph
@@ -52,7 +50,6 @@ fun SwapiApp() {
             topBar = {
                 TopBar(
                     isVisible = topBarIsVisible,
-                    title = stringResource(id = R.string.back),
                     onBackClick = {
                         navController.popBackStack()
                     },

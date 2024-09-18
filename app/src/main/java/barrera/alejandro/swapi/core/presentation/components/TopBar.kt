@@ -27,7 +27,6 @@ import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 @Composable
 fun TopBar(
     isVisible: Boolean,
-    title: String,
     onBackClick: () -> Unit,
     onResetClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -44,7 +43,7 @@ fun TopBar(
             modifier = modifier,
             title = {
                 Text(
-                    text = title,
+                    text = stringResource(id = R.string.back),
                     color = colorVariants.white,
                     style = typography.titleMedium,
                     fontWeight = FontWeight.Bold
@@ -80,7 +79,6 @@ private fun TopBarPreview() {
     SwapiTheme {
         TopBar(
             isVisible = true,
-            title = "Volver a Selección",
             onBackClick = {},
             onResetClick = {}
         )

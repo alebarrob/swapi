@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import barrera.alejandro.swapi.core.presentation.components.ErrorPopup
 import barrera.alejandro.swapi.core.presentation.components.VerticalGradientBackground
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
+import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -58,13 +59,11 @@ fun BaseScreen(
         }
     ) {
         Box(modifier = modifier) {
-            if (showErrorPopup) {
-                ErrorPopup(
-                    onDismiss = {
-                        showErrorPopup = false
-                    }
-                )
-            }
+            if (showErrorPopup) ErrorPopup(
+                onDismiss = {
+                    showErrorPopup = false
+                }
+            )
             content()
         }
     }
@@ -73,5 +72,7 @@ fun BaseScreen(
 @Preview
 @Composable
 private fun BaseScreenPreview() {
-    BaseScreen(uiEvent = flowOf()) { }
+    SwapiTheme {
+        BaseScreen(uiEvent = flowOf()) { }
+    }
 }

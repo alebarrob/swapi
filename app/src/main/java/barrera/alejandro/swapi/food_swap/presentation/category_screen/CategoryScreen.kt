@@ -18,6 +18,7 @@ import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
+import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.core.presentation.util.extension.toBoldColoredAnnotatedString
 import barrera.alejandro.swapi.food_swap.presentation.components.DropDownButton
@@ -106,52 +107,57 @@ private fun PreviewCategoryScreen(
         )
     )
 ) {
-    BaseScreen(uiEvent = flowOf()) {
+    SwapiTheme {
         val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
 
-        LoadableContent(isLoading = state.isLoading) {
-            LazyColumn(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = dimensions.large,
-                        end = dimensions.large,
-                        top = dimensions.screenPaddingTop
-                    ),
-                verticalArrangement = Arrangement.spacedBy(dimensions.extraLarge),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                item {
-                    InformationCard(
-                        text = stringResource(id = R.string.categories_screen_message)
-                            .toBoldColoredAnnotatedString(
-                                mapOf(
-                                    stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
-                                    stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
-                                )
-                            ),
-                        decorativeImageResourceId = R.drawable.happy_watermelon_ic,
-                        imagePosition = ImagePosition.HIGHLIGHT_ON_START
-                    )
-                }
-                item {
-                    DropDownButton(
-                        text = stringResource(id = R.string.categories_screen_button_text),
-                        options = state.categories.map { category ->
-                            category.name
-                        },
-                        onOptionClick = { option ->
-                            state.categories
-                                .find { category ->
-                                    category.name == option
-                                }
-                                ?.let { category ->
-                                    onCategoryClick(category.id)
-                                }
-                        }
-                    )
+        BaseScreen(
+            modifier = modifier,
+            uiEvent = flowOf()
+        ) {
+            LoadableContent(isLoading = state.isLoading) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            start = dimensions.large,
+                            end = dimensions.large,
+                            top = dimensions.screenPaddingTop
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.extraLarge),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        InformationCard(
+                            text = stringResource(id = R.string.categories_screen_message)
+                                .toBoldColoredAnnotatedString(
+                                    mapOf(
+                                        stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+                                        stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+                                    )
+                                ),
+                            decorativeImageResourceId = R.drawable.happy_watermelon_ic,
+                            imagePosition = ImagePosition.HIGHLIGHT_ON_START
+                        )
+                    }
+                    item {
+                        DropDownButton(
+                            text = stringResource(id = R.string.categories_screen_button_text),
+                            options = state.categories.map { category ->
+                                category.name
+                            },
+                            onOptionClick = { option ->
+                                state.categories
+                                    .find { category ->
+                                        category.name == option
+                                    }
+                                    ?.let { category ->
+                                        onCategoryClick(category.id)
+                                    }
+                            }
+                        )
+                    }
                 }
             }
         }

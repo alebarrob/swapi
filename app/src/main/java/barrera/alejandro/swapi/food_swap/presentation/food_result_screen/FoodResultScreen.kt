@@ -19,6 +19,7 @@ import barrera.alejandro.swapi.core.presentation.base.BaseScreen
 import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalDimensions
+import barrera.alejandro.swapi.core.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.core.presentation.util.extension.toBoldColoredAnnotatedString
 import barrera.alejandro.swapi.food_swap.presentation.components.FoodGrid
@@ -261,53 +262,58 @@ private fun FoodResultScreenPreview(
         )
     )
 ) {
-    BaseScreen(uiEvent = flowOf()) {
+    SwapiTheme {
         val orientation = LocalConfiguration.current.orientation
         val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
 
-        LoadableContent(isLoading = state.isLoading) {
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = dimensions.large,
-                        end = dimensions.large,
-                        top = dimensions.large
-                    ),
-                verticalArrangement = Arrangement.spacedBy(dimensions.small),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    state.discardedFood?.let { food ->
-                        InformationCard(
-                            text = stringResource(
-                                id = R.string.food_result_screen_message,
-                                state.discardedFoodAmount,
-                                food.unitUi.name,
-                                food.name
-                            ).toBoldColoredAnnotatedString(
-                                mapOf(
-                                    stringResource(
-                                        id = R.string.bold_colored_food_result_screen_message,
-                                        state.discardedFoodAmount,
-                                        food.unitUi.name,
-                                        food.name
-                                    ) to colors.secondary
-                                )
-                            ),
-                            decorativeImageResourceId = R.drawable.wow_watermelon_ic,
-                            highlightImageResourceId = food.imageResourceId,
-                            imagePosition = ImagePosition.HIGHLIGHT_ON_START
-                        )
+        BaseScreen(
+            modifier = modifier,
+            uiEvent = flowOf()
+        ) {
+            LoadableContent(isLoading = state.isLoading) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            start = dimensions.large,
+                            end = dimensions.large,
+                            top = dimensions.large
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(dimensions.small),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                        state.discardedFood?.let { food ->
+                            InformationCard(
+                                text = stringResource(
+                                    id = R.string.food_result_screen_message,
+                                    state.discardedFoodAmount,
+                                    food.unitUi.name,
+                                    food.name
+                                ).toBoldColoredAnnotatedString(
+                                    mapOf(
+                                        stringResource(
+                                            id = R.string.bold_colored_food_result_screen_message,
+                                            state.discardedFoodAmount,
+                                            food.unitUi.name,
+                                            food.name
+                                        ) to colors.secondary
+                                    )
+                                ),
+                                decorativeImageResourceId = R.drawable.wow_watermelon_ic,
+                                highlightImageResourceId = food.imageResourceId,
+                                imagePosition = ImagePosition.HIGHLIGHT_ON_START
+                            )
+                        }
                     }
+                    FoodGrid(
+                        foods = state.equivalentFoods,
+                        withResult = true
+                    )
                 }
-                FoodGrid(
-                    onClick = {},
-                    foods = state.equivalentFoods,
-                    withResult = true
-                )
             }
         }
     }
+
 }
