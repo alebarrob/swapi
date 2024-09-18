@@ -1,6 +1,5 @@
 package barrera.alejandro.swapi.food_swap.presentation.category_screen
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,12 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.core.presentation.base.BaseScreen
-import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.components.InformationCard
 import barrera.alejandro.swapi.core.presentation.components.LoadableContent
 import barrera.alejandro.swapi.core.presentation.theme.LocalColorVariants
@@ -24,15 +22,14 @@ import barrera.alejandro.swapi.core.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.core.presentation.util.extension.toBoldColoredAnnotatedString
 import barrera.alejandro.swapi.food_swap.presentation.components.DropDownButton
 import barrera.alejandro.swapi.food_swap.presentation.model.CategoryUi
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun CategoryScreen(
-    viewModel: CategoryViewModel,
     onCategoryClick: (Int) -> Unit,
-    onShowErrorPopup: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: CategoryViewModel = hiltViewModel<CategoryViewModel>(),
 ) {
-    val context = LocalContext.current
     val dimensions = LocalDimensions.current
     val colors = MaterialTheme.colorScheme
     val colorVariants = LocalColorVariants.current
@@ -41,60 +38,54 @@ fun CategoryScreen(
 
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(CategoryScreenEvent.LoadCategories)
-
-        viewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.ShowErrorPopup -> onShowErrorPopup()
-                is UiEvent.ShowToast -> Toast.makeText(
-                    context,
-                    event.message.asString(context),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 
-    LoadableContent(isLoading = state.isLoading) {
-        LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(
-                    start = dimensions.large,
-                    end = dimensions.large,
-                    top = dimensions.screenPaddingTop
-                ),
-            verticalArrangement = Arrangement.spacedBy(dimensions.extraLarge),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            item {
-                InformationCard(
-                    text = stringResource(id = R.string.categories_screen_message)
-                        .toBoldColoredAnnotatedString(
-                            mapOf(
-                                stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
-                                stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
-                            )
+    BaseScreen(
+        modifier = modifier,
+        uiEvent = viewModel.uiEvent
+    ) {
+        LoadableContent(isLoading = state.isLoading) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = dimensions.large,
+                        end = dimensions.large,
+                        top = dimensions.screenPaddingTop
                     ),
-                    decorativeImageResourceId = R.drawable.happy_watermelon_ic,
-                    imagePosition = ImagePosition.HIGHLIGHT_ON_START
-                )
-            }
-            item {
-                DropDownButton(
-                    text = stringResource(id = R.string.categories_screen_button_text),
-                    options = state.categories.map { category ->
-                        category.name
-                    },
-                    onOptionClick = { option ->
-                        state.categories
-                            .find { category ->
-                                category.name == option
-                            }
-                            ?.let { category ->
-                                onCategoryClick(category.id)
-                            }
-                    }
-                )
+                verticalArrangement = Arrangement.spacedBy(dimensions.extraLarge),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
+                    InformationCard(
+                        text = stringResource(id = R.string.categories_screen_message)
+                            .toBoldColoredAnnotatedString(
+                                mapOf(
+                                    stringResource(id = R.string.bold_colored_swapi) to colors.secondary,
+                                    stringResource(id = R.string.bold_colored_category) to colorVariants.darkGreen
+                                )
+                            ),
+                        decorativeImageResourceId = R.drawable.happy_watermelon_ic,
+                        imagePosition = ImagePosition.HIGHLIGHT_ON_START
+                    )
+                }
+                item {
+                    DropDownButton(
+                        text = stringResource(id = R.string.categories_screen_button_text),
+                        options = state.categories.map { category ->
+                            category.name
+                        },
+                        onOptionClick = { option ->
+                            state.categories
+                                .find { category ->
+                                    category.name == option
+                                }
+                                ?.let { category ->
+                                    onCategoryClick(category.id)
+                                }
+                        }
+                    )
+                }
             }
         }
     }
@@ -115,10 +106,7 @@ private fun PreviewCategoryScreen(
         )
     )
 ) {
-    BaseScreen(
-        onErrorPopupDismiss = {},
-        showErrorPopup = false
-    ) {
+    BaseScreen(uiEvent = flowOf()) {
         val dimensions = LocalDimensions.current
         val colors = MaterialTheme.colorScheme
         val colorVariants = LocalColorVariants.current
