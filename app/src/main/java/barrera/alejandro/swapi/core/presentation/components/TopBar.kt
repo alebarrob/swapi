@@ -65,7 +65,7 @@ fun TopBar(
                 IconButton(onClick = onResetClick) {
                     Image(
                         painter = painterResource(id = R.drawable.reset),
-                        contentDescription = stringResource(id = R.string.back_icon_description)
+                        contentDescription = stringResource(id = R.string.reset_icon_description)
                     )
                 }
             }
