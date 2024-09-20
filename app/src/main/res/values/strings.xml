@@ -6,6 +6,7 @@
     <string name="error_popup_ok">OK</string>
     <string name="back">Volver</string>
     <string name="back_icon_description">Icono de flecha atrás</string>
+    <string name="reset_icon_description">Icono de reset</string>
 
     // Categories screen
     <string name="happy_watermelon_icon_description">Imagen de una sandía feliz.</string>

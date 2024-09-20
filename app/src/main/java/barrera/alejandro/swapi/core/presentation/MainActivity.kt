@@ -14,6 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import barrera.alejandro.swapi.core.presentation.components.TopBar
@@ -28,16 +29,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SwapiApp()
+            val navController = rememberNavController()
+
+            SwapiApp(navController)
         }
     }
 }
 
 @Composable
-fun SwapiApp() {
-    val navController = rememberNavController()
+fun SwapiApp(navController: NavHostController,) {
     val route = navController.currentBackStackEntryAsState().value?.destination?.route
-
     var topBarIsVisible by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(route) {
