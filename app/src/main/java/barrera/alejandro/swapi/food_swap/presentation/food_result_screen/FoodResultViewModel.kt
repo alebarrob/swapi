@@ -7,12 +7,12 @@ import barrera.alejandro.swapi.core.presentation.base.BaseViewModel
 import barrera.alejandro.swapi.core.presentation.base.UiEvent
 import barrera.alejandro.swapi.core.presentation.navigation.FoodResult
 import barrera.alejandro.swapi.core.util.annotation.GetEquivalentFoodsUseCase
-import barrera.alejandro.swapi.core.util.annotation.GetFoodsByCategoryIdUseCase
 import barrera.alejandro.swapi.core.util.annotation.GetFoodByIdUseCase
+import barrera.alejandro.swapi.core.util.annotation.GetFoodsByCategoryIdUseCase
 import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.domain.use_case.GetEquivalentFoods
-import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodsByCategoryId
 import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodById
+import barrera.alejandro.swapi.food_swap.domain.use_case.GetFoodsByCategoryId
 import barrera.alejandro.swapi.food_swap.domain.use_case.SuspendUseCase
 import barrera.alejandro.swapi.food_swap.domain.use_case.UseCase
 import barrera.alejandro.swapi.food_swap.presentation.mapper.toFoodUi
@@ -58,7 +58,9 @@ class FoodResultViewModel @Inject constructor(
                                 equivalentFoods = getEquivalentFoods(
                                     GetEquivalentFoods.Params(
                                         discardedFood = discardedFood,
-                                        discardedFoodAmount = state.discardedFoodAmount.toDouble(),
+                                        discardedFoodAmount = state.discardedFoodAmount
+                                            .replace(oldValue = ",", newValue = ".")
+                                            .toDouble(),
                                         replacementFoods = replacementFoods
                                     )
                                 ).map { food ->

@@ -6,7 +6,7 @@ import barrera.alejandro.swapi.food_swap.domain.model.Food
 import barrera.alejandro.swapi.food_swap.presentation.model.FoodUi
 
 private const val DECIMAL_FORMAT = "%.2f"
-private const val DECIMAL_REGEX = "\\.00$"
+private const val DECIMAL_REGEX = "[.,]00$"
 
 fun Food.toFoodUi() = FoodUi(
     id = id,
