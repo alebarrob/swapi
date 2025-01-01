@@ -43,7 +43,7 @@ fun ActionButton(
         ),
         contentPadding = PaddingValues(
             horizontal = dimensions.actionButtonHorizontalContentPadding,
-            vertical = dimensions.actionButtonVerticalContentPadding
+            vertical = dimensions.medium
         ),
         colors = ButtonDefaults.buttonColors(containerColor = colorVariants.white)
     ) {

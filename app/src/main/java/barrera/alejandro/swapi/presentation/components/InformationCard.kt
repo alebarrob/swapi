@@ -44,7 +44,7 @@ fun InformationCard(
                     dimensions.informationCardWithDecorativeImageTopPadding
 
                 highlightImageResourceId != null ->
-                    dimensions.informationCardWithHighlightImageTopPadding
+                    dimensions.medium
 
                 else -> dimensions.default
             },
@@ -85,7 +85,7 @@ fun InformationCard(
                     Modifier
                         .align(Alignment.TopEnd)
                         .offset(
-                            x = dimensions.informationCardTopEndDecorativeImageXOffSet,
+                            x = dimensions.extraSmall,
                             y = dimensions.informationCardTopEndDecorativeImageYOffSet
                         )
                 } else {
@@ -136,7 +136,7 @@ fun InformationCard(
         modifier = modifier.padding(
             top = when {
                 decorativeImageResourceId != null -> dimensions.informationCardWithDecorativeImageTopPadding
-                highlightImageResourceId != null -> dimensions.informationCardWithHighlightImageTopPadding
+                highlightImageResourceId != null -> dimensions.medium
                 else -> dimensions.default
             },
             start = if (highlightImageResourceId != null && imagePosition == ImagePosition.HIGHLIGHT_ON_START) {
@@ -170,7 +170,7 @@ fun InformationCard(
                     Modifier
                         .align(Alignment.TopEnd)
                         .offset(
-                            x = dimensions.informationCardTopEndDecorativeImageXOffSet,
+                            x = dimensions.extraSmall,
                             y = dimensions.informationCardTopEndDecorativeImageYOffSet
                         )
                 } else {

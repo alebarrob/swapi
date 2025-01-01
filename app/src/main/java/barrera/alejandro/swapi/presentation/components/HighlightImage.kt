@@ -18,13 +18,11 @@ import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.util.constant.PREVIEW_BACKGROUND
-import barrera.alejandro.swapi.presentation.util.enums.HighlightImageSize
 
 @Composable
 fun HighlightImage(
     imageResourceId: Int,
-    modifier: Modifier = Modifier,
-    size: HighlightImageSize = HighlightImageSize.MEDIUM
+    modifier: Modifier = Modifier
 ) {
     val dimensions = LocalDimensions.current
     val colors = MaterialTheme.colorScheme
@@ -32,13 +30,7 @@ fun HighlightImage(
 
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(
-            size = if (size == HighlightImageSize.MEDIUM) {
-                dimensions.highlightImageMediumShapeSize
-            } else {
-                dimensions.highlightImageSmallShapeSize
-            }
-        ),
+        shape = RoundedCornerShape(size = dimensions.medium),
         colors = CardDefaults.cardColors(containerColor = colors.tertiary),
         border = BorderStroke(
             width = dimensions.highlightImageBorderWidth,
@@ -50,13 +42,7 @@ fun HighlightImage(
             contentDescription = stringResource(id = R.string.selected_food_icon_description),
             modifier = Modifier
                 .padding(all = dimensions.small)
-                .size(
-                    if (size == HighlightImageSize.MEDIUM) {
-                        dimensions.highlightImageMediumSize
-                    } else {
-                        dimensions.highlightImageSmallSize
-                    }
-                )
+                .size(dimensions.large)
         )
     }
 }
@@ -66,24 +52,7 @@ fun HighlightImage(
     backgroundColor = PREVIEW_BACKGROUND
 )
 @Composable
-private fun SmallHighlightImagePreview() {
-    SwapiTheme {
-        val dimensions = LocalDimensions.current
-
-        HighlightImage(
-            imageResourceId = R.drawable.blueberry_ic,
-            modifier = Modifier.padding(all = dimensions.large),
-            size = HighlightImageSize.SMALL
-        )
-    }
-}
-
-@Preview(
-    showBackground = true,
-    backgroundColor = PREVIEW_BACKGROUND
-)
-@Composable
-private fun MediumHighlightImagePreview() {
+private fun HighlightImagePreview() {
     SwapiTheme {
         val dimensions = LocalDimensions.current
 

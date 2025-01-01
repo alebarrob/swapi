@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun SwapiApp(navController: NavHostController) {
     val route = navController.currentBackStackEntryAsState().value?.destination?.route
-    val categoryScreenRoute = "barrera.alejandro.swapi.core.presentation.navigation.Category"
+    val categoryScreenRoute = "barrera.alejandro.swapi.presentation.navigation.Category"
     var topBarIsVisible by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(route) {

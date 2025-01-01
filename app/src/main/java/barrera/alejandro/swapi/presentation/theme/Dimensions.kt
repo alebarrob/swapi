@@ -16,11 +16,9 @@ data class Dimensions(
     val informationCardShapeSize: Dp = 10.dp,
     val informationCardTextVerticalPadding: Dp = 45.dp,
     val informationCardWithDecorativeImageTopPadding: Dp = 93.dp,
-    val informationCardWithHighlightImageTopPadding: Dp = 16.dp,
     val informationCardWithHighlightImageHorizontalPadding: Dp = 12.dp,
     val informationCardTopStartDecorativeImageXOffSet: Dp = 3.dp,
     val informationCardTopStartDecorativeImageYOffSet: Dp = -(93).dp,
-    val informationCardTopEndDecorativeImageXOffSet: Dp = 4.dp,
     val informationCardTopEndDecorativeImageYOffSet: Dp = -(85).dp,
     val informationCardTopStartHighlightImageXOffSet: Dp = -(12).dp,
     val informationCardTopStartHighlightImageYOffSet: Dp = -(16).dp,
@@ -36,14 +34,9 @@ data class Dimensions(
     val actionButtonShapeSize: Dp = 12.dp,
     val actionButtonBorderWidth: Dp = 2.dp,
     val actionButtonHorizontalContentPadding: Dp = 52.dp,
-    val actionButtonVerticalContentPadding: Dp = 16.dp,
 
     val screenPaddingTop: Dp = 100.dp,
 
-    val highlightImageSmallShapeSize: Dp = 15.dp,
-    val highlightImageMediumShapeSize: Dp = 15.dp,
-    val highlightImageSmallSize: Dp = 30.dp,
-    val highlightImageMediumSize: Dp = 30.dp,
     val highlightImageBorderWidth: Dp = 1.dp
 )
 
