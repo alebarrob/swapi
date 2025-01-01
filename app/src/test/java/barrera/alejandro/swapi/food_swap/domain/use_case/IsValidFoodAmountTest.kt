@@ -1,5 +1,6 @@
 package barrera.alejandro.swapi.food_swap.domain.use_case
 
+import barrera.alejandro.swapi.domain.use_case.IsValidFoodAmount
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test

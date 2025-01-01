@@ -1,8 +1,9 @@
 package barrera.alejandro.swapi.food_swap.domain.use_case
 
-import barrera.alejandro.swapi.food_swap.domain.model.Category
-import barrera.alejandro.swapi.food_swap.domain.model.Food
-import barrera.alejandro.swapi.food_swap.domain.model.Unit
+import barrera.alejandro.swapi.domain.model.Category
+import barrera.alejandro.swapi.domain.model.Food
+import barrera.alejandro.swapi.domain.use_case.GetEquivalentFoods
+import barrera.alejandro.swapi.domain.model.Unit
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test

@@ -9,8 +9,8 @@ import androidx.compose.ui.test.performTextInput
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ActivityScenario
-import barrera.alejandro.swapi.core.presentation.MainActivity
-import barrera.alejandro.swapi.core.presentation.SwapiApp
+import barrera.alejandro.swapi.presentation.MainActivity
+import barrera.alejandro.swapi.presentation.SwapiApp
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
