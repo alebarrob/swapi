@@ -4,7 +4,7 @@
     <string name="error_popup_title">¡Ups!</string>
     <string name="error_popup_text">Ocurrió un error inesperado. Reinicia la aplicación e inténtalo de nuevo.</string>
     <string name="error_popup_ok">OK</string>
-    <string name="back">Volver</string>
+    <string name="back">VOLVER</string>
     <string name="back_icon_description">Icono de flecha atrás</string>
     <string name="reset_icon_description">Icono de reset</string>
 
