@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace = "barrera.alejandro.swapi"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "barrera.alejandro.swapi"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 2
         versionName = "1.1"
 
