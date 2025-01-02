@@ -1,3 +1,10 @@
+import java.util.Properties
+
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = Properties()
+
+if (localPropertiesFile.exists()) localProperties.load(localPropertiesFile.inputStream())
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,6 +13,7 @@ plugins {
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.google.dagger.hilt.android)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -23,6 +31,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            type = "String",
+            name = "INTERSTITIAL_AD_ID",
+            value = "\"${localProperties.getProperty("INTERSTITIAL_AD_ID", "")}\""
+        )
+        manifestPlaceholders["APPLICATION_ADMOB_ID"] =
+            localProperties.getProperty("APPLICATIONAD_ADMOB_ID", "")
     }
 
     buildTypes {
@@ -53,6 +69,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     packaging {
@@ -101,6 +118,13 @@ dependencies {
     implementation(libs.google.dagger.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.google.dagger.hilt.compiler)
+
+    // Firebase Libraries
+    implementation(platform(libs.firebase.bom))
+
+    // Ads Libraries
+    implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
 
     // Testing Libraries
     testImplementation(libs.junit)

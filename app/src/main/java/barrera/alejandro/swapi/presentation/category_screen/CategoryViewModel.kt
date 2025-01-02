@@ -3,7 +3,6 @@ package barrera.alejandro.swapi.presentation.category_screen
 import androidx.lifecycle.viewModelScope
 import barrera.alejandro.swapi.presentation.base.BaseViewModel
 import barrera.alejandro.swapi.util.annotation.GetAllCategoriesUseCase
-import barrera.alejandro.swapi.presentation.base.UiEvent
 import barrera.alejandro.swapi.domain.model.Category
 import barrera.alejandro.swapi.domain.use_case.SuspendUseCaseNoParams
 import barrera.alejandro.swapi.presentation.mapper.toCategoryUi
@@ -15,7 +14,9 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(
     @GetAllCategoriesUseCase
     private val getAllCategories: SuspendUseCaseNoParams<List<Category>>
-) : BaseViewModel<CategoryScreenState, CategoryScreenEvent>(initialState = CategoryScreenState()) {
+) : BaseViewModel<CategoryScreenState, CategoryScreenEvent>(
+    initialState = CategoryScreenState.Loading
+) {
 
     override fun onEvent(event: CategoryScreenEvent) {
         when (event) {
@@ -24,20 +25,17 @@ class CategoryViewModel @Inject constructor(
     }
 
     private fun loadCategories() {
-        state = state.copy(isLoading = true)
         viewModelScope.launch {
             getAllCategories().fold(
                 success = { categories ->
-                    state = state.copy(
+                    state = CategoryScreenState.Success(
                         categories = categories.map { category ->
                             category.toCategoryUi()
-                        },
-                        isLoading = false
+                        }
                     )
                 },
                 failure = {
-                    state = state.copy(isLoading = false)
-                    sendUiEvent(UiEvent.ShowErrorPopup)
+                    state = CategoryScreenState.Failure
                 }
             )
         }

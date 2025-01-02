@@ -19,17 +19,18 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.components.InformationCard
-import barrera.alejandro.swapi.presentation.components.LoadableContent
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
-import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.presentation.util.enums.ImagePosition
 import barrera.alejandro.swapi.presentation.util.extension.toBoldColoredAnnotatedString
 import barrera.alejandro.swapi.presentation.components.ActionButton
+import barrera.alejandro.swapi.presentation.components.FailureScreen
 import barrera.alejandro.swapi.presentation.components.FoodAmountCard
+import barrera.alejandro.swapi.presentation.components.LoadingScreen
 import barrera.alejandro.swapi.presentation.model.CategoryUi
 import barrera.alejandro.swapi.presentation.model.FoodUi
 import barrera.alejandro.swapi.presentation.model.UnitUi
+import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -38,151 +39,117 @@ fun FoodAmountSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FoodAmountSelectionViewModel = hiltViewModel<FoodAmountSelectionViewModel>()
 ) {
-    val dimensions = LocalDimensions.current
-    val colorVariants = LocalColorVariants.current
-
-    val state = viewModel.state
-
-    var amount by rememberSaveable { mutableStateOf("") }
-    var amountHasError by rememberSaveable { mutableStateOf(false) }
-
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(FoodAmountSelectionScreenEvent.LoadFood)
     }
 
-    BaseScreen(
-        modifier = modifier,
-        uiEvent = viewModel.uiEvent
+    BaseScreen(uiEvent = viewModel.uiEvent) {
+        when (val state = viewModel.state) {
+            is FoodAmountSelectionScreenState.Loading -> LoadingScreen(modifier = modifier)
+
+            is FoodAmountSelectionScreenState.Success -> SuccessFoodAmountSelectionScreen(
+                state = state,
+                onCalculateClick = onCalculateClick,
+                isValidFoodAmount = viewModel::isValidFoodAmount,
+                onInvalidFoodAmount = {
+                    viewModel.onEvent(FoodAmountSelectionScreenEvent.InvalidFoodAmount)
+                },
+                modifier = modifier
+            )
+
+            is FoodAmountSelectionScreenState.Failure -> FailureScreen(modifier = modifier)
+        }
+    }
+}
+
+@Composable
+fun SuccessFoodAmountSelectionScreen(
+    state: FoodAmountSelectionScreenState.Success,
+    onCalculateClick: (Int, String) -> Unit,
+    isValidFoodAmount: (String) -> Boolean,
+    onInvalidFoodAmount: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val dimensions = LocalDimensions.current
+    val colorVariants = LocalColorVariants.current
+
+    var amount by rememberSaveable { mutableStateOf("") }
+    var amountHasError by rememberSaveable { mutableStateOf(false) }
+
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(
+                start = dimensions.large,
+                end = dimensions.large,
+                top = dimensions.large
+            )
+            .imePadding(),
+        verticalArrangement = Arrangement.spacedBy(dimensions.large),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LoadableContent(isLoading = state.isLoading) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = dimensions.large,
-                        end = dimensions.large,
-                        top = dimensions.large
-                    )
-                    .imePadding(),
-                verticalArrangement = Arrangement.spacedBy(dimensions.large),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                item {
-                    InformationCard(
-                        text = stringResource(id = R.string.food_amount_selection_screen_message).toBoldColoredAnnotatedString(
-                            mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
-                        decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
-                        imagePosition = ImagePosition.DECORATIVE_ON_START
-                    )
-                }
-                state.food?.let { food ->
-                    item {
-                        FoodAmountCard(
-                            food = food,
-                            amount = amount,
-                            onAmountChange = {
-                                amount = it
-                            },
-                            isError = amountHasError
-                        )
+        item {
+            InformationCard(
+                text = stringResource(id = R.string.food_amount_selection_screen_message).toBoldColoredAnnotatedString(
+                    mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
+                decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
+                imagePosition = ImagePosition.DECORATIVE_ON_START
+            )
+        }
+        item {
+            FoodAmountCard(
+                food = state.food,
+                amount = amount,
+                onAmountChange = {
+                    amount = it
+                },
+                isError = amountHasError
+            )
+        }
+        item {
+            ActionButton(
+                text = stringResource(id = R.string.food_amount_selection_screen_button_text),
+                onClick = {
+                    if (isValidFoodAmount(amount)) {
+                        amountHasError = false
+                        onCalculateClick(state.food.id, amount)
+                    } else {
+                        amountHasError = true
+                        onInvalidFoodAmount()
                     }
                 }
-                item {
-                    ActionButton(
-                        text = stringResource(id = R.string.food_amount_selection_screen_button_text),
-                        onClick = {
-                            state.food?.let { food ->
-                                if (viewModel.isValidFoodAmount(amount)) {
-                                    amountHasError = false
-                                    onCalculateClick(food.id, amount)
-                                } else {
-                                    amountHasError = true
-                                    viewModel.onEvent(FoodAmountSelectionScreenEvent.InvalidFoodAmount)
-                                }
-                            }
-                        }
-                    )
-                }
-            }
+            )
         }
     }
 }
 
 @Preview
 @Composable
-private fun FoodAmountSelectionScreenPreview(
-    modifier: Modifier = Modifier,
-    onCalculateClick: (Int, String) -> Unit = { _, _ -> },
-    state: FoodAmountSelectionScreenState = FoodAmountSelectionScreenState(
-        food = FoodUi(
-            id = 1,
-            name = "Fresas",
-            imageResourceId = R.drawable.strawberry_ic,
-            standardAmount = "250",
-            categoryUi = CategoryUi(
-                id = 1,
-                name ="Frutas",
-                conversionFactor = 130.0
-            ),
-            unitUi = UnitUi(
-                id = 1,
-                name = "gr."
-            )
-        ),
-        isLoading = false
-    )
-) {
+private fun PreviewSuccessFoodAmountSelectionScreenPreview() {
     SwapiTheme {
-        val dimensions = LocalDimensions.current
-        val colorVariants = LocalColorVariants.current
-
-        var amount by rememberSaveable { mutableStateOf("") }
-
-        BaseScreen(
-            modifier = modifier,
-            uiEvent = flowOf()
-        ) {
-            LoadableContent(isLoading = state.isLoading) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(
-                            start = dimensions.large,
-                            end = dimensions.large,
-                            top = dimensions.large
+        BaseScreen(uiEvent = flowOf()) {
+            SuccessFoodAmountSelectionScreen(
+                state = FoodAmountSelectionScreenState.Success(
+                    food = FoodUi(
+                        id = 1,
+                        name = "Fresas",
+                        imageResourceId = R.drawable.strawberry_ic,
+                        standardAmount = "250",
+                        categoryUi = CategoryUi(
+                            id = 1,
+                            name ="Frutas",
+                            conversionFactor = 130.0
+                        ),
+                        unitUi = UnitUi(
+                            id = 1,
+                            name = "gr."
                         )
-                        .imePadding(),
-                    verticalArrangement = Arrangement.spacedBy(dimensions.large),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    item {
-                        InformationCard(
-                            text = stringResource(id = R.string.food_amount_selection_screen_message).toBoldColoredAnnotatedString(
-                                mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
-                            decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
-                            imagePosition = ImagePosition.DECORATIVE_ON_START
-                        )
-                    }
-                    state.food?.let { food ->
-                        item {
-                            FoodAmountCard(
-                                food = food,
-                                amount = amount,
-                                onAmountChange = {
-                                    amount = it
-                                },
-                                isError = false
-                            )
-                        }
-                    }
-                    item {
-                        ActionButton(
-                            text = stringResource(id = R.string.food_amount_selection_screen_button_text),
-                            onClick = {  }
-                        )
-                    }
-                }
-            }
+                    )
+                ),
+                onCalculateClick = { _, _ -> },
+                isValidFoodAmount = { _ -> true },
+                onInvalidFoodAmount = {}
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.data.entity
+package barrera.alejandro.swapi.data.local.entity
 
 import androidx.room.Embedded
 import androidx.room.Relation

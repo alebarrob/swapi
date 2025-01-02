@@ -1,9 +1,9 @@
-package barrera.alejandro.swapi.data.dao
+package barrera.alejandro.swapi.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
-import barrera.alejandro.swapi.data.entity.FoodWithCategoryAndUnit
+import barrera.alejandro.swapi.data.local.entity.FoodWithCategoryAndUnit
 
 @Dao
 interface FoodDao {

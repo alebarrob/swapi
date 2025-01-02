@@ -2,9 +2,12 @@ package barrera.alejandro.swapi.presentation.food_result_screen
 
 import barrera.alejandro.swapi.presentation.model.FoodUi
 
-data class FoodResultScreenState(
-    val discardedFood: FoodUi? = null,
-    val discardedFoodAmount: String,
-    val equivalentFoods: List<FoodUi> = emptyList(),
-    val isLoading: Boolean = false
-)
+sealed class FoodResultScreenState {
+    data object Loading : FoodResultScreenState()
+    data class Success(
+        val discardedFood: FoodUi,
+        val discardedFoodAmount: String,
+        val equivalentFoods: List<FoodUi>
+    ) : FoodResultScreenState()
+    data object Failure : FoodResultScreenState()
+}

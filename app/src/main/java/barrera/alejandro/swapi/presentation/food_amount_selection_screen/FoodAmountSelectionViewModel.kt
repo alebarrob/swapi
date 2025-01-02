@@ -28,7 +28,7 @@ class FoodAmountSelectionViewModel @Inject constructor(
     @IsValidFoodAmountUseCase
     private val isValidFoodAmount: UseCase<IsValidFoodAmount.Params, Boolean>
 ) : BaseViewModel<FoodAmountSelectionScreenState, FoodAmountSelectionScreenEvent>(
-    initialState = FoodAmountSelectionScreenState()
+    initialState = FoodAmountSelectionScreenState.Loading
 ) {
 
     override fun onEvent(event: FoodAmountSelectionScreenEvent) {
@@ -39,20 +39,17 @@ class FoodAmountSelectionViewModel @Inject constructor(
     }
 
     private fun loadFood() {
-        state = state.copy(isLoading = true)
         viewModelScope.launch {
             getFoodById(params = GetFoodById.Params(
                 id = savedStateHandle.toRoute<FoodAmountSelection>().foodId)
             ).fold(
                 success = { food ->
-                    state = state.copy(
-                        food = food.toFoodUi(),
-                        isLoading = false
+                    state = FoodAmountSelectionScreenState.Success(
+                        food = food.toFoodUi()
                     )
                 },
                 failure = {
-                    state = state.copy(isLoading = false)
-                    sendUiEvent(UiEvent.ShowErrorPopup)
+                    state = FoodAmountSelectionScreenState.Failure
                 }
             )
         }

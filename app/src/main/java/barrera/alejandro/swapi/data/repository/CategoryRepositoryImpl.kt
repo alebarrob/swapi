@@ -1,7 +1,7 @@
 package barrera.alejandro.swapi.data.repository
 
 import barrera.alejandro.swapi.domain.Result
-import barrera.alejandro.swapi.data.dao.CategoryDao
+import barrera.alejandro.swapi.data.local.dao.CategoryDao
 import barrera.alejandro.swapi.data.mapper.toCategory
 import barrera.alejandro.swapi.domain.repository.CategoryRepository
 import kotlinx.coroutines.CoroutineDispatcher

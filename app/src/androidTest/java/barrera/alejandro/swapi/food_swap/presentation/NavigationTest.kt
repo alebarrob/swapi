@@ -39,7 +39,11 @@ class NavigationTest {
             navController.navigatorProvider.addNavigator(ComposeNavigator())
 
             activity.setContent {
-                SwapiApp(navController = navController)
+                SwapiApp(
+                    navController = navController,
+                    isPrivacyOptionsRequired = false,
+                    onInfoClick = {},
+                )
             }
         }
     }

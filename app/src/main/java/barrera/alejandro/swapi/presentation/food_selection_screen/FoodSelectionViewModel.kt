@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import barrera.alejandro.swapi.presentation.base.BaseViewModel
-import barrera.alejandro.swapi.presentation.base.UiEvent
 import barrera.alejandro.swapi.presentation.navigation.FoodSelection
 import barrera.alejandro.swapi.util.annotation.GetFoodsByCategoryIdUseCase
 import barrera.alejandro.swapi.domain.model.Food
@@ -21,7 +20,7 @@ class FoodSelectionViewModel @Inject constructor(
     @GetFoodsByCategoryIdUseCase
     private val getFoodsByCategoryId: SuspendUseCase<GetFoodsByCategoryId.Params, List<Food>>
 ) : BaseViewModel<FoodSelectionScreenState, FoodSelectionScreenEvent>(
-    initialState = FoodSelectionScreenState()
+    initialState = FoodSelectionScreenState.Loading
 ) {
 
     override fun onEvent(event: FoodSelectionScreenEvent) {
@@ -31,7 +30,6 @@ class FoodSelectionViewModel @Inject constructor(
     }
 
     private fun loadFood() {
-        state = state.copy(isLoading = true)
         viewModelScope.launch {
             getFoodsByCategoryId(
                 params = GetFoodsByCategoryId.Params(
@@ -39,16 +37,14 @@ class FoodSelectionViewModel @Inject constructor(
                 )
             ).fold(
                 success = { foods ->
-                    state = state.copy(
+                    state = FoodSelectionScreenState.Success(
                         foods = foods.map { food ->
                             food.toFoodUi()
-                        },
-                        isLoading = false
+                        }
                     )
                 },
                 failure = {
-                    state = state.copy(isLoading = false)
-                    sendUiEvent(UiEvent.ShowErrorPopup)
+                    state = FoodSelectionScreenState.Failure
                 }
             )
         }

@@ -1,8 +1,8 @@
-package barrera.alejandro.swapi.data.dao
+package barrera.alejandro.swapi.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import barrera.alejandro.swapi.data.entity.CategoryEntity
+import barrera.alejandro.swapi.data.local.entity.CategoryEntity
 
 @Dao
 interface CategoryDao {

@@ -3,10 +3,10 @@ package barrera.alejandro.swapi.data.di
 import android.content.Context
 import androidx.room.Room
 import barrera.alejandro.swapi.util.annotation.IoDispatcher
-import barrera.alejandro.swapi.data.dao.CategoryDao
-import barrera.alejandro.swapi.data.dao.FoodDao
+import barrera.alejandro.swapi.data.local.dao.CategoryDao
+import barrera.alejandro.swapi.data.local.dao.FoodDao
 import barrera.alejandro.swapi.data.repository.CategoryRepositoryImpl
-import barrera.alejandro.swapi.data.database.SwapiDatabase
+import barrera.alejandro.swapi.data.local.database.SwapiDatabase
 import barrera.alejandro.swapi.data.repository.FoodRepositoryImpl
 import barrera.alejandro.swapi.domain.repository.CategoryRepository
 import barrera.alejandro.swapi.domain.repository.FoodRepository

@@ -1,7 +1,7 @@
 package barrera.alejandro.swapi.data.repository
 
 import barrera.alejandro.swapi.domain.Result
-import barrera.alejandro.swapi.data.dao.FoodDao
+import barrera.alejandro.swapi.data.local.dao.FoodDao
 import barrera.alejandro.swapi.data.mapper.toFood
 import barrera.alejandro.swapi.domain.repository.FoodRepository
 import kotlinx.coroutines.CoroutineDispatcher

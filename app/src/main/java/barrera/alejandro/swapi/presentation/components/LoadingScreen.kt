@@ -8,33 +8,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.util.constant.PREVIEW_BACKGROUND
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun LoadableContent(
-    isLoading: Boolean = false,
-    content: @Composable () -> Unit
-) {
+fun LoadingScreen(modifier: Modifier = Modifier) {
     val colors = MaterialTheme.colorScheme
 
-    if (isLoading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(color = colors.secondary)
-        }
-    } else content()
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(color = colors.secondary)
+    }
 }
 
-@Preview(
-    showBackground = true,
-    backgroundColor = PREVIEW_BACKGROUND
-)
+@Preview
 @Composable
-private fun LoadingLayoutBackground() {
+private fun PreviewLoadingScreen() {
     SwapiTheme {
-        LoadableContent(isLoading = true) {}
+        BaseScreen(uiEvent = flowOf()) {
+            LoadingScreen()
+        }
     }
 }

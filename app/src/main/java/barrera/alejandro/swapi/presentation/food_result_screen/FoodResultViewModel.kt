@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import barrera.alejandro.swapi.presentation.base.BaseViewModel
-import barrera.alejandro.swapi.presentation.base.UiEvent
 import barrera.alejandro.swapi.presentation.navigation.FoodResult
 import barrera.alejandro.swapi.util.annotation.GetEquivalentFoodsUseCase
 import barrera.alejandro.swapi.util.annotation.GetFoodByIdUseCase
@@ -30,9 +29,7 @@ class FoodResultViewModel @Inject constructor(
     @GetEquivalentFoodsUseCase
     private val getEquivalentFoods: UseCase<GetEquivalentFoods.Params, List<Food>>
 ) : BaseViewModel<FoodResultScreenState, FoodResultScreenEvent>(
-    initialState = FoodResultScreenState(
-        discardedFoodAmount = savedStateHandle.toRoute<FoodResult>().amount
-    )
+    initialState = FoodResultScreenState.Loading
 ) {
 
     override fun onEvent(event: FoodResultScreenEvent) {
@@ -42,42 +39,48 @@ class FoodResultViewModel @Inject constructor(
     }
 
     private fun loadEquivalentFood() {
-        state = state.copy(isLoading = true)
         viewModelScope.launch {
             getFoodById(
                 params = GetFoodById.Params(id = savedStateHandle.toRoute<FoodResult>().foodId)
             ).fold(
                 success = { discardedFood ->
-                    state = state.copy(discardedFood = discardedFood.toFoodUi())
-                    getFoodsByCategoryId(
-                        params = GetFoodsByCategoryId.Params(discardedFood.category.id)
-                    ).fold(
-                        success = { replacementFoods ->
-                            state = state.copy(
-                                isLoading = false,
-                                equivalentFoods = getEquivalentFoods(
-                                    GetEquivalentFoods.Params(
-                                        discardedFood = discardedFood,
-                                        discardedFoodAmount = state.discardedFoodAmount
-                                            .replace(oldValue = ",", newValue = ".")
-                                            .toDouble(),
-                                        replacementFoods = replacementFoods
-                                    )
-                                ).map { food ->
-                                    food.toFoodUi()
-                                }
-                            )
-                        },
-                        failure = { onFailure() }
+                    handleReplacementFoods(
+                        discardedFood = discardedFood,
+                        discardedFoodAmount = savedStateHandle.toRoute<FoodResult>().amount
                     )
                 },
-                failure = { onFailure() }
+                failure = {
+                    state = FoodResultScreenState.Failure
+                }
             )
         }
     }
 
-    private suspend fun onFailure() {
-        state = state.copy(isLoading = false)
-        sendUiEvent(UiEvent.ShowErrorPopup)
+    private suspend fun handleReplacementFoods(
+        discardedFood: Food,
+        discardedFoodAmount: String
+    ) {
+        getFoodsByCategoryId(
+            params = GetFoodsByCategoryId.Params(discardedFood.category.id)
+        ).fold(
+            success = { replacementFoods ->
+                state = FoodResultScreenState.Success(
+                    discardedFood = discardedFood.toFoodUi(),
+                    discardedFoodAmount = discardedFoodAmount,
+                    equivalentFoods = getEquivalentFoods(
+                        GetEquivalentFoods.Params(
+                            discardedFood = discardedFood,
+                            discardedFoodAmount = discardedFoodAmount
+                                .replace(oldValue = ",", newValue = ".")
+                                .toDouble(),
+                            replacementFoods = replacementFoods
+                        )
+                    ).map { food -> food.toFoodUi() }
+                )
+            },
+            failure = {
+                state = FoodResultScreenState.Failure
+            }
+        )
     }
 }
