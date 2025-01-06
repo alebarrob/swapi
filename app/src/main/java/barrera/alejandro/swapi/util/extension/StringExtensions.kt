@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.util.extension
+package barrera.alejandro.swapi.util.extension
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.buildAnnotatedString

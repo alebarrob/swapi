@@ -22,8 +22,8 @@ import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 import barrera.alejandro.swapi.util.constant.PREVIEW_BACKGROUND
-import barrera.alejandro.swapi.presentation.util.enums.ImagePosition
-import barrera.alejandro.swapi.presentation.util.extension.toBoldColoredAnnotatedString
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
+import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
 
 @Composable
 fun InformationCard(

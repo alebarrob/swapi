@@ -9,14 +9,22 @@ import barrera.alejandro.swapi.domain.model.Category
 import barrera.alejandro.swapi.domain.model.Food
 import barrera.alejandro.swapi.domain.repository.CategoryRepository
 import barrera.alejandro.swapi.domain.repository.FoodRepository
+import barrera.alejandro.swapi.domain.use_case.FlowUseCaseNoParams
 import barrera.alejandro.swapi.domain.use_case.GetAllCategories
 import barrera.alejandro.swapi.domain.use_case.GetEquivalentFoods
 import barrera.alejandro.swapi.domain.use_case.GetFoodsByCategoryId
 import barrera.alejandro.swapi.domain.use_case.GetFoodById
+import barrera.alejandro.swapi.domain.use_case.GetFoodEquivalenceCount
+import barrera.alejandro.swapi.domain.use_case.IncrementFoodEquivalenceCount
 import barrera.alejandro.swapi.domain.use_case.IsValidFoodAmount
+import barrera.alejandro.swapi.domain.use_case.ResetFoodEquivalenceCount
 import barrera.alejandro.swapi.domain.use_case.SuspendUseCase
 import barrera.alejandro.swapi.domain.use_case.SuspendUseCaseNoParams
+import barrera.alejandro.swapi.domain.use_case.SuspendUseCaseNoParamsNoResponse
 import barrera.alejandro.swapi.domain.use_case.UseCase
+import barrera.alejandro.swapi.util.annotation.GetFoodEquivalenceCountUseCase
+import barrera.alejandro.swapi.util.annotation.IncrementFoodEquivalenceCountUseCase
+import barrera.alejandro.swapi.util.annotation.ResetFoodEquivalenceCountUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,4 +65,25 @@ object FoodSwapDomainModule {
     @GetEquivalentFoodsUseCase
     fun provideGetEquivalentFood(): UseCase<GetEquivalentFoods.Params, List<Food>> =
         GetEquivalentFoods()
+
+    @Provides
+    @ViewModelScoped
+    @GetFoodEquivalenceCountUseCase
+    fun provideGetFoodEquivalenceCount(
+        repository: FoodRepository
+    ): FlowUseCaseNoParams<Int> = GetFoodEquivalenceCount(repository)
+
+    @Provides
+    @ViewModelScoped
+    @IncrementFoodEquivalenceCountUseCase
+    fun provideIncrementFoodEquivalenceCount(
+        repository: FoodRepository
+    ): SuspendUseCaseNoParamsNoResponse = IncrementFoodEquivalenceCount(repository)
+
+    @Provides
+    @ViewModelScoped
+    @ResetFoodEquivalenceCountUseCase
+    fun provideResetFoodEquivalenceCount(
+        repository: FoodRepository
+    ): SuspendUseCaseNoParamsNoResponse = ResetFoodEquivalenceCount(repository)
 }

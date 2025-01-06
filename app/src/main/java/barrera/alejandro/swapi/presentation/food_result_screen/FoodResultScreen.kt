@@ -1,78 +1,38 @@
 package barrera.alejandro.swapi.presentation.food_result_screen
 
-import android.content.Context
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import barrera.alejandro.swapi.BuildConfig
 import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.MainActivity
 import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.components.FailureScreen
 import barrera.alejandro.swapi.presentation.components.FoodGrid
 import barrera.alejandro.swapi.presentation.components.InformationCard
 import barrera.alejandro.swapi.presentation.components.LoadingScreen
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
 import barrera.alejandro.swapi.presentation.model.CategoryUi
 import barrera.alejandro.swapi.presentation.model.FoodUi
 import barrera.alejandro.swapi.presentation.model.UnitUi
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.presentation.util.enums.ImagePosition
-import barrera.alejandro.swapi.presentation.util.extension.toBoldColoredAnnotatedString
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.ump.UserMessagingPlatform
+import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
 import kotlinx.coroutines.flow.flowOf
-
-private const val TAG_ADMOB = "AdMob"
-private const val MSG_AD_CLICKED = "The user clicked on the ad"
-private const val MSG_AD_CLOSED = "The ad was closed"
-private const val MSG_AD_FAILED_TO_SHOW = "Failed to show the ad"
-private const val MSG_AD_IMPRESSION = "The ad recorded an impression"
-private const val MSG_AD_SHOWN = "The ad was shown in fullscreen"
-private const val MSG_AD_FAILED_TO_LOAD = "Failed to load the ad"
 
 @Composable
 fun FoodResultScreen(
     modifier: Modifier = Modifier,
     viewModel: FoodResultViewModel = hiltViewModel<FoodResultViewModel>()
 ) {
-    val context = LocalContext.current
-
-    LaunchedEffect(key1 = Unit) {
-        if (UserMessagingPlatform.getConsentInformation(context).canRequestAds()) {
-            showInterstitialAd(
-                context = context,
-                onAdLoaded = {
-                    viewModel.onEvent(FoodResultScreenEvent.LoadEquivalentFood)
-                },
-                onAdFailed = {
-                    viewModel.onEvent(FoodResultScreenEvent.LoadEquivalentFood)
-                }
-            )
-        } else {
-            viewModel.onEvent(FoodResultScreenEvent.LoadEquivalentFood)
-        }
-
-    }
-
     BaseScreen(uiEvent = viewModel.uiEvent) {
         when (val state = viewModel.state) {
             is FoodResultScreenState.Loading -> LoadingScreen(modifier = modifier)
@@ -134,57 +94,6 @@ private fun SuccessFoodResultScreen(
             withResult = true
         )
     }
-}
-
-private fun showInterstitialAd(
-    context: Context,
-    onAdLoaded: () -> Unit,
-    onAdFailed: () -> Unit,
-) {
-    val adRequest = AdRequest.Builder().build()
-    var interstitialAd: InterstitialAd?
-
-    InterstitialAd.load(
-        context,
-        BuildConfig.INTERSTITIAL_AD_ID,
-        adRequest,
-        object : InterstitialAdLoadCallback() {
-            override fun onAdLoaded(ad: InterstitialAd) {
-                interstitialAd = ad
-                ad.fullScreenContentCallback = object : FullScreenContentCallback() {
-                    override fun onAdClicked() {
-                        Log.d(TAG_ADMOB, MSG_AD_CLICKED)
-                    }
-
-                    override fun onAdDismissedFullScreenContent() {
-                        Log.d(TAG_ADMOB, MSG_AD_CLOSED)
-                        interstitialAd = null // Release the resource
-                    }
-
-                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        Log.e(TAG_ADMOB, "$MSG_AD_FAILED_TO_SHOW: ${adError.message}")
-                        interstitialAd = null
-                    }
-
-                    override fun onAdImpression() {
-                        Log.d(TAG_ADMOB, MSG_AD_IMPRESSION)
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                        Log.d(TAG_ADMOB, MSG_AD_SHOWN)
-                    }
-                }
-                if (context is MainActivity) interstitialAd?.show(context)
-                onAdLoaded()
-            }
-
-            override fun onAdFailedToLoad(error: LoadAdError) {
-                Log.e(TAG_ADMOB, "$MSG_AD_FAILED_TO_LOAD: ${error.message}")
-                interstitialAd = null
-                onAdFailed()
-            }
-        }
-    )
 }
 
 @Preview

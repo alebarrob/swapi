@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,8 +21,8 @@ import barrera.alejandro.swapi.presentation.model.CategoryUi
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.presentation.util.enums.ImagePosition
-import barrera.alejandro.swapi.presentation.util.extension.toBoldColoredAnnotatedString
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
+import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -32,10 +31,6 @@ fun CategoryScreen(
     modifier: Modifier = Modifier,
     viewModel: CategoryViewModel = hiltViewModel<CategoryViewModel>(),
 ) {
-    LaunchedEffect(key1 = Unit) {
-        viewModel.onEvent(CategoryScreenEvent.LoadCategories)
-    }
-
     BaseScreen(uiEvent = viewModel.uiEvent) {
         when (val state = viewModel.state) {
             is CategoryScreenState.Loading -> LoadingScreen(modifier = modifier)

@@ -53,7 +53,12 @@ object FoodSwapDataModule {
     @Singleton
     @Provides
     fun provideFoodRepository(
+        @ApplicationContext context: Context,
         dao: FoodDao,
         @IoDispatcher dispatcher: CoroutineDispatcher
-    ): FoodRepository = FoodRepositoryImpl(dao, dispatcher)
+    ): FoodRepository = FoodRepositoryImpl(
+        context,
+        dao,
+        dispatcher
+    )
 }

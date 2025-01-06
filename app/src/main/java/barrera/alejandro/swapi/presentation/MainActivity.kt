@@ -28,10 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var consentInformation: ConsentInformation
     private lateinit var params: ConsentRequestParameters
-    private val isPrivacyOptionsRequired: Boolean
-        get() =
-            consentInformation.privacyOptionsRequirementStatus ==
-                    ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -43,7 +39,6 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             SwapiApp(
-                isPrivacyOptionsRequired = isPrivacyOptionsRequired,
                 onInfoClick = {
                     UserMessagingPlatform.showPrivacyOptionsForm(this) { error ->
                         Log.d(PRIVACY_OPTIONS_FORM_ERROR, error?.message ?: UNKNOWN_ERROR)
@@ -82,7 +77,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SwapiApp(
-    isPrivacyOptionsRequired: Boolean,
     onInfoClick: () -> Unit,
     navController: NavHostController
 ) {
@@ -96,7 +90,6 @@ fun SwapiApp(
                 route?.let {
                     TopBar(
                         route = route,
-                        isPrivacyOptionsRequired = isPrivacyOptionsRequired,
                         onBackClick = {
                             navController.popBackStack()
                         },

@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.util.enums
+package barrera.alejandro.swapi.presentation.enums
 
 enum class ImagePosition {
     DECORATIVE_ON_START,

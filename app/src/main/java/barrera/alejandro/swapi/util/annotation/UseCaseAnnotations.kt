@@ -21,3 +21,15 @@ annotation class IsValidFoodAmountUseCase
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class GetEquivalentFoodsUseCase
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class GetFoodEquivalenceCountUseCase
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class IncrementFoodEquivalenceCountUseCase
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ResetFoodEquivalenceCountUseCase

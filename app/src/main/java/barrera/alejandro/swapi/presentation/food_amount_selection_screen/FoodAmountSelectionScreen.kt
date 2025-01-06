@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -18,19 +17,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.base.BaseScreen
-import barrera.alejandro.swapi.presentation.components.InformationCard
-import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
-import barrera.alejandro.swapi.presentation.theme.LocalDimensions
-import barrera.alejandro.swapi.presentation.util.enums.ImagePosition
-import barrera.alejandro.swapi.presentation.util.extension.toBoldColoredAnnotatedString
 import barrera.alejandro.swapi.presentation.components.ActionButton
 import barrera.alejandro.swapi.presentation.components.FailureScreen
 import barrera.alejandro.swapi.presentation.components.FoodAmountCard
+import barrera.alejandro.swapi.presentation.components.InformationCard
 import barrera.alejandro.swapi.presentation.components.LoadingScreen
 import barrera.alejandro.swapi.presentation.model.CategoryUi
 import barrera.alejandro.swapi.presentation.model.FoodUi
 import barrera.alejandro.swapi.presentation.model.UnitUi
+import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
+import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
+import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -39,10 +38,6 @@ fun FoodAmountSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FoodAmountSelectionViewModel = hiltViewModel<FoodAmountSelectionViewModel>()
 ) {
-    LaunchedEffect(key1 = Unit) {
-        viewModel.onEvent(FoodAmountSelectionScreenEvent.LoadFood)
-    }
-
     BaseScreen(uiEvent = viewModel.uiEvent) {
         when (val state = viewModel.state) {
             is FoodAmountSelectionScreenState.Loading -> LoadingScreen(modifier = modifier)

@@ -23,6 +23,10 @@ class FoodSelectionViewModel @Inject constructor(
     initialState = FoodSelectionScreenState.Loading
 ) {
 
+    init {
+        onEvent(FoodSelectionScreenEvent.LoadFood)
+    }
+
     override fun onEvent(event: FoodSelectionScreenEvent) {
         when (event) {
             is FoodSelectionScreenEvent.LoadFood -> loadFood()

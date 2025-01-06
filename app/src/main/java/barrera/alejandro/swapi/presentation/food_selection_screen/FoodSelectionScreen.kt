@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -24,7 +23,7 @@ import barrera.alejandro.swapi.presentation.model.FoodUi
 import barrera.alejandro.swapi.presentation.model.UnitUi
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.presentation.util.enums.ImagePosition
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
@@ -33,10 +32,6 @@ fun FoodSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FoodSelectionViewModel = hiltViewModel<FoodSelectionViewModel>()
 ) {
-    LaunchedEffect(key1 = Unit) {
-        viewModel.onEvent(FoodSelectionScreenEvent.LoadFood)
-    }
-
     BaseScreen(uiEvent = viewModel.uiEvent) {
         when (val state = viewModel.state) {
             is FoodSelectionScreenState.Loading -> LoadingScreen(modifier = modifier)

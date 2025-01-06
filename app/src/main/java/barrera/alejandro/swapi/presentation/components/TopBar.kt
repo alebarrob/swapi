@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.util.enums.Screen
+import barrera.alejandro.swapi.presentation.enums.Screen
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 
@@ -25,7 +25,6 @@ import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 @Composable
 fun TopBar(
     route: String,
-    isPrivacyOptionsRequired: Boolean,
     onBackClick: () -> Unit,
     onResetClick: () -> Unit,
     onInfoClick: () -> Unit,
@@ -69,13 +68,11 @@ fun TopBar(
                     )
                 }
             }
-            if (isPrivacyOptionsRequired) {
-                IconButton(onClick = onInfoClick) {
-                    Image(
-                        painter = painterResource(id = R.drawable.info_ic),
-                        contentDescription = stringResource(id = R.string.info_icon_description)
-                    )
-                }
+            IconButton(onClick = onInfoClick) {
+                Image(
+                    painter = painterResource(id = R.drawable.info_ic),
+                    contentDescription = stringResource(id = R.string.info_icon_description)
+                )
             }
         }
     )
@@ -87,7 +84,6 @@ private fun TopBarPreview() {
     SwapiTheme {
         TopBar(
             route = "barrera.alejandro.swapi.presentation.navigation.FoodSelection",
-            isPrivacyOptionsRequired = true,
             onBackClick = {},
             onResetClick = {},
             onInfoClick = {}

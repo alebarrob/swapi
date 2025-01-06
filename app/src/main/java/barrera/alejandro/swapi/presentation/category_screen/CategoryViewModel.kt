@@ -18,6 +18,10 @@ class CategoryViewModel @Inject constructor(
     initialState = CategoryScreenState.Loading
 ) {
 
+    init {
+        onEvent(CategoryScreenEvent.LoadCategories)
+    }
+
     override fun onEvent(event: CategoryScreenEvent) {
         when (event) {
             is CategoryScreenEvent.LoadCategories -> loadCategories()

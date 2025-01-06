@@ -7,7 +7,7 @@ import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.base.BaseViewModel
 import barrera.alejandro.swapi.presentation.base.UiEvent
 import barrera.alejandro.swapi.presentation.navigation.FoodAmountSelection
-import barrera.alejandro.swapi.presentation.util.UiText
+import barrera.alejandro.swapi.presentation.base.UiText
 import barrera.alejandro.swapi.util.annotation.GetFoodByIdUseCase
 import barrera.alejandro.swapi.util.annotation.IsValidFoodAmountUseCase
 import barrera.alejandro.swapi.domain.model.Food
@@ -30,6 +30,10 @@ class FoodAmountSelectionViewModel @Inject constructor(
 ) : BaseViewModel<FoodAmountSelectionScreenState, FoodAmountSelectionScreenEvent>(
     initialState = FoodAmountSelectionScreenState.Loading
 ) {
+
+    init {
+        onEvent(FoodAmountSelectionScreenEvent.LoadFood)
+    }
 
     override fun onEvent(event: FoodAmountSelectionScreenEvent) {
         when (event) {

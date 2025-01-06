@@ -14,6 +14,7 @@ googleServices = "4.4.2"
 activityCompose = "1.9.3"
 playServicesAds = "23.6.0"
 userMessaginPlatform = "3.1.0"
+dataStore = "1.1.1"
 composeBom = "2024.12.01"
 firebaseBom = "33.7.0"
 junit = "4.13.2"
@@ -60,6 +61,9 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 # Ads
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
 user-messaging-platform = { group = "com.google.android.ump", name = "user-messaging-platform", version.ref = "userMessaginPlatform" }
+
+# Data Store
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 
 # Testing Libraries
 junit = { group = "junit", name = "junit", version.ref = "junit" }
