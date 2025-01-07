@@ -83,7 +83,6 @@ fun SwapiApp(
     val route = navController.currentBackStackEntryAsState().value?.destination?.route
 
     SwapiTheme {
-
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {

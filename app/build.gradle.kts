@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 android {
@@ -121,6 +122,8 @@ dependencies {
 
     // Firebase Libraries
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
     // Ads Libraries
     implementation(libs.play.services.ads)
