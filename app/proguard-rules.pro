@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Admob
+-keep class com.google.android.gms.ads.** { *; }
+-keep class com.google.android.gms.ads.internal.** { *; }
+-dontwarn com.google.android.gms.**
+
+# Firebase
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
