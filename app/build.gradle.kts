@@ -25,8 +25,8 @@ android {
         applicationId = "barrera.alejandro.swapi"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 4
+        versionName = "1.3"
 
         testInstrumentationRunner = "barrera.alejandro.swapi.core.util.SwapiTestRunner"
         vectorDrawables {

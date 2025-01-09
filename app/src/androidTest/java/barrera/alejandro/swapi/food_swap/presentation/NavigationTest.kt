@@ -41,7 +41,6 @@ class NavigationTest {
             activity.setContent {
                 SwapiApp(
                     navController = navController,
-                    isPrivacyOptionsRequired = false,
                     onInfoClick = {},
                 )
             }
