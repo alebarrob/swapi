@@ -26,8 +26,9 @@ import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 fun TopBar(
     route: String,
     onBackClick: () -> Unit,
-    onResetClick: () -> Unit,
+    onDietitianClick: () -> Unit,
     onInfoClick: () -> Unit,
+    onResetClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val colorVariants = LocalColorVariants.current
@@ -60,6 +61,18 @@ fun TopBar(
             navigationIconContentColor = colorVariants.white
         ),
         actions = {
+            IconButton(onClick = onDietitianClick) {
+                Image(
+                    painter = painterResource(id = R.drawable.dietitian_ic),
+                    contentDescription = stringResource(id = R.string.dietitian_icon_description)
+                )
+            }
+            IconButton(onClick = onInfoClick) {
+                Image(
+                    painter = painterResource(id = R.drawable.info_ic),
+                    contentDescription = stringResource(id = R.string.info_icon_description)
+                )
+            }
             if (!route.contains(Screen.Category.name)) {
                 IconButton(onClick = onResetClick) {
                     Image(
@@ -67,12 +80,6 @@ fun TopBar(
                         contentDescription = stringResource(id = R.string.reset_icon_description)
                     )
                 }
-            }
-            IconButton(onClick = onInfoClick) {
-                Image(
-                    painter = painterResource(id = R.drawable.info_ic),
-                    contentDescription = stringResource(id = R.string.info_icon_description)
-                )
             }
         }
     )
@@ -86,7 +93,8 @@ private fun TopBarPreview() {
             route = "barrera.alejandro.swapi.presentation.navigation.FoodSelection",
             onBackClick = {},
             onResetClick = {},
-            onInfoClick = {}
+            onInfoClick = {},
+            onDietitianClick = {}
         )
     }
 }

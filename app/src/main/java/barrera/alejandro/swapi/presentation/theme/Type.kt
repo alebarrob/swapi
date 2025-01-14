@@ -49,6 +49,13 @@ val Typography = Typography(
         lineHeight = 19.sp,
         color = Black
     ),
+    bodyLarge = TextStyle(
+        fontFamily = fontFamilyInriaSans,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp,
+        lineHeight = 19.sp,
+        color = Black
+    ),
     labelLarge = TextStyle(
         fontFamily = fontFamilyLato,
         fontWeight = FontWeight.Bold,

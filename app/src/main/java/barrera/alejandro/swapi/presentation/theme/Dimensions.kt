@@ -37,7 +37,12 @@ data class Dimensions(
 
     val screenPaddingTop: Dp = 100.dp,
 
-    val highlightImageBorderWidth: Dp = 1.dp
+    val highlightImageBorderWidth: Dp = 1.dp,
+
+    val marketingImageBorderWidth : Dp = 1.dp,
+    val marketingImageSize : Dp = 120.dp,
+    val socialsHorizontalArrangement : Dp = 45.dp,
+    val socialsSize : Dp = 45.dp,
 )
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }

@@ -4,10 +4,20 @@
     <string name="error_popup_title">¡Ups!</string>
     <string name="error_popup_text">Ocurrió un error inesperado. Reinicia la aplicación e inténtalo de nuevo.</string>
     <string name="error_popup_ok">OK</string>
+    <string name="dietitian_popup_title">¿Necesitas Asesoría Profesional?</string>
+    <string name="dietitian_popup_text">Contacta con nuestra Dietista Mónica Barrera para un Plan Personalizado.</string>
     <string name="back">VOLVER</string>
     <string name="back_icon_description">Icono de flecha atrás</string>
     <string name="reset_icon_description">Icono de reset</string>
     <string name="info_icon_description">Icono de información</string>
+    <string name="dietitian_icon_description">Icono de dietista</string>
+    <string name="instagram_icon_description">Icono de Instagram</string>
+    <string name="default_icon_description">Icono</string>
+    <string name="instagram_icon_text">Instagram</string>
+    <string name="email_icon_description">Icono de Email</string>
+    <string name="email_icon_text">Email</string>
+    <string name="monica_instagram_url">https://www.instagram.com/monicabr_dietista/</string>
+    <string name="email_address">monicabarrerarobles@gmail.com</string>
 
     // Categories screen
     <string name="happy_watermelon_icon_description">Imagen de una sandía feliz.</string>

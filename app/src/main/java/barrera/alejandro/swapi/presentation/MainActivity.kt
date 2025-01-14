@@ -8,15 +8,25 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import barrera.alejandro.swapi.R
+import barrera.alejandro.swapi.presentation.components.AlertPopup
+import barrera.alejandro.swapi.presentation.components.MarketingColumn
+import barrera.alejandro.swapi.presentation.components.MarketingImage
 import barrera.alejandro.swapi.presentation.components.TopBar
 import barrera.alejandro.swapi.presentation.navigation.Category
 import barrera.alejandro.swapi.presentation.navigation.NavGraph
+import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 import com.google.android.gms.ads.MobileAds
 import com.google.android.ump.ConsentInformation
@@ -82,7 +92,11 @@ fun SwapiApp(
 ) {
     val route = navController.currentBackStackEntryAsState().value?.destination?.route
 
+    var showDietitianPopup by rememberSaveable { mutableStateOf(false) }
+
     SwapiTheme {
+        val colorVariants = LocalColorVariants.current
+
         Scaffold(
             containerColor = Color.Transparent,
             topBar = {
@@ -92,14 +106,37 @@ fun SwapiApp(
                         onBackClick = {
                             navController.popBackStack()
                         },
+                        onDietitianClick = {
+                            showDietitianPopup = true
+                        },
+                        onInfoClick = onInfoClick,
                         onResetClick = {
                             navController.popBackStack(route = Category, inclusive = false)
-                        },
-                        onInfoClick = onInfoClick
+                        }
                     )
                 }
             }
         ) { paddingValues ->
+            if (showDietitianPopup) {
+                AlertPopup(
+                    onDismiss = { showDietitianPopup = false },
+                    icon = {
+                        MarketingImage(R.drawable.monica_picture)
+                    },
+                    buttonResourceId = R.string.back,
+                    body = {
+                        MarketingColumn(
+                            text = stringResource(id = R.string.dietitian_popup_text),
+                            instagramUrl = stringResource(id = R.string.monica_instagram_url),
+                            email = stringResource(R.string.email_address)
+                        )
+                    },
+                    containerColor = colorVariants.white,
+                    contentColor = colorVariants.black,
+                    titleResourceId = R.string.dietitian_popup_title
+                )
+            }
+
             NavGraph(
                 navController = navController,
                 modifier = Modifier.padding(paddingValues)
