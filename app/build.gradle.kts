@@ -1,13 +1,11 @@
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 val localPropertiesFile = rootProject.file("local.properties")
 val localProperties = Properties()
 
-if (localPropertiesFile.exists()) localProperties.load(localPropertiesFile.inputStream())
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
     alias(libs.plugins.google.devtools.ksp)
@@ -17,18 +15,25 @@ plugins {
     alias(libs.plugins.google.firebase.crashlytics)
 }
 
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { inputStream ->
+        localProperties.load(inputStream)
+    }
+}
+
 android {
     namespace = "barrera.alejandro.swapi"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "barrera.alejandro.swapi"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 5
         versionName = "1.4"
 
         testInstrumentationRunner = "barrera.alejandro.swapi.core.util.SwapiTestRunner"
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -36,8 +41,9 @@ android {
         buildConfigField(
             type = "String",
             name = "INTERSTITIAL_AD_ID",
-            value = "\"${localProperties.getProperty("INTERSTITIAL_AD_ID", "")}\""
+            value = "\"${localProperties.getProperty("INTERSTITIAL_AD_ID", "")}\"",
         )
+
         manifestPlaceholders["APPLICATION_ADMOB_ID"] =
             localProperties.getProperty("APPLICATIONAD_ADMOB_ID", "")
     }
@@ -46,52 +52,70 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
+
             ndk {
                 debugSymbolLevel = "FULL"
             }
         }
+
         debug {
             isMinifyEnabled = false
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         buildConfig = true
         compose = true
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    composeCompiler {
-        enableStrongSkippingMode = true
-        reportsDestination = layout.buildDirectory.dir("compose_compiler")
-        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
-    }
-    ksp {
-        arg("room.generateKotlin", "true")
-    }
-    room {
-        schemaDirectory("$projectDir/schemas")
+}
+
+ksp {
+    arg("room.generateKotlin", "true")
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+composeCompiler {
+    reportsDestination =
+        layout.buildDirectory.dir("compose_compiler")
+
+    stabilityConfigurationFiles.add(
+        rootProject.layout.projectDirectory.file("stability_config.conf")
+    )
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
     }
 }
 
 dependencies {
+    val composeBom = platform(libs.androidx.compose.bom)
+
     // Core Libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -102,10 +126,11 @@ dependencies {
     // Compose Libraries
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(composeBom)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material.icons.core)
 
     // Material Design Library
     implementation(libs.androidx.material3)
@@ -129,7 +154,7 @@ dependencies {
     implementation(libs.play.services.ads)
     implementation(libs.user.messaging.platform)
 
-    // Data Store Libraries
+    // DataStore Libraries
     implementation(libs.datastore.preferences)
 
     // Testing Libraries
@@ -138,7 +163,7 @@ dependencies {
     androidTestImplementation(libs.google.dagger.hilt.android.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(composeBom)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.androidx.navigation.testing)
 
