@@ -3,65 +3,49 @@ package barrera.alejandro.swapi.domain.use_case
 import barrera.alejandro.swapi.domain.model.Food
 
 /**
- * A use case for calculating the equivalent amounts of replacement food items.
+ * Calculates equivalent amounts for alternative foods in the same category.
  *
- * This use case follows these steps:
+ * The discarded food is removed from the result. Each remaining food receives
+ * an equivalent amount based on the ratio between its standard amount and the
+ * standard amount of the discarded food:
  *
- * 1. Removes the discarded food from the list of food items.
- *
- * 2. For each remaining food item in the list, it calculates the amount that would be equivalent
- *    to the discarded food. This calculation involves a two-step conversion:
- *
- *    a. The amount of discarded food is first converted to a "standard" amount. This is done by
- *       multiplying the amount of discarded food by the conversion factor of its category and then
- *       dividing by the standard amount of the discarded food. The result is an amount in a reference
- *       or "standard" unit. For example, for the 'fruit' category, the standard unit is 'apples'.
- *
- *    b. The "standard" amount is then converted to the amount of the desired food. This is done by
- *       multiplying the "standard" amount by the standard amount of the desired food and then
- *       dividing by the conversion factor of the discarded food's category. The result is the
- *       equivalent amount of the desired food.
- *
- * This process ensures that the amounts of the food items are comparable by converting them to a
- * common "standard" unit before performing the calculation.
- *
- * @property Params Parameters for this use case, containing the discarded food, its amount, and the replacement foods.
+ * equivalent amount =
+ * discarded amount × desired standard amount ÷ discarded standard amount
  */
-class GetEquivalentFoods : UseCase<GetEquivalentFoods.Params, List<Food>> {
+class GetEquivalentFoods {
 
-    override fun invoke(params: Params) = params.replacementFoods
-        .removeDiscardedFood(params.discardedFood)
-        .map { food ->
-            food.copy(
-                equivalentAmount = getEquivalentAmount(
-                    discardedFood = params.discardedFood,
-                    discardedFoodAmount = params.discardedFoodAmount,
-                    desiredFood = food
-                )
-            )
-        }
-
-    private fun List<Food>.removeDiscardedFood(discardedFood: Food) = toMutableList().apply {
-        removeIf { food -> food.id == discardedFood.id }
-    }
-
-    private fun getEquivalentAmount(
+    operator fun invoke(
         discardedFood: Food,
         discardedFoodAmount: Double,
-        desiredFood: Food
-    ): Double {
-        val discardedToStandardAmount =
-            discardedFoodAmount * discardedFood.category.conversionFactor / discardedFood.standardAmount
+        replacementFoods: List<Food>,
+    ): List<Food> {
+        require(discardedFood.standardAmount > 0) {
+            INVALID_STANDARD_AMOUNT_MESSAGE
+        }
 
-        val equivalentDesiredFoodAmount =
-            discardedToStandardAmount * desiredFood.standardAmount / discardedFood.category.conversionFactor
-
-        return equivalentDesiredFoodAmount
+        return replacementFoods
+            .filterNot { food ->
+                food.id == discardedFood.id
+            }
+            .map { desiredFood ->
+                desiredFood.copy(
+                    equivalentAmount = calculateEquivalentAmount(
+                        discardedFood = discardedFood,
+                        discardedFoodAmount = discardedFoodAmount,
+                        desiredFood = desiredFood,
+                    ),
+                )
+            }
     }
 
-    data class Params(
-        val discardedFood: Food,
-        val discardedFoodAmount: Double,
-        val replacementFoods: List<Food>
-    )
+    private fun calculateEquivalentAmount(
+        discardedFood: Food,
+        discardedFoodAmount: Double,
+        desiredFood: Food,
+    ): Double = discardedFoodAmount * desiredFood.standardAmount / discardedFood.standardAmount
+
+    private companion object {
+        const val INVALID_STANDARD_AMOUNT_MESSAGE =
+            "Discarded food standard amount must be greater than zero"
+    }
 }

@@ -1,10 +1,8 @@
 package barrera.alejandro.swapi.presentation.category_screen
 
 import androidx.lifecycle.viewModelScope
+import barrera.alejandro.swapi.domain.use_case.GetAllCategories
 import barrera.alejandro.swapi.presentation.base.BaseViewModel
-import barrera.alejandro.swapi.util.annotation.GetAllCategoriesUseCase
-import barrera.alejandro.swapi.domain.model.Category
-import barrera.alejandro.swapi.domain.use_case.SuspendUseCaseNoParams
 import barrera.alejandro.swapi.presentation.mapper.toCategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,8 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    @GetAllCategoriesUseCase
-    private val getAllCategories: SuspendUseCaseNoParams<List<Category>>
+    private val getAllCategories: GetAllCategories
 ) : BaseViewModel<CategoryScreenState, CategoryScreenEvent>(
     initialState = CategoryScreenState.Loading
 ) {

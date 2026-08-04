@@ -1,9 +1,9 @@
 package barrera.alejandro.swapi.domain.use_case
 
-class IsValidFoodAmount : UseCase<IsValidFoodAmount.Params, Boolean> {
-    override fun invoke(params: Params) = params.amount.matches(Regex("\\d+([.,]\\d+)?"))
+class IsValidFoodAmount {
+    fun invoke(amount: String): Boolean = amount.matches(FOOD_AMOUNT_REGEX)
 
-    data class Params(
-        val amount: String
-    )
+    private companion object {
+        val FOOD_AMOUNT_REGEX = Regex("""\d+([.,]\d+)?""")
+    }
 }
