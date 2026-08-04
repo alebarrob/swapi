@@ -6,5 +6,5 @@ data class Food(
     val standardAmount: Double,
     val equivalentAmount: Double = 0.0,
     val category: Category,
-    val unit: Unit
+    val unit: Unit,
 )

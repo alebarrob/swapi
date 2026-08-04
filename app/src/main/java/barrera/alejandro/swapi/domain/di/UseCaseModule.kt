@@ -22,19 +22,19 @@ object UseCaseModule {
     @Provides
     @ViewModelScoped
     fun provideGetAllCategories(
-        repository: CategoryRepository
+        repository: CategoryRepository,
     ): GetAllCategories = GetAllCategories(repository)
 
     @Provides
     @ViewModelScoped
     fun provideGetFoodByCategoryId(
-        repository: FoodRepository
+        repository: FoodRepository,
     ): GetFoodsByCategoryId = GetFoodsByCategoryId(repository)
 
     @Provides
     @ViewModelScoped
     fun provideGetFoodById(
-        repository: FoodRepository
+        repository: FoodRepository,
     ): GetFoodById = GetFoodById(repository)
 
     @Provides
@@ -48,18 +48,18 @@ object UseCaseModule {
     @Provides
     @ViewModelScoped
     fun provideGetFoodEquivalenceCount(
-        repository: FoodRepository
+        repository: FoodRepository,
     ): GetFoodEquivalenceCount = GetFoodEquivalenceCount(repository)
 
     @Provides
     @ViewModelScoped
     fun provideIncrementFoodEquivalenceCount(
-        repository: FoodRepository
+        repository: FoodRepository,
     ): IncrementFoodEquivalenceCount = IncrementFoodEquivalenceCount(repository)
 
     @Provides
     @ViewModelScoped
     fun provideResetFoodEquivalenceCount(
-        repository: FoodRepository
+        repository: FoodRepository,
     ): ResetFoodEquivalenceCount = ResetFoodEquivalenceCount(repository)
 }

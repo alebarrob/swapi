@@ -6,5 +6,5 @@ import barrera.alejandro.swapi.domain.model.Category
 fun CategoryEntity.toCategory(): Category = Category(
     id = id,
     name = name,
-    conversionFactor = conversionFactor
+    conversionFactor = conversionFactor,
 )

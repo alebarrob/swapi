@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao,
     @param:IoDispatcher
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
 ) : CategoryRepository {
     override suspend fun getAllCategories(): Result<List<Category>> = withContext(dispatcher) {
         Result.from {

@@ -13,7 +13,7 @@ import barrera.alejandro.swapi.data.local.entity.UnitEntity
     entities = [
         CategoryEntity::class,
         UnitEntity::class,
-        FoodEntity::class
+        FoodEntity::class,
     ],
     version = DATABASE_VERSION
 )

@@ -3,5 +3,5 @@ package barrera.alejandro.swapi.domain.model
 data class Category(
     val id: Int,
     val name: String,
-    val conversionFactor: Double
+    val conversionFactor: Double,
 )

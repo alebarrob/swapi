@@ -19,7 +19,7 @@ object DatabaseModule {
         Room.databaseBuilder(
             context = context,
             klass = SwapiDatabase::class.java,
-            name = SwapiDatabase.DATABASE_NAME
+            name = SwapiDatabase.DATABASE_NAME,
         ).createFromAsset(databaseFilePath = SwapiDatabase.FILE_PATH)
             .build()
 }

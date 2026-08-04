@@ -7,13 +7,13 @@ data class FoodWithCategoryAndUnit(
     @Embedded val foodEntity: FoodEntity,
     @Relation(
         parentColumn = "category_id",
-        entityColumn = "id"
+        entityColumn = "id",
     )
     val categoryEntity: CategoryEntity,
 
     @Relation(
         parentColumn = "unit_id",
-        entityColumn = "id"
+        entityColumn = "id",
     )
-    val unitEntity: UnitEntity
+    val unitEntity: UnitEntity,
 )

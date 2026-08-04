@@ -23,7 +23,7 @@ class FoodRepositoryImpl @Inject constructor(
     private val context: Context,
     private val foodDao: FoodDao,
     @param:IoDispatcher
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
 ) : FoodRepository {
     override suspend fun getFoodsByCategoryId(categoryId: Int): Result<List<Food>> =
         withContext(dispatcher) {

@@ -8,5 +8,5 @@ fun FoodWithCategoryAndUnit.toFood(): Food = Food(
     name = foodEntity.name,
     standardAmount = foodEntity.standardAmount,
     category = categoryEntity.toCategory(),
-    unit = unitEntity.toUnit()
+    unit = unitEntity.toUnit(),
 )

@@ -10,5 +10,5 @@ data class CategoryEntity(
     val id: Int,
     val name: String,
     @ColumnInfo(name = "conversion_factor")
-    val conversionFactor: Double
+    val conversionFactor: Double,
 )
