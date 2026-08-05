@@ -96,7 +96,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -111,7 +110,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -126,7 +124,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -141,7 +138,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -156,7 +152,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -171,7 +166,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -186,7 +180,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -201,7 +194,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -216,7 +208,6 @@ private fun PreviewFoodGrid() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -249,7 +240,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -265,7 +255,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -281,7 +270,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -297,7 +285,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -313,7 +300,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -329,7 +315,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -345,7 +330,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -361,7 +345,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,
@@ -377,7 +360,6 @@ private fun PreviewFoodGridWithResult() {
                 categoryUi = CategoryUi(
                     id = 1,
                     name ="Frutas",
-                    conversionFactor = 130.0
                 ),
                 unitUi = UnitUi(
                     id = 1,

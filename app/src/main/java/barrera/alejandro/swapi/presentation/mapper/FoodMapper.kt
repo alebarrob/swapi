@@ -20,11 +20,10 @@ fun Food.toFoodUi() = FoodUi(
     unitUi = unit.toUnitUi()
 )
 
-// TODO Create a backend to add the links to the images and delete this map
-
 fun Food.getImageResourceId() = foodNameImageSourceIdMap[name] ?: R.drawable.placeholder_ic
 
 private val foodNameImageSourceIdMap = mapOf(
+    // Frutas
     "Arándanos" to R.drawable.blueberry_ic,
     "Cerezas" to R.drawable.cherry_ic,
     "Ciruelas" to R.drawable.plum_ic,
@@ -71,6 +70,10 @@ private val foodNameImageSourceIdMap = mapOf(
     "Queso burgos desnatado" to R.drawable.burgos_skimmed_cheese_ic,
     "Queso (Cualquier tipo)" to R.drawable.cheese_ic,
     "Queso fresco batido 0%" to R.drawable.whipped_cheese_ic,
+    "Melva" to R.drawable.melva_ic,
+    "Caballa" to R.drawable.mackerel_ic,
+    "Lomo asado" to R.drawable.roasted_pork_loin_ic,
+    "Pollo relleno de La Carloteña" to R.drawable.stuffed_chicken_ic,
     "Aceite" to R.drawable.oil_ic,
     "Aceitunas sin hueso" to R.drawable.olive_ic,
     "Aguacate" to R.drawable.avocado_ic,
@@ -80,6 +83,7 @@ private val foodNameImageSourceIdMap = mapOf(
     "Frutos secos" to R.drawable.nuts_ic,
     "Mantequilla de cacahuete" to R.drawable.peanut_butter_ic,
     "Huevo (Yema)" to R.drawable.egg_yolk_ic,
+    "Crema de cacahuete en polvo" to R.drawable.powdered_peanut_butter_ic,
     "Arroz o pasta (En seco)" to R.drawable.rice_ic,
     "Cereales de desayuno" to R.drawable.cereal_ic,
     "Copos o harina de avena" to R.drawable.oat_ic,
@@ -92,8 +96,18 @@ private val foodNameImageSourceIdMap = mapOf(
     "Puré de patata deshidratado (En polvo)" to R.drawable.potato_powder_ic,
     "Quinoa" to R.drawable.quinoa_ic,
     "Tortitas de arroz o maíz" to R.drawable.rice_cracker_ic,
+    "Ñoquis" to R.drawable.gnocchi_ic,
+    "Crema de arroz" to R.drawable.rice_cream_ic,
+    "Muesli" to R.drawable.muesli_ic,
+    "Granola" to R.drawable.granola_ic,
+    "Cuscús" to R.drawable.couscous_ic,
+    "Fideos de arroz" to R.drawable.rice_noodles_ic,
     "Leche desnatada" to R.drawable.milk_ic,
     "Yogur desnatado" to R.drawable.yogurt_ic,
     "Yogur griego" to R.drawable.greek_yogurt_ic,
-    "Yogur proteico" to R.drawable.protein_yogurt_ic
+    "Yogur proteico" to R.drawable.protein_yogurt_ic,
+    "Kéfir 0%" to R.drawable.kefir_ic,
+    "Yogur vegetal de soja sin azúcares añadidos" to R.drawable.soy_yogurt_ic,
+    "Batido proteico preparado" to R.drawable.protein_shake_ic,
+    "Leche semidesnatada" to R.drawable.semi_skimmed_milk_ic,
 )

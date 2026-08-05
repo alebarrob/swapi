@@ -107,11 +107,11 @@ private fun PreviewSuccessCategoryScreen() {
             SuccessCategoryScreen(
                 state = CategoryScreenState.Success(
                     categories = listOf(
-                        CategoryUi(id = 0, name = "FRUTAS", conversionFactor = 130.0),
-                        CategoryUi(id = 1, name = "GRASAS Y PROTEÍNAS", conversionFactor = 110.0),
-                        CategoryUi(id = 2, name = "GRASAS", conversionFactor = 50.0),
-                        CategoryUi(id = 3, name = "CARBOHIDRATOS", conversionFactor = 40.0),
-                        CategoryUi(id = 4, name = "LÁCTEOS", conversionFactor = 100.0)
+                        CategoryUi(id = 0, name = "FRUTAS"),
+                        CategoryUi(id = 1, name = "PROTEÍNAS"),
+                        CategoryUi(id = 2, name = "GRASAS"),
+                        CategoryUi(id = 3, name = "CARBOHIDRATOS"),
+                        CategoryUi(id = 4, name = "LÁCTEOS")
                     )
                 ),
                 onCategoryClick = {}

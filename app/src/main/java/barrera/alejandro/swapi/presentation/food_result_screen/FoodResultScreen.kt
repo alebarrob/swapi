@@ -112,7 +112,6 @@ private fun SuccessFoodResultScreenPreview() {
                         categoryUi = CategoryUi(
                             id = 1,
                             name ="Frutas",
-                            conversionFactor = 130.0
                         ),
                         unitUi = UnitUi(
                             id = 1,
@@ -130,7 +129,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -146,7 +144,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -162,7 +159,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -178,7 +174,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -194,7 +189,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -210,7 +204,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -226,7 +219,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -242,7 +234,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
@@ -258,7 +249,6 @@ private fun SuccessFoodResultScreenPreview() {
                             categoryUi = CategoryUi(
                                 id = 1,
                                 name ="Frutas",
-                                conversionFactor = 130.0
                             ),
                             unitUi = UnitUi(
                                 id = 1,
