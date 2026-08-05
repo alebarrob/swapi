@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.food_selection_screen
+package barrera.alejandro.swapi.presentation.food_selection
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement

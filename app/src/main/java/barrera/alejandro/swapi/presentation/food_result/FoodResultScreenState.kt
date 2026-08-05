@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.food_result_screen
+package barrera.alejandro.swapi.presentation.food_result
 
 import barrera.alejandro.swapi.presentation.model.FoodUi
 

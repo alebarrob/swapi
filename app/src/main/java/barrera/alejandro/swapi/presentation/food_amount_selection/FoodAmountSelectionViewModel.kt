@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.food_amount_selection_screen
+package barrera.alejandro.swapi.presentation.food_amount_selection
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope

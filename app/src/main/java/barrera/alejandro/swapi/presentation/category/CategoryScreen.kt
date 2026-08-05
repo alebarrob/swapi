@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.category_screen
+package barrera.alejandro.swapi.presentation.category
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize

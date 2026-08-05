@@ -5,10 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import barrera.alejandro.swapi.presentation.category_screen.CategoryScreen
-import barrera.alejandro.swapi.presentation.food_amount_selection_screen.FoodAmountSelectionScreen
-import barrera.alejandro.swapi.presentation.food_result_screen.FoodResultScreen
-import barrera.alejandro.swapi.presentation.food_selection_screen.FoodSelectionScreen
+import barrera.alejandro.swapi.presentation.category.CategoryScreen
+import barrera.alejandro.swapi.presentation.food_amount_selection.FoodAmountSelectionScreen
+import barrera.alejandro.swapi.presentation.food_result.FoodResultScreen
+import barrera.alejandro.swapi.presentation.food_selection.FoodSelectionScreen
 
 @Composable
 fun NavGraph(

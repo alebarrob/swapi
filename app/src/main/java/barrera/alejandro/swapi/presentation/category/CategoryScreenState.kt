@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.category_screen
+package barrera.alejandro.swapi.presentation.category
 
 import barrera.alejandro.swapi.presentation.model.CategoryUi
 

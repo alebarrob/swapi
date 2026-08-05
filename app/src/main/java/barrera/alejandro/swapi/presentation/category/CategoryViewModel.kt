@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.presentation.category_screen
+package barrera.alejandro.swapi.presentation.category
 
 import androidx.lifecycle.viewModelScope
 import barrera.alejandro.swapi.domain.use_case.GetAllCategories
