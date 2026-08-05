@@ -11,19 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.components.FailureScreen
 import barrera.alejandro.swapi.presentation.components.FoodGrid
 import barrera.alejandro.swapi.presentation.components.InformationCard
 import barrera.alejandro.swapi.presentation.components.LoadingScreen
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
 import barrera.alejandro.swapi.presentation.model.CategoryUi
 import barrera.alejandro.swapi.presentation.model.FoodUi
 import barrera.alejandro.swapi.presentation.model.UnitUi
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.presentation.enums.ImagePosition
 import kotlinx.coroutines.flow.flowOf
 
 @Composable

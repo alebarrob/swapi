@@ -142,7 +142,7 @@ dependencies {
 
     // Hilt Libraries
     implementation(libs.google.dagger.hilt.android)
-    implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.lifecycle.viewmodel.compose)
     ksp(libs.google.dagger.hilt.compiler)
 
     // Firebase Libraries
