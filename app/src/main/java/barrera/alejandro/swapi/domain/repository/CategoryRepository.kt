@@ -1,8 +1,8 @@
 package barrera.alejandro.swapi.domain.repository
 
-import barrera.alejandro.swapi.domain.Result
 import barrera.alejandro.swapi.domain.model.Category
+import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
-    suspend fun getAllCategories(): Result<List<Category>>
+    fun getAllCategories(): Flow<List<Category>>
 }

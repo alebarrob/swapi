@@ -23,7 +23,6 @@ fun Food.toFoodUi() = FoodUi(
 fun Food.getImageResourceId() = foodNameImageSourceIdMap[name] ?: R.drawable.placeholder_ic
 
 private val foodNameImageSourceIdMap = mapOf(
-    // Frutas
     "Arándanos" to R.drawable.blueberry_ic,
     "Cerezas" to R.drawable.cherry_ic,
     "Ciruelas" to R.drawable.plum_ic,

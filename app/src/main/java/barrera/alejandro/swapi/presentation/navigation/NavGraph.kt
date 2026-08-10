@@ -21,7 +21,7 @@ fun NavGraph(
     ) {
         composable<Category> {
             CategoryScreen(
-                onCategoryClick = { categoryId ->
+                onNavigateToFoodSelection = { categoryId ->
                     navController.navigate(route = FoodSelection(categoryId))
                 },
                 modifier = modifier

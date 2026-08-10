@@ -2,8 +2,8 @@ package barrera.alejandro.swapi.domain.use_case
 
 import barrera.alejandro.swapi.domain.model.Category
 import barrera.alejandro.swapi.domain.repository.CategoryRepository
-import barrera.alejandro.swapi.domain.Result
+import kotlinx.coroutines.flow.Flow
 
 class GetAllCategories(private val categoryRepository: CategoryRepository) {
-    suspend operator fun invoke(): Result<List<Category>> = categoryRepository.getAllCategories()
+    operator fun invoke(): Flow<List<Category>> = categoryRepository.getAllCategories()
 }

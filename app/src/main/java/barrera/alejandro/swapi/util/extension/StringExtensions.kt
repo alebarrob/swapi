@@ -33,3 +33,5 @@ fun String.toBoldColoredAnnotatedString(chunksToStyle: Map<String, Color>): Anno
         }
     }
 }
+
+fun String.normalizeDecimalSeparator(): String = replace(oldChar = ',', newChar = '.')

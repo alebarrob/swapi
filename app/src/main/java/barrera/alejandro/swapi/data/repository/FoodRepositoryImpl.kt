@@ -2,7 +2,6 @@ package barrera.alejandro.swapi.data.repository
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
-import barrera.alejandro.swapi.domain.Result
 import barrera.alejandro.swapi.data.local.dao.FoodDao
 import barrera.alejandro.swapi.data.local.data_store.DataStoreKeys
 import barrera.alejandro.swapi.data.local.data_store.dataStore
@@ -25,21 +24,20 @@ class FoodRepositoryImpl @Inject constructor(
     @param:IoDispatcher
     private val dispatcher: CoroutineDispatcher,
 ) : FoodRepository {
-    override suspend fun getFoodsByCategoryId(categoryId: Int): Result<List<Food>> =
-        withContext(dispatcher) {
-            Result.from {
-                foodDao.getFoodsByCategoryId(categoryId)
-                    .map { foodWithCategoryAndUnit ->
-                        foodWithCategoryAndUnit.toFood()
-                    }
+    override fun getFoodsByCategoryId(categoryId: Int): Flow<List<Food>> =
+        foodDao.getFoodsByCategoryId(categoryId)
+            .map { entities ->
+                entities.map { entity ->
+                    entity.toFood()
+                }
             }
-        }
+            .flowOn(dispatcher)
 
-    override suspend fun getFoodById(id: Int): Result<Food> = withContext(dispatcher) {
-        Result.from {
-            foodDao.getFoodById(id).toFood()
+    override fun getFoodById(id: Int): Flow<Food> = foodDao.getFoodById(id)
+        .map { entity ->
+            entity.toFood()
         }
-    }
+        .flowOn(dispatcher)
 
     override fun getFoodEquivalenceCount(): Flow<Int> = context.dataStore.data
         .map { preferences ->

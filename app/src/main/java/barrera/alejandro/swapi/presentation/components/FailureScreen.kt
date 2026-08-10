@@ -16,10 +16,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import kotlinx.coroutines.flow.flowOf
+import barrera.alejandro.swapi.util.constant.PREVIEW_BACKGROUND
 
 @Composable
 fun FailureScreen(modifier: Modifier = Modifier) {
@@ -55,12 +54,13 @@ fun FailureScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND,
+)
 @Composable
 private fun PreviewFailureScreen() {
     SwapiTheme {
-        BaseScreen(uiEvent = flowOf()) {
-            FailureScreen()
-        }
+        FailureScreen()
     }
 }

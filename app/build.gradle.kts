@@ -45,7 +45,7 @@ android {
         )
 
         manifestPlaceholders["APPLICATION_ADMOB_ID"] =
-            localProperties.getProperty("APPLICATIONAD_ADMOB_ID", "")
+            localProperties.getProperty("APPLICATION_ADMOB_ID", "")
     }
 
     buildTypes {
@@ -130,7 +130,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material.icons.core)
 
     // Material Design Library
     implementation(libs.androidx.material3)

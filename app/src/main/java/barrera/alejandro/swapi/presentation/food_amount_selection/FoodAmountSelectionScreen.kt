@@ -5,114 +5,175 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.components.ActionButton
 import barrera.alejandro.swapi.presentation.components.FailureScreen
 import barrera.alejandro.swapi.presentation.components.FoodAmountCard
 import barrera.alejandro.swapi.presentation.components.InformationCard
 import barrera.alejandro.swapi.presentation.components.LoadingScreen
-import barrera.alejandro.swapi.presentation.model.CategoryUi
-import barrera.alejandro.swapi.presentation.model.FoodUi
-import barrera.alejandro.swapi.presentation.model.UnitUi
+import barrera.alejandro.swapi.presentation.components.VerticalGradientBackground
+import barrera.alejandro.swapi.presentation.enums.ImagePosition
+import barrera.alejandro.swapi.presentation.food_amount_selection.FoodAmountSelectionContract.Action
+import barrera.alejandro.swapi.presentation.food_amount_selection.FoodAmountSelectionContract.Effect
+import barrera.alejandro.swapi.presentation.food_amount_selection.FoodAmountSelectionContract.State
+import barrera.alejandro.swapi.presentation.food_amount_selection.preview.FoodAmountSelectionStatePreviewParameterProvider
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.LocalDimensions
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.presentation.enums.ImagePosition
+import barrera.alejandro.swapi.util.constant.GRADIENT_START_FRACTION
 import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun FoodAmountSelectionScreen(
-    onCalculateClick: (Int, String) -> Unit,
+    onCalculateClick: (foodId: Int, amount: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: FoodAmountSelectionViewModel = hiltViewModel<FoodAmountSelectionViewModel>()
+    viewModel: FoodAmountSelectionViewModel = hiltViewModel(),
 ) {
-    BaseScreen(uiEvent = viewModel.uiEvent) {
-        when (val state = viewModel.state) {
-            is FoodAmountSelectionScreenState.Loading -> LoadingScreen(modifier = modifier)
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
-            is FoodAmountSelectionScreenState.Success -> SuccessFoodAmountSelectionScreen(
-                state = state,
-                onCalculateClick = onCalculateClick,
-                isValidFoodAmount = viewModel::isValidFoodAmount,
-                onInvalidFoodAmount = {
-                    viewModel.onEvent(FoodAmountSelectionScreenEvent.InvalidFoodAmount)
-                },
-                modifier = modifier
+    LaunchedEffect(viewModel, lifecycle) {
+        viewModel.effect
+            .flowWithLifecycle(
+                lifecycle = lifecycle,
+                minActiveState = Lifecycle.State.STARTED,
             )
+            .collect { effect ->
+                when (effect) {
+                    is Effect.NavigateToEquivalences -> {
+                        onCalculateClick(
+                            effect.foodId,
+                            effect.amount,
+                        )
+                    }
+                }
+            }
+    }
 
-            is FoodAmountSelectionScreenState.Failure -> FailureScreen(modifier = modifier)
+    FoodAmountSelectionScreen(
+        state = state,
+        onAction = viewModel::onAction,
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun FoodAmountSelectionScreen(
+    state: State,
+    onAction: (Action) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val colors = MaterialTheme.colorScheme
+    val colorVariants = LocalColorVariants.current
+    val windowHeightPx = LocalWindowInfo.current.containerSize.height
+
+    VerticalGradientBackground(
+        colors = listOf(
+            colorVariants.lightGreen,
+            colors.primary,
+        ),
+        startY = windowHeightPx * GRADIENT_START_FRACTION,
+        modifier = modifier.fillMaxSize(),
+    ) {
+        when (state) {
+            State.Loading -> {
+                LoadingScreen(modifier = Modifier.fillMaxSize())
+            }
+
+            State.Failure -> {
+                FailureScreen(modifier = Modifier.fillMaxSize())
+            }
+
+            is State.Success -> {
+                SuccessFoodAmountSelectionContent(
+                    state = state,
+                    onAction = onAction,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
     }
 }
 
 @Composable
-fun SuccessFoodAmountSelectionScreen(
-    state: FoodAmountSelectionScreenState.Success,
-    onCalculateClick: (Int, String) -> Unit,
-    isValidFoodAmount: (String) -> Boolean,
-    onInvalidFoodAmount: () -> Unit,
-    modifier: Modifier = Modifier
+private fun SuccessFoodAmountSelectionContent(
+    state: State.Success,
+    onAction: (Action) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val dimensions = LocalDimensions.current
     val colorVariants = LocalColorVariants.current
 
-    var amount by rememberSaveable { mutableStateOf("") }
-    var amountHasError by rememberSaveable { mutableStateOf(false) }
-
     LazyColumn(
         modifier = modifier
-            .fillMaxSize()
             .padding(
                 start = dimensions.large,
                 end = dimensions.large,
-                top = dimensions.large
+                top = dimensions.large,
             )
             .imePadding(),
         verticalArrangement = Arrangement.spacedBy(dimensions.large),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
             InformationCard(
-                text = stringResource(id = R.string.food_amount_selection_screen_message).toBoldColoredAnnotatedString(
-                    mapOf(stringResource(id = R.string.bold_colored_calculate_equivalences) to colorVariants.darkGreen)),
+                text = stringResource(
+                    id = R.string.food_amount_selection_screen_message,
+                ).toBoldColoredAnnotatedString(
+                    chunksToStyle = mapOf(
+                        stringResource(
+                            id = R.string.bold_colored_calculate_equivalences,
+                        ) to colorVariants.darkGreen,
+                    ),
+                ),
                 decorativeImageResourceId = R.drawable.surprised_watermelon_ic,
-                imagePosition = ImagePosition.DECORATIVE_ON_START
+                imagePosition = ImagePosition.DECORATIVE_ON_START,
             )
         }
+
         item {
             FoodAmountCard(
                 food = state.food,
-                amount = amount,
-                onAmountChange = {
-                    amount = it
+                amount = state.form.amount,
+                onAmountChange = { amount ->
+                    onAction(
+                        Action.AmountChanged(
+                            amount = amount,
+                        )
+                    )
                 },
-                isError = amountHasError
+                isError = state.form.amountHasError,
+                errorText = if (state.form.amountHasError) {
+                    stringResource(id = R.string.invalid_food_amount_error)
+                } else {
+                    null
+                },
             )
         }
+
         item {
             ActionButton(
-                text = stringResource(id = R.string.food_amount_selection_screen_button_text),
+                text = stringResource(
+                    id = R.string.food_amount_selection_screen_button_text,
+                ),
                 onClick = {
-                    if (isValidFoodAmount(amount)) {
-                        amountHasError = false
-                        onCalculateClick(state.food.id, amount)
-                    } else {
-                        amountHasError = true
-                        onInvalidFoodAmount()
-                    }
-                }
+                    onAction(Action.CalculateClicked)
+                },
             )
         }
     }
@@ -120,30 +181,14 @@ fun SuccessFoodAmountSelectionScreen(
 
 @Preview
 @Composable
-private fun PreviewSuccessFoodAmountSelectionScreenPreview() {
+private fun FoodAmountSelectionScreenPreview(
+    @PreviewParameter(FoodAmountSelectionStatePreviewParameterProvider::class)
+    state: State,
+) {
     SwapiTheme {
-        BaseScreen(uiEvent = flowOf()) {
-            SuccessFoodAmountSelectionScreen(
-                state = FoodAmountSelectionScreenState.Success(
-                    food = FoodUi(
-                        id = 1,
-                        name = "Fresas",
-                        imageResourceId = R.drawable.strawberry_ic,
-                        standardAmount = "250",
-                        categoryUi = CategoryUi(
-                            id = 1,
-                            name ="Frutas",
-                        ),
-                        unitUi = UnitUi(
-                            id = 1,
-                            name = "gr."
-                        )
-                    )
-                ),
-                onCalculateClick = { _, _ -> },
-                isValidFoodAmount = { _ -> true },
-                onInvalidFoodAmount = {}
-            )
-        }
+        FoodAmountSelectionScreen(
+            state = state,
+            onAction = {},
+        )
     }
 }
