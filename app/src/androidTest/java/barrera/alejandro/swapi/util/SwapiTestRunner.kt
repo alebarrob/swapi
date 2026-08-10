@@ -1,4 +1,4 @@
-package barrera.alejandro.swapi.core.util
+package barrera.alejandro.swapi.util
 
 import android.app.Application
 import android.content.Context

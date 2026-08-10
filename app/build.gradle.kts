@@ -32,7 +32,7 @@ android {
         versionCode = 5
         versionName = "1.4"
 
-        testInstrumentationRunner = "barrera.alejandro.swapi.core.util.SwapiTestRunner"
+        testInstrumentationRunner = "barrera.alejandro.swapi.util.SwapiTestRunner"
 
         vectorDrawables {
             useSupportLibrary = true
@@ -168,6 +168,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(composeBom)
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    kspAndroidTest(libs.google.dagger.hilt.compiler)
 
     // Debug Libraries
     debugImplementation(libs.androidx.ui.tooling)
