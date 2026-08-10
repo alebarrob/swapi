@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.ad.showInterstitialAd
@@ -39,17 +38,17 @@ import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
 
 @Composable
 fun FoodResultScreen(
+    viewModel: FoodResultViewModel,
     modifier: Modifier = Modifier,
-    viewModel: FoodResultViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-    val currentState = state
-
     LaunchedEffect(viewModel) {
         viewModel.initialize()
     }
+
+    val currentState = state
 
     if (currentState is State.Success) {
         LaunchedEffect(currentState.adState) {
@@ -65,7 +64,7 @@ fun FoodResultScreen(
     }
 
     FoodResultScreen(
-        state = state,
+        state = currentState,
         modifier = modifier,
     )
 }

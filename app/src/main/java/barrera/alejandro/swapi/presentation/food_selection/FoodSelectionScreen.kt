@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.components.FailureScreen
@@ -35,8 +34,8 @@ import barrera.alejandro.swapi.util.constant.GRADIENT_START_FRACTION
 @Composable
 fun FoodSelectionScreen(
     onFoodClick: (foodId: Int) -> Unit,
+    viewModel: FoodSelectionViewModel,
     modifier: Modifier = Modifier,
-    viewModel: FoodSelectionViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

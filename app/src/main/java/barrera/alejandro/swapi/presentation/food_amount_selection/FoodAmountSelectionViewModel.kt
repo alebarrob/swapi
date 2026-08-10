@@ -1,9 +1,7 @@
 package barrera.alejandro.swapi.presentation.food_amount_selection
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import barrera.alejandro.swapi.domain.model.Food
 import barrera.alejandro.swapi.domain.use_case.GetFoodById
 import barrera.alejandro.swapi.domain.use_case.IsValidFoodAmount
@@ -15,6 +13,9 @@ import barrera.alejandro.swapi.presentation.mapper.toFoodUi
 import barrera.alejandro.swapi.presentation.navigation.FoodAmountSelection
 import barrera.alejandro.swapi.util.constant.WHILE_SUBSCRIBED_STOP_TIMEOUT_MILLIS
 import barrera.alejandro.swapi.util.extension.normalizeDecimalSeparator
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,16 +27,17 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class FoodAmountSelectionViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+@HiltViewModel(
+    assistedFactory = FoodAmountSelectionViewModel.Factory::class,
+)
+class FoodAmountSelectionViewModel @AssistedInject constructor(
+    @Assisted route: FoodAmountSelection,
     getFoodById: GetFoodById,
     private val isValidFoodAmount: IsValidFoodAmount,
 ) : ViewModel() {
 
-    private val foodId = savedStateHandle.toRoute<FoodAmountSelection>().foodId
+    private val foodId = route.foodId
 
     private val formState = MutableStateFlow(FormState())
 
@@ -96,5 +98,10 @@ class FoodAmountSelectionViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(route: FoodAmountSelection): FoodAmountSelectionViewModel
     }
 }

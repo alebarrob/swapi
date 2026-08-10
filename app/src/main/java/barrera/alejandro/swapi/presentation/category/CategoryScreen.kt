@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import barrera.alejandro.swapi.R
 import barrera.alejandro.swapi.presentation.category.CategoryContract.State
@@ -34,8 +33,8 @@ import barrera.alejandro.swapi.util.extension.toBoldColoredAnnotatedString
 @Composable
 fun CategoryScreen(
     onNavigateToFoodSelection: (categoryId: Int) -> Unit,
+    viewModel: CategoryViewModel,
     modifier: Modifier = Modifier,
-    viewModel: CategoryViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

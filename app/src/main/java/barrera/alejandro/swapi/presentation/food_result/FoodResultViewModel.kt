@@ -1,10 +1,8 @@
 package barrera.alejandro.swapi.presentation.food_result
 
 import androidx.annotation.MainThread
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import barrera.alejandro.swapi.domain.model.Food
 import barrera.alejandro.swapi.domain.use_case.GetEquivalentFoods
 import barrera.alejandro.swapi.domain.use_case.GetFoodById
@@ -18,6 +16,9 @@ import barrera.alejandro.swapi.presentation.food_result.FoodResultContract.State
 import barrera.alejandro.swapi.presentation.mapper.toFoodUi
 import barrera.alejandro.swapi.presentation.navigation.FoodResult
 import barrera.alejandro.swapi.util.constant.WHILE_SUBSCRIBED_STOP_TIMEOUT_MILLIS
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -31,11 +32,12 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class FoodResultViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+@HiltViewModel(
+    assistedFactory = FoodResultViewModel.Factory::class,
+)
+class FoodResultViewModel @AssistedInject constructor(
+    @Assisted route: FoodResult,
     getFoodById: GetFoodById,
     private val getFoodsByCategoryId: GetFoodsByCategoryId,
     private val getEquivalentFoods: GetEquivalentFoods,
@@ -43,8 +45,6 @@ class FoodResultViewModel @Inject constructor(
     private val incrementFoodEquivalenceCount: IncrementFoodEquivalenceCount,
     private val resetFoodEquivalenceCount: ResetFoodEquivalenceCount,
 ) : ViewModel() {
-
-    private val route = savedStateHandle.toRoute<FoodResult>()
 
     private val foodId = route.foodId
     private val discardedFoodAmount = route.amount
@@ -80,7 +80,7 @@ class FoodResultViewModel @Inject constructor(
         .map<List<Food>, State> { replacementFoods ->
             State.Success(
                 discardedFood = discardedFood.toFoodUi(),
-                discardedFoodAmount = this.discardedFoodAmount,
+                discardedFoodAmount = discardedFoodAmount,
                 equivalentFoods = getEquivalentFoods(
                     discardedFood = discardedFood,
                     discardedFoodAmount = discardedFoodAmountValue,
@@ -98,7 +98,12 @@ class FoodResultViewModel @Inject constructor(
         when (resultState) {
             State.Loading -> State.Loading
             State.Failure -> State.Failure
-            is State.Success -> resultState.copy(adState = adState)
+
+            is State.Success -> {
+                resultState.copy(
+                    adState = adState,
+                )
+            }
         }
     }
         .stateIn(
@@ -146,6 +151,13 @@ class FoodResultViewModel @Inject constructor(
             incrementFoodEquivalenceCount()
             adState.value = AdState.Completed
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            route: FoodResult,
+        ): FoodResultViewModel
     }
 
     private companion object {

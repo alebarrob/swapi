@@ -15,14 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.enums.Screen
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    route: String,
+    canNavigateBack: Boolean,
     onBackClick: () -> Unit,
     onDietitianClick: () -> Unit,
     onInfoClick: () -> Unit,
@@ -35,7 +34,7 @@ fun TopBar(
     TopAppBar(
         modifier = modifier,
         title = {
-            if (!route.contains(Screen.Category.name)) {
+            if (canNavigateBack) {
                 Text(
                     text = stringResource(id = R.string.back),
                     color = colorVariants.white,
@@ -45,8 +44,10 @@ fun TopBar(
             }
         },
         navigationIcon = {
-            if (!route.contains(Screen.Category.name)) {
-                IconButton(onClick = onBackClick) {
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onBackClick,
+                ) {
                     Icon(
                         painter = painterResource(
                             id = R.drawable.arrow_back_ic,
@@ -63,7 +64,9 @@ fun TopBar(
             navigationIconContentColor = colorVariants.white,
         ),
         actions = {
-            IconButton(onClick = onDietitianClick) {
+            IconButton(
+                onClick = onDietitianClick,
+            ) {
                 Image(
                     painter = painterResource(
                         id = R.drawable.dietitian_ic,
@@ -74,7 +77,9 @@ fun TopBar(
                 )
             }
 
-            IconButton(onClick = onInfoClick) {
+            IconButton(
+                onClick = onInfoClick,
+            ) {
                 Image(
                     painter = painterResource(
                         id = R.drawable.info_ic,
@@ -85,8 +90,10 @@ fun TopBar(
                 )
             }
 
-            if (!route.contains(Screen.Category.name)) {
-                IconButton(onClick = onResetClick) {
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onResetClick,
+                ) {
                     Image(
                         painter = painterResource(
                             id = R.drawable.reset_ic,
@@ -106,7 +113,7 @@ fun TopBar(
 private fun TopBarPreview() {
     SwapiTheme {
         TopBar(
-            route = "barrera.alejandro.swapi.presentation.navigation.FoodSelection",
+            canNavigateBack = true,
             onBackClick = {},
             onResetClick = {},
             onInfoClick = {},
