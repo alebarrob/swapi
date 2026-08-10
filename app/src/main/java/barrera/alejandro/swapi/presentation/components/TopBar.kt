@@ -1,8 +1,6 @@
 package barrera.alejandro.swapi.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,19 +15,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.enums.Screen
 import barrera.alejandro.swapi.presentation.theme.LocalColorVariants
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    route: String,
+    canNavigateBack: Boolean,
     onBackClick: () -> Unit,
     onDietitianClick: () -> Unit,
     onInfoClick: () -> Unit,
     onResetClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val colorVariants = LocalColorVariants.current
     val typography = MaterialTheme.typography
@@ -37,51 +34,77 @@ fun TopBar(
     TopAppBar(
         modifier = modifier,
         title = {
-            if (!route.contains(Screen.Category.name)) {
+            if (canNavigateBack) {
                 Text(
                     text = stringResource(id = R.string.back),
                     color = colorVariants.white,
                     style = typography.titleMedium,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
         },
         navigationIcon = {
-            if (!route.contains(Screen.Category.name)) {
-                IconButton(onClick = onBackClick) {
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onBackClick,
+                ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(id = R.string.back_icon_description)
+                        painter = painterResource(
+                            id = R.drawable.arrow_back_ic,
+                        ),
+                        contentDescription = stringResource(
+                            id = R.string.back_icon_description,
+                        ),
                     )
                 }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = colorVariants.darkGreen,
-            navigationIconContentColor = colorVariants.white
+            navigationIconContentColor = colorVariants.white,
         ),
         actions = {
-            IconButton(onClick = onDietitianClick) {
+            IconButton(
+                onClick = onDietitianClick,
+            ) {
                 Image(
-                    painter = painterResource(id = R.drawable.dietitian_ic),
-                    contentDescription = stringResource(id = R.string.dietitian_icon_description)
+                    painter = painterResource(
+                        id = R.drawable.dietitian_ic,
+                    ),
+                    contentDescription = stringResource(
+                        id = R.string.dietitian_icon_description,
+                    ),
                 )
             }
-            IconButton(onClick = onInfoClick) {
+
+            IconButton(
+                onClick = onInfoClick,
+            ) {
                 Image(
-                    painter = painterResource(id = R.drawable.info_ic),
-                    contentDescription = stringResource(id = R.string.info_icon_description)
+                    painter = painterResource(
+                        id = R.drawable.info_ic,
+                    ),
+                    contentDescription = stringResource(
+                        id = R.string.info_icon_description,
+                    ),
                 )
             }
-            if (!route.contains(Screen.Category.name)) {
-                IconButton(onClick = onResetClick) {
+
+            if (canNavigateBack) {
+                IconButton(
+                    onClick = onResetClick,
+                ) {
                     Image(
-                        painter = painterResource(id = R.drawable.reset_ic),
-                        contentDescription = stringResource(id = R.string.reset_icon_description)
+                        painter = painterResource(
+                            id = R.drawable.reset_ic,
+                        ),
+                        contentDescription = stringResource(
+                            id = R.string.reset_icon_description,
+                        ),
                     )
                 }
             }
-        }
+        },
     )
 }
 
@@ -90,11 +113,11 @@ fun TopBar(
 private fun TopBarPreview() {
     SwapiTheme {
         TopBar(
-            route = "barrera.alejandro.swapi.presentation.navigation.FoodSelection",
+            canNavigateBack = true,
             onBackClick = {},
             onResetClick = {},
             onInfoClick = {},
-            onDietitianClick = {}
+            onDietitianClick = {},
         )
     }
 }

@@ -9,11 +9,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import barrera.alejandro.swapi.R
-import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import barrera.alejandro.swapi.presentation.model.CategoryUi
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import barrera.alejandro.swapi.presentation.components.preview.FoodAmountCardPreviewParameterProvider
+import barrera.alejandro.swapi.presentation.components.preview.FoodAmountCardPreviewState
 import barrera.alejandro.swapi.presentation.model.FoodUi
-import barrera.alejandro.swapi.presentation.model.UnitUi
+import barrera.alejandro.swapi.presentation.theme.SwapiTheme
+import barrera.alejandro.swapi.util.constant.PREVIEW_BACKGROUND
 
 @Composable
 fun FoodAmountCard(
@@ -21,50 +22,48 @@ fun FoodAmountCard(
     amount: String,
     onAmountChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isError: Boolean = false
+    isError: Boolean = false,
+    errorText: String? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier,
     ) {
         ImageCard(
             text = food.name,
-            imageResourceId = food.imageResourceId
+            imageResourceId = food.imageResourceId,
         )
+
         AmountTextField(
             unit = food.unitUi,
             amount = amount,
             onAmountChange = onAmountChange,
-            isError = isError
+            isError = isError,
+            errorText = errorText,
         )
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND,
+)
 @Composable
-private fun FoodAmountCardPreview() {
-    val food = FoodUi(
-        id = 1,
-        name = "Arándanos",
-        imageResourceId = R.drawable.blueberry_ic,
-        standardAmount = "120",
-        categoryUi = CategoryUi(
-            id = 1,
-            name ="Frutas",
-            conversionFactor = 130.0
-        ),
-        unitUi = UnitUi(
-            id = 1,
-            name = "gr."
-        )
-    )
-    var amount by remember { mutableStateOf("") }
+private fun FoodAmountCardPreview(
+    @PreviewParameter(FoodAmountCardPreviewParameterProvider::class)
+    previewState: FoodAmountCardPreviewState,
+) {
+    var amount by remember(previewState.amount) {
+        mutableStateOf(previewState.amount)
+    }
 
     SwapiTheme {
         FoodAmountCard(
-            food = food,
+            food = previewState.food,
             amount = amount,
-            onAmountChange = { amount = it }
+            onAmountChange = { amount = it },
+            isError = previewState.isError,
+            errorText = previewState.errorText,
         )
     }
 }

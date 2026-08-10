@@ -1,9 +1,23 @@
 package barrera.alejandro.swapi.domain.use_case
 
-class IsValidFoodAmount : UseCase<IsValidFoodAmount.Params, Boolean> {
-    override fun invoke(params: Params) = params.amount.matches(Regex("\\d+([.,]\\d+)?"))
+import barrera.alejandro.swapi.util.extension.normalizeDecimalSeparator
 
-    data class Params(
-        val amount: String
-    )
+class IsValidFoodAmount {
+
+    operator fun invoke(amount: String): Boolean {
+        if (!amount.matches(FOOD_AMOUNT_REGEX)) {
+            return false
+        }
+
+        val numericAmount = amount
+            .normalizeDecimalSeparator()
+            .toDoubleOrNull()
+            ?: return false
+
+        return numericAmount > 0 && numericAmount.isFinite()
+    }
+
+    private companion object {
+        val FOOD_AMOUNT_REGEX = Regex("""\d+([.,]\d+)?""")
+    }
 }

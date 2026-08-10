@@ -1,42 +1,37 @@
 package barrera.alejandro.swapi.util.extension
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import java.util.Locale
 
-fun String.toBoldColoredAnnotatedString(
-    chunksToBoldAndColor: Map<String, Color>
-) = buildAnnotatedString {
-    val lowerCaseBaseString = this@toBoldColoredAnnotatedString.lowercase(Locale.getDefault())
-    val lowerCaseChunksToBoldAndColor = chunksToBoldAndColor.mapKeys { (key, _) ->
-        key.lowercase(Locale.getDefault())
-    }
-    var currentIndex = 0
+fun String.toBoldColoredAnnotatedString(chunksToStyle: Map<String, Color>): AnnotatedString {
+    val source = this
 
-    while (currentIndex < lowerCaseBaseString.length) {
-        var matched = false
+    return buildAnnotatedString {
+        append(source)
 
-        for ((chunk, color) in lowerCaseChunksToBoldAndColor) {
-            if (lowerCaseBaseString.startsWith(prefix = chunk, startIndex = currentIndex)) {
-                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = color)) {
-                    append(
-                        this@toBoldColoredAnnotatedString.substring(
-                            range = currentIndex until currentIndex.plus(chunk.length)
-                        )
-                    )
-                }
-                currentIndex += chunk.length
-                matched = true
-                break
+        chunksToStyle.forEach { (chunk, color) ->
+            if (chunk.isBlank()) return@forEach
+
+            var startIndex = source.indexOf(string = chunk, ignoreCase = true)
+
+            while (startIndex >= 0) {
+                addStyle(
+                    style = SpanStyle(fontWeight = FontWeight.Bold, color = color),
+                    start = startIndex,
+                    end = startIndex + chunk.length,
+                )
+
+                startIndex = source.indexOf(
+                    string = chunk,
+                    startIndex = startIndex + chunk.length,
+                    ignoreCase = true,
+                )
             }
-        }
-
-        if (!matched) {
-            append(this@toBoldColoredAnnotatedString[currentIndex])
-            currentIndex++
         }
     }
 }
+
+fun String.normalizeDecimalSeparator(): String = replace(oldChar = ',', newChar = '.')

@@ -1,6 +1,5 @@
 package barrera.alejandro.swapi.data.local.entity
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,6 +8,4 @@ data class CategoryEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    @ColumnInfo(name = "conversion_factor")
-    val conversionFactor: Double
 )

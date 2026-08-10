@@ -8,9 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import barrera.alejandro.swapi.presentation.base.BaseScreen
 import barrera.alejandro.swapi.presentation.theme.SwapiTheme
-import kotlinx.coroutines.flow.flowOf
+import barrera.alejandro.swapi.util.constant.PREVIEW_BACKGROUND
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
@@ -24,12 +23,13 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    backgroundColor = PREVIEW_BACKGROUND,
+)
 @Composable
 private fun PreviewLoadingScreen() {
     SwapiTheme {
-        BaseScreen(uiEvent = flowOf()) {
-            LoadingScreen()
-        }
+        LoadingScreen()
     }
 }

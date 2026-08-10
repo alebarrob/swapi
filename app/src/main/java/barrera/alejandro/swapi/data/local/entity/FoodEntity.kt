@@ -14,19 +14,19 @@ import androidx.room.PrimaryKey
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("category_id"),
             onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
+            onUpdate = ForeignKey.CASCADE,
         ),
         ForeignKey(
             entity = UnitEntity::class,
             parentColumns = arrayOf("id"),
             childColumns = arrayOf("unit_id"),
             onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        )
+            onUpdate = ForeignKey.CASCADE,
+        ),
     ],
     indices = [
         Index(value = ["category_id"]),
-        Index(value = ["unit_id"])
+        Index(value = ["unit_id"]),
     ]
 )
 data class FoodEntity(
@@ -38,5 +38,5 @@ data class FoodEntity(
     @ColumnInfo(name = "category_id")
     val categoryId: Int,
     @ColumnInfo(name = "unit_id")
-    val unitId: Int
+    val unitId: Int,
 )
