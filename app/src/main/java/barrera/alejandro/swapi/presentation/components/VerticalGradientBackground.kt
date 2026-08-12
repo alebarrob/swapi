@@ -45,7 +45,6 @@ fun VerticalGradientBackground(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .navigationBarsPadding()
             .background(brush = gradient)
     ) {
         content()
